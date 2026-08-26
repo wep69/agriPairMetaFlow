@@ -68,6 +68,7 @@ Suggests:
     waldo
 Config/testthat/edition: 3
 VignetteBuilder: knitr
-URL: https://github.com/wep69/agriPairMetaFlow
+URL: https://github.com/wep69/agriPairMetaFlow, https://wep69.github.io/agriPairMetaFlow
 BugReports: https://github.com/wep69/agriPairMetaFlow/issues
 Config/roxygen2/version: 8.1.0
+

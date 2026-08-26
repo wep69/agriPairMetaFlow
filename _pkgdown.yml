@@ -1,10 +1,4 @@
 url: https://wep69.github.io/agriPairMetaFlow/
 template:
   bootstrap: 5
-reference:
-  - title: Data, planning, and effect sizes
-    contents: [apm_read, apm_validate, apm_audit, apm_plan, apm_recover_uncertainty, apm_effect_size]
-  - title: Models and interpretation
-    contents: [apm_fit, apm_subgroup, apm_heterogeneity, apm_prediction, apm_threshold]
-  - title: Communication
-    contents: [apm_forest, apm_funnel, apm_table]
+  light-switch: true

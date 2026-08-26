@@ -1,0 +1,25 @@
+pandoc: '3.9'
+pkgdown: 2.2.1
+pkgdown_sha: ~
+articles:
+  v00-foundations-to-advanced-tutorial: v00-foundations-to-advanced-tutorial.html
+  v01-data-effect-sizes-uncertainty: v01-data-effect-sizes-uncertainty.html
+  v02-models-heterogeneity-prediction: v02-models-heterogeneity-prediction.html
+  v03-api-example-reference: v03-api-example-reference.html
+  v03-shared-controls-paired-dependence: v03-shared-controls-paired-dependence.html
+  v04-multilevel-robust-inference: v04-multilevel-robust-inference.html
+  v05-meta-regression-quantitative-moderators: v05-meta-regression-quantitative-moderators.html
+  v06-dose-response-meta-analysis: v06-dose-response-meta-analysis.html
+  v07-api-example-reference-0.3: v07-api-example-reference-0.3.html
+  v08-multivariate-meta-analysis: v08-multivariate-meta-analysis.html
+  v09-bayesian-meta-analysis: v09-bayesian-meta-analysis.html
+  v10-api-example-reference-0.4: v10-api-example-reference-0.4.html
+  v11-diagnostics-influence-and-gosh: v11-diagnostics-influence-and-gosh.html
+  v12-publication-bias-and-advanced-visualization: v12-publication-bias-and-advanced-visualization.html
+  v13-exploratory-moderators-reporting-and-export: v13-exploratory-moderators-reporting-and-export.html
+  v14-api-example-reference-0.5: v14-api-example-reference-0.5.html
+  v15-integration-workflow-and-release-readiness: v15-integration-workflow-and-release-readiness.html
+last_built: 2026-08-26T16:31Z
+urls:
+  reference: https://wep69.github.io/agriPairMetaFlow/reference
+  article: https://wep69.github.io/agriPairMetaFlow/articles
