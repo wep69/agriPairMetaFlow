@@ -24,3 +24,4 @@
 ^STATE_OF_THE_ART\(.*\)\.md$
 ^README\(.*\)\.md$
 ^SOURCE_MANIFEST_SHA256\.txt$
+^COMMIT_MESSAGE\.md$
