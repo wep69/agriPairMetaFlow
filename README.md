@@ -113,6 +113,20 @@ The stable package follows these interpretation rules:
 
 Use `apm_capabilities(detail="full")` to inspect the registry rather than inferring support from installed package names.
 
+## Installation
+
+Install the development version directly from GitHub:
+
+```r
+remotes::install_github(
+    "wep69/agriPairMetaFlow",
+    dependencies = TRUE,
+    build_vignettes = TRUE,
+    upgrade = "never",
+    force = FALSE
+)
+```
+
 ## Validation policy
 
 By project decision, R is intentionally **not installed or executed in the construction environment** for `agriPairMetaFlow`. Static source auditing, documentation coverage, source consistency, manifests, hashes, and packaging are performed here. Runtime validation is performed locally on the target R installation.
