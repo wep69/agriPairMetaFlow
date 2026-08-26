@@ -194,6 +194,19 @@ influence + bias sensitivity + figures + tables + report/export</code></pre>
 <p>Use <code>apm_capabilities(detail="full")</code> to inspect the registry rather than inferring support from installed package names.</p>
 </div>
 <div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>Install the development version directly from GitHub:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span></span>
+<span>    <span class="st">"wep69/agriPairMetaFlow"</span>,</span>
+<span>    dependencies <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    upgrade <span class="op">=</span> <span class="st">"never"</span>,</span>
+<span>    force <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="validation-policy">Validation policy<a class="anchor" aria-label="anchor" href="#validation-policy"></a>
 </h2>
 <p>By project decision, R is intentionally <strong>not installed or executed in the construction environment</strong> for <code>agriPairMetaFlow</code>. Static source auditing, documentation coverage, source consistency, manifests, hashes, and packaging are performed here. Runtime validation is performed locally on the target R installation.</p>

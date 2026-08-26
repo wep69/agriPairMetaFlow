@@ -80,16 +80,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_vcov&gt; 24 x 24 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> backend: metafor::vcalc  | PSD: TRUE </span>
 <span class="r-in"><span><span class="va">es2</span> <span class="op">&lt;-</span> <span class="fu"><a href="apm_effect_size.html">apm_effect_size</a></span><span class="op">(</span><span class="va">soil_management_multiresponse</span>,<span class="st">"lnRR"</span>,m_t<span class="op">=</span><span class="va">mean_t</span>,sd_t<span class="op">=</span><span class="va">sd_t</span>,n_t<span class="op">=</span><span class="va">n_t</span>,m_c<span class="op">=</span><span class="va">mean_c</span>,sd_c<span class="op">=</span><span class="va">sd_c</span>,n_c<span class="op">=</span><span class="va">n_c</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in tibble::as_tibble(if (append) cbind(dat, core) else core):</span> Column names `yi`, `vi`, and `sei` must not be duplicated.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> Use `.name_repair` to specify repair.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `repaired_names()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Names must be unique.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> These names are duplicated:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>   * "yi" at locations 15 and 19.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>   * "vi" at locations 16 and 20.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>   * "sei" at locations 17 and 21.</span>
 <span class="r-in"><span><span class="fu">apm_vcov</span><span class="op">(</span><span class="va">es2</span>,cluster<span class="op">=</span><span class="va">study_id</span>,type<span class="op">=</span><span class="va">outcome</span>,rho<span class="op">=</span><span class="fl">.5</span>,shared_control<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'es2' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_vcov&gt; 18 x 18 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> backend: metafor::vcalc  | PSD: TRUE </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">apm_vcov</span><span class="op">(</span><span class="va">es</span>, cluster<span class="op">=</span><span class="va">study_id</span>, rho<span class="op">=</span><span class="fl">.3</span>, shared_control<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The var-cov matrix appears to be not positive definite in cluster MZ01.</span>

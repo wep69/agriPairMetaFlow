@@ -83,7 +83,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>               4               8 </span>
 <span class="r-in"><span><span class="co"># Example 2: recover SD from reported CV percent.</span></span></span>
 <span class="r-in"><span><span class="fu">apm_recover_uncertainty</span><span class="op">(</span><span class="va">agri_uncertainty_mixed</span>, mean<span class="op">=</span><span class="va">mean_yield</span>, n<span class="op">=</span><span class="va">n</span>, cv<span class="op">=</span><span class="va">cv_percent</span>, method<span class="op">=</span><span class="st">"cv"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in cvv[percent] &lt;- cvv[percent]/100:</span> NAs are not allowed in subscripted assignments</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_uncertainty&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> derived_from_cv            &lt;NA&gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               4               8 </span>
 <span class="r-in"><span><span class="co"># Example 3: recover SD from residual MSE.</span></span></span>
 <span class="r-in"><span><span class="fu">apm_recover_uncertainty</span><span class="op">(</span><span class="va">agri_uncertainty_mixed</span>, mean<span class="op">=</span><span class="va">mean_yield</span>, n<span class="op">=</span><span class="va">n</span>, mse<span class="op">=</span><span class="va">residual_mse</span>, method<span class="op">=</span><span class="st">"mse"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_uncertainty&gt;</span>
