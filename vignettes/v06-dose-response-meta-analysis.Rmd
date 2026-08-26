@@ -22,8 +22,8 @@ Suppose one nitrogen experiment compares 40, 80, 120, and 160 kg N/ha with the s
 
 ```{r}
 head(fertilizer_dose_response)
-apm_shared_control(fertilizer_dose_response, experiment=experiment_id,
-  treatment=treatment, control=control)
+apm_shared_control(fertilizer_dose_response, study=experiment_id,
+  control_id=control, treatment_id=treatment)
 ```
 
 The dataset is synthetic and deterministic. It is intended for documentation and numerical validation, not as agronomic evidence.

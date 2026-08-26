@@ -60,6 +60,7 @@ apm_effect_size <- function(data, measure = c("lnRR", "MD", "SMD", "VR", "CVR", 
     }
   }
   core <- data.frame(yi=as.numeric(es$yi),vi=as.numeric(es$vi),sei=sqrt(as.numeric(es$vi)))
+  if (append) { dup <- intersect(names(dat), names(core)); if (length(dup)) dat <- dat[, !names(dat) %in% dup, drop = FALSE] }
   ans <- tibble::as_tibble(if (append) cbind(dat,core) else core)
   class(ans)<-c("apm_effects",class(ans)); attr(ans,"measure")<-measure; attr(ans,"backend_measure")<-backend_measure; attr(ans,"design")<-design; attr(ans,"provenance")<-list(backend="metafor",backend_version=.apm_backend_version("metafor"),correct=correct,vtype=vtype,data_hash=.apm_hash_data(dat))
   ans

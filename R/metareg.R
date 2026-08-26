@@ -68,17 +68,18 @@ apm_metareg <- function(effects, moderators, V = NULL, random = NULL, method = "
   if (use_mv && !test %in% c("z", "t")) .apm_abort("rma.mv() meta-regression supports test='z' or test='t' in this package API.")
   if (!use_mv && !test %in% c("z", "t", "knha", "hksj", "adhoc")) .apm_abort("Unsupported rma.uni() inference method supplied in {.arg test}.")
 
+  extra <- list(...)
   if (use_mv) {
     if (is.null(Vfit)) Vfit <- diag(dat$vi)
-    fit <- metafor::rma.mv(yi = dat$yi, V = Vfit, mods = mods, random = random,
-      data = dat, method = method, test = test, ...)
-    null_fit <- tryCatch(metafor::rma.mv(yi = dat$yi, V = Vfit, mods = ~ 1,
-      random = random, data = dat, method = method, test = test, ...), error = function(e) NULL)
+    fit <- do.call(metafor::rma.mv, c(list(yi = dat$yi, V = Vfit, mods = mods, random = random,
+      data = dat, method = method, test = test), extra))
+    null_fit <- tryCatch(do.call(metafor::rma.mv, c(list(yi = dat$yi, V = Vfit, mods = ~ 1,
+      random = random, data = dat, method = method, test = test), extra)), error = function(e) NULL)
   } else {
-    fit <- metafor::rma.uni(yi = dat$yi, vi = dat$vi, mods = mods,
-      data = dat, method = method, test = test, ...)
-    null_fit <- tryCatch(metafor::rma.uni(yi = dat$yi, vi = dat$vi, mods = ~ 1,
-      data = dat, method = method, test = test, ...), error = function(e) NULL)
+    fit <- do.call(metafor::rma.uni, c(list(yi = dat$yi, vi = dat$vi, mods = mods,
+      data = dat, method = method, test = test), extra))
+    null_fit <- tryCatch(do.call(metafor::rma.uni, c(list(yi = dat$yi, vi = dat$vi, mods = ~ 1,
+      data = dat, method = method, test = test), extra)), error = function(e) NULL)
   }
 
   prep$model_matrix_colnames <- colnames(stats::model.matrix(mods, data = dat))

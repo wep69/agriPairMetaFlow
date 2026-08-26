@@ -11,4 +11,4 @@
   GEN  = list(independent = "GEN", paired = "GEN", null = 0, transform = "identity")
 )
 
-.apm_log_measures <- c("lnRR", "VR", "CVR", "RR", "OR")
+.apm_log_measures <- c("lnRR", "VR", "CVR", "RR", "OR", "ROM", "ROMC", "VRC", "CVRC", "MPRR", "MPOR")
