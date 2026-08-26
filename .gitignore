@@ -1,0 +1,16 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.Rcheck/
+*.Rcheck/
+*_problems/
+testthat-problems.rds
+*.tar.gz
+*.zip
+_validation_local/
+_tarballs/
+_pkgdown_site/
+_archive_1.0.0/
+_source_snapshot_backup/
+00LOCK-*

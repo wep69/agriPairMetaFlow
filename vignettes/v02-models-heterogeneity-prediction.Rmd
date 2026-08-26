@@ -1,0 +1,64 @@
+---
+title: "Random Effects, Heterogeneity, Prediction, and Practical Relevance"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Random Effects, Heterogeneity, Prediction, and Practical Relevance}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(agriPairMetaFlow)
+```
+
+
+# Three model settings
+
+```{r}
+m1 <- apm_fit(agri_effects_benchmark)
+m2 <- apm_fit(agri_effects_benchmark,model="common")
+m3 <- apm_fit(agri_effects_benchmark,mods=~rainfall,model="mixed")
+```
+
+```{r}
+h1 <- apm_heterogeneity(m1,ci=FALSE)
+h2 <- apm_heterogeneity(m2,ci=FALSE)
+h3 <- apm_heterogeneity(m3,ci=FALSE)
+```
+
+# Prediction
+
+```{r}
+apm_prediction(m1,transform="percent")
+apm_prediction(m3,newdata=data.frame(rainfall=c(600,900,1200)),transform="percent")
+apm_prediction(m1,transform="exp")
+```
+
+# Agronomic thresholds
+
+```{r}
+apm_threshold(m1,5,"percent")
+apm_threshold(m1,1.10,"ratio")
+apm_threshold(m1,0,"model","less")
+```
+
+# Subgroups and figures
+
+```{r}
+apm_subgroup(agri_effects_benchmark,crop,test="z")
+apm_subgroup(agri_effects_benchmark,soil_texture,test="z")
+apm_subgroup(agri_effects_benchmark,cut(rainfall,3),test="z")
+
+apm_forest(m1,transform="percent")
+apm_forest(m1,transform="exp",columns="crop")
+apm_forest(m3,transform="none")
+
+apm_funnel(m1)
+apm_funnel(m1,contour=TRUE)
+apm_funnel(m3,yaxis="precision")
+
+apm_table(m1,"model")
+apm_table(h1,"heterogeneity")
+apm_table(m3,"model",transform="percent")
+```

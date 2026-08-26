@@ -1,0 +1,155 @@
+---
+title: "Meta-regression and Quantitative Agronomic Moderators"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Meta-regression and Quantitative Agronomic Moderators}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse=TRUE, comment="#>")
+library(agriPairMetaFlow)
+```
+
+# 1. Scientific role of a moderator
+
+Meta-regression asks whether estimated treatment effects vary systematically with study-level or experiment-level characteristics. It does not turn observational differences among studies into randomized treatment contrasts. In agronomy this distinction is central because rainfall, temperature, soil texture, crop species, management intensity, and dose can be associated with many other differences among experiments.
+
+Version 0.3.0 therefore separates three questions:
+
+1. **moderator meta-regression**, which describes effect modification across studies;
+2. **quantitative moderator curves**, which permit prespecified nonlinear associations while retaining the meta-analytic uncertainty model; and
+3. **dose-response meta-analysis**, treated separately in the next vignette, for multiple correlated dose contrasts within studies.
+
+# 2. Build the effect-size data
+
+```{r}
+irr_es <- apm_effect_size(irrigation_climate,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,
+  m_c=mean_c,sd_c=sd_c,n_c=n_c)
+```
+
+The effect measure is lnRR. Model coefficients are estimated on the logarithmic scale, while plots and tables may later be translated to ratios or percentage change.
+
+# 3. Prespecified quantitative moderators
+
+```{r}
+irr_m <- apm_metareg(irr_es, ~ rainfall + mean_temp)
+irr_m
+apm_table(irr_m, component="metareg", transform="percent")
+```
+
+Numeric moderators are centered by default. Consequently, the intercept corresponds to the expected effect near the observed mean values of rainfall and temperature rather than at an agronomically irrelevant rainfall of zero.
+
+A second fit can be used to inspect whether scaling changes numerical conditioning without changing the scientific model.
+
+```{r}
+irr_scaled <- apm_metareg(irr_es, ~ rainfall + mean_temp, center=TRUE, scale=TRUE)
+irr_scaled
+```
+
+# 4. Categorical moderators and adjusted marginal effects
+
+```{r}
+bio_es <- apm_effect_size(bioinoculant_multicrop,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,
+  m_c=mean_c,sd_c=sd_c,n_c=n_c)
+bio_m <- apm_metareg(bio_es, ~ crop + site)
+apm_marginal_effects(bio_m, variables="crop", transform="percent")
+apm_marginal_effects(bio_m, variables="site", transform="percent")
+```
+
+These are standardized predictions. They are preferable to interpreting a coefficient table as though every coefficient were a directly adjusted treatment effect.
+
+# 5. Interactions
+
+The scientific hypothesis should precede the interaction term. Here the question is whether the irrigation effect changes with rainfall differently among climate zones.
+
+```{r}
+irr_i <- apm_metareg(irr_es, ~ rainfall * climate_zone)
+apm_interaction(irr_i, "rainfall:climate_zone", at=list(rainfall=c(650,900,1200)))
+```
+
+For log-ratio effects, interaction contrasts may also be returned as ratios where scientifically meaningful.
+
+```{r}
+apm_interaction(irr_i, "rainfall:climate_zone", contrast="ratio")
+```
+
+# 6. Quantitative curves
+
+A quadratic curve is useful only when motivated by the biological question and supported by the observed moderator range.
+
+```{r}
+irr_quad <- apm_metareg_curve(irr_es, rainfall, form="quadratic")
+irr_quad
+apm_curve_features(irr_quad, features=c("slope","turning_point"))
+```
+
+A spline offers more flexibility but also consumes information and can become unstable when few studies occupy parts of the range.
+
+```{r}
+irr_ns <- apm_metareg_curve(irr_es, rainfall, form="ns", df=3)
+apm_curve_features(irr_ns, features="slope")
+```
+
+`apm_curve_features()` labels these quantities as descriptive across-study features. A turning point is not automatically an agronomic optimum.
+
+# 7. Context-specific prediction
+
+```{r}
+ctx <- data.frame(rainfall=c(650,900,1200), mean_temp=c(26.2,25.0,23.7))
+apm_predict_context(irr_m, ctx, transform="percent", threshold=5)
+```
+
+The output retains whether each context is an interpolation or extrapolation relative to the fitted support. Prediction intervals, when estimable, answer a different question from confidence intervals: they describe uncertainty for a future context under the heterogeneity model.
+
+# 8. Model comparison
+
+Model comparison should be prespecified and interpreted together with biological plausibility, support, residual heterogeneity, and uncertainty.
+
+```{r}
+m_lin <- apm_metareg(irr_es, ~ rainfall)
+m_cov <- apm_metareg(irr_es, ~ rainfall + mean_temp)
+apm_model_compare(m_lin, m_cov, criterion="AICc")
+apm_model_compare(m_lin, m_cov, criterion="BIC")
+```
+
+The package does not perform automated stepwise selection.
+
+# 9. Bubble plots
+
+```{r}
+apm_bubble(m_lin, rainfall, transform="percent")
+apm_bubble(irr_quad, rainfall, size="precision", transform="percent")
+```
+
+The points are observed effect sizes. The line is generated by the fitted meta-regression; it is not a generic smoother.
+
+# 10. Dependence-aware meta-regression
+
+Nitrogen contrasts from the same experiment share the zero-N control. Their sampling errors are correlated.
+
+```{r}
+mz_es <- apm_effect_size(maize_n_shared,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,
+  m_c=mean_c,sd_c=sd_c,n_c=n_c)
+mz_V <- apm_vcov(mz_es, cluster=experiment_id, shared_control=TRUE)
+mz_m <- apm_metareg(mz_es, ~ N_rate + soil_texture, V=mz_V,
+  random=~1|study_id/effect_id)
+apm_marginal_effects(mz_m, variables="soil_texture", weights="study", transform="percent")
+```
+
+Ignoring `mz_V` would treat several contrasts that reuse the same control as if their sampling errors were independent.
+
+# 11. Recommended interpretation sequence
+
+For an agronomic meta-regression, report at least:
+
+1. the prespecified moderator hypothesis;
+2. the effect-size scale;
+3. whether effects were independent or correlated;
+4. moderator coefficients or adjusted marginal predictions with intervals;
+5. residual heterogeneity;
+6. the observed moderator support;
+7. prediction intervals where identifiable;
+8. whether predictions represent interpolation or extrapolation; and
+9. a clear distinction between across-study association and causal dose response.

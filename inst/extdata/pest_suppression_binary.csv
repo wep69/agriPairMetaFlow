@@ -1,0 +1,17 @@
+study_id,crop,treatment,control,event_t,n_t,event_c,n_c
+PS01,maize,IPM,standard,11,42,16,44
+PS02,soybean,IPM,standard,12,44,18,46
+PS03,cotton,IPM,standard,10,46,17,48
+PS04,maize,IPM,standard,13,48,16,42
+PS05,soybean,IPM,standard,11,40,17,44
+PS06,cotton,IPM,standard,10,42,16,46
+PS07,maize,IPM,standard,11,44,18,48
+PS08,soybean,IPM,standard,13,46,16,42
+PS09,cotton,IPM,standard,12,48,15,44
+PS10,maize,IPM,standard,10,40,17,46
+PS11,soybean,IPM,standard,11,42,19,48
+PS12,cotton,IPM,standard,11,44,15,42
+PS13,maize,IPM,standard,12,46,16,44
+PS14,soybean,IPM,standard,13,48,18,46
+PS15,cotton,IPM,standard,9,40,17,48
+PS16,maize,IPM,standard,11,42,16,42

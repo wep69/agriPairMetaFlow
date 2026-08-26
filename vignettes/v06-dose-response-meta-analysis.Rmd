@@ -1,0 +1,108 @@
+---
+title: "Correlated Dose-Response Meta-analysis for Agronomic Experiments"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Correlated Dose-Response Meta-analysis for Agronomic Experiments}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse=TRUE, comment="#>")
+library(agriPairMetaFlow)
+```
+
+# 1. Why dose-response is not ordinary meta-regression
+
+Suppose one nitrogen experiment compares 40, 80, 120, and 160 kg N/ha with the same zero-N control. The four effect sizes share information from that control. They are therefore statistically correlated. A regression of all effect sizes on nitrogen rate that assumes independent sampling errors does not represent the design correctly.
+
+`apm_dose_response()` is reserved for this multi-dose structure. Version 0.3.0 routes random-effects dose-response curves through `dosresmeta`. When that optional backend is absent, only a covariance-aware fixed-effect GLS route is available through `metafor`; a random-intercept model is deliberately not treated as equivalent to random dose-response coefficients. Runtime validation of the optional random-effects route is performed locally.
+
+# 2. Inspect the teaching data
+
+```{r}
+head(fertilizer_dose_response)
+apm_shared_control(fertilizer_dose_response, experiment=experiment_id,
+  treatment=treatment, control=control)
+```
+
+The dataset is synthetic and deterministic. It is intended for documentation and numerical validation, not as agronomic evidence.
+
+# 3. Covariance before the curve
+
+```{r}
+Vn <- apm_vcov(fertilizer_dose_response, cluster=study_id, shared_control=TRUE)
+Vn[1:4,1:4]
+```
+
+The diagonal contains the sampling variances. Nonzero off-diagonal terms arise because doses within a study reuse the same zero-N reference.
+
+# 4. Linear dose-response
+
+```{r}
+d_lin <- apm_dose_response(fertilizer_dose_response, effect=lnRR, dose=N_rate,
+  study=study_id, form="linear", method="fixed")
+d_lin
+summary(d_lin)
+apm_dose_plot(d_lin, transform="percent")
+```
+
+The fitted curve is on lnRR internally. Percentage display is a transformation for interpretation, not a different fitted model.
+
+# 5. Quadratic response
+
+```{r}
+d_quad <- apm_dose_response(fertilizer_dose_response, effect=lnRR, dose=N_rate,
+  study=study_id, form="quadratic", method="fixed")
+predict(d_quad, newdata=c(40,80,120,160), transform="percent")
+apm_dose_plot(d_quad, transform="percent", prediction=TRUE)
+```
+
+A quadratic specification should be used because the scientific question permits curvature, not simply because its fit statistic is lower.
+
+# 6. Natural spline
+
+```{r}
+d_ns <- apm_dose_response(fertilizer_dose_response, effect=lnRR, dose=N_rate,
+  study=study_id, form="ns", df=3, method="fixed")
+apm_dose_plot(d_ns, transform="percent")
+```
+
+Flexible curves should be interpreted only over the observed dose support. Extrapolating beyond the highest experimental rate can produce biologically implausible predictions.
+
+# 7. Random-effects dose-response and study-level moderators
+
+When `dosresmeta` is installed, version 0.3.0 fits random-effects dose-response curves and can pass study-level moderators through its dedicated backend. Moderators are checked so that they cannot silently vary across doses within a study.
+
+```{r eval=FALSE}
+d_random <- apm_dose_response(fertilizer_dose_response, effect=lnRR, dose=N_rate,
+  study=study_id, form="quadratic", method="reml")
+d_soil <- apm_dose_response(fertilizer_dose_response, effect=lnRR, dose=N_rate,
+  study=study_id, form="quadratic", moderators=~soil_texture)
+d_soil
+```
+
+The example is not evaluated in the routine vignette build because the optional backend is part of the full local-validation profile.
+
+# 8. What the plot communicates
+
+```{r}
+apm_dose_plot(d_quad, observed=TRUE, prediction=TRUE, rug=TRUE)
+```
+
+The display combines observed effects, the fitted mean curve, confidence uncertainty, a prediction band when identifiable, and the dose support. The observed points are retained so the fitted shape is never shown without the data that support it.
+
+# 9. Numerical validation contract
+
+During local validation the package must demonstrate that:
+
+1. the diagonal of the covariance matrix reproduces `vi`;
+2. the matrix is symmetric and positive semidefinite within numerical tolerance;
+3. shared-control covariance agrees with `metafor::vcalc()`;
+4. the `dosresmeta` fit is reproducible under the same basis and `Slist` inputs when that backend is installed;
+5. stored predictions equal predictions recomputed from the fitted coefficient vector and covariance matrix; and
+6. optional-backend absence permits only the documented fixed-effect GLS route and produces an explicit error for random-effects dose-response rather than a silent model substitution.
+
+# 10. Agronomic reporting
+
+A dose-response synthesis should state the reference dose, physical dose unit, response scale, covariance construction, curve basis, heterogeneity model, prediction support, and whether the estimated curve is intended as descriptive synthesis or supports a stronger causal interpretation.

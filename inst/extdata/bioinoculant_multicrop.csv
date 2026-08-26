@@ -1,0 +1,25 @@
+study_id,site,crop,outcome,treatment,control,mean_t,sd_t,n_t,mean_c,sd_c,n_c
+BI01,Bananeiras,maize,yield,inoculated,uninoculated,5.448,0.37,5,4.992,0.39,5
+BI02,Lagoa Seca,soybean,yield,inoculated,uninoculated,3.188,0.39,6,3.038,0.41,6
+BI03,Areia,wheat,yield,inoculated,uninoculated,2.935,0.41,4,2.8,0.37,4
+BI04,Bananeiras,common_bean,yield,inoculated,uninoculated,2.406,0.35,5,2.244,0.39,5
+BI05,Lagoa Seca,maize,yield,inoculated,uninoculated,5.215,0.37,6,4.888,0.41,6
+BI06,Areia,soybean,yield,inoculated,uninoculated,3.2,0.39,4,2.976,0.37,4
+BI07,Bananeiras,wheat,yield,inoculated,uninoculated,2.844,0.41,5,2.744,0.39,5
+BI08,Lagoa Seca,common_bean,yield,inoculated,uninoculated,2.349,0.35,6,2.2,0.41,6
+BI09,Areia,maize,yield,inoculated,uninoculated,5.84,0.37,4,5.304,0.37,4
+BI10,Bananeiras,soybean,yield,inoculated,uninoculated,3.145,0.39,5,2.914,0.39,5
+BI11,Lagoa Seca,wheat,yield,inoculated,uninoculated,2.771,0.41,6,2.688,0.41,6
+BI12,Areia,common_bean,yield,inoculated,uninoculated,2.324,0.35,4,2.156,0.37,4
+BI13,Bananeiras,maize,yield,inoculated,uninoculated,5.611,0.37,5,5.2,0.39,5
+BI14,Lagoa Seca,soybean,yield,inoculated,uninoculated,3.302,0.39,6,3.162,0.41,6
+BI15,Areia,wheat,yield,inoculated,uninoculated,2.819,0.41,4,2.632,0.37,4
+BI16,Bananeiras,common_bean,yield,inoculated,uninoculated,2.274,0.35,5,2.112,0.39,5
+BI17,Lagoa Seca,maize,yield,inoculated,uninoculated,5.452,0.37,6,5.096,0.41,6
+BI18,Areia,soybean,yield,inoculated,uninoculated,3.299,0.39,4,3.1,0.37,4
+BI19,Bananeiras,wheat,yield,inoculated,uninoculated,2.986,0.41,5,2.856,0.39,5
+BI20,Lagoa Seca,common_bean,yield,inoculated,uninoculated,2.159,0.35,6,2.068,0.41,6
+BI21,Areia,maize,yield,inoculated,uninoculated,5.457,0.37,4,4.992,0.37,4
+BI22,Bananeiras,soybean,yield,inoculated,uninoculated,3.281,0.39,5,3.038,0.39,5
+BI23,Lagoa Seca,wheat,yield,inoculated,uninoculated,2.903,0.41,6,2.8,0.41,6
+BI24,Areia,common_bean,yield,inoculated,uninoculated,2.367,0.35,4,2.244,0.37,4

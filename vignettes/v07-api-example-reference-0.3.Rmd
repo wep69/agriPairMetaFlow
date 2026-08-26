@@ -1,0 +1,97 @@
+---
+title: "Version 0.3.0 API Example Reference"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Version 0.3.0 API Example Reference}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse=TRUE, comment="#>")
+library(agriPairMetaFlow)
+irr <- apm_effect_size(irrigation_climate,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,m_c=mean_c,sd_c=sd_c,n_c=n_c)
+bio <- apm_effect_size(bioinoculant_multicrop,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,m_c=mean_c,sd_c=sd_c,n_c=n_c)
+```
+
+# Meta-regression
+
+```{r}
+m1 <- apm_metareg(irr,~rainfall)
+m2 <- apm_metareg(irr,~rainfall+mean_temp)
+m3 <- apm_metareg(bio,~crop+site)
+```
+
+# Marginal effects
+
+```{r}
+apm_marginal_effects(m1,at=list(rainfall=c(650,900,1200)))
+apm_marginal_effects(m2,at=list(rainfall=c(700,1000)))
+apm_marginal_effects(m3,variables="crop",transform="percent")
+```
+
+# Interactions
+
+```{r}
+i1 <- apm_metareg(irr,~rainfall*climate_zone)
+i2 <- apm_metareg(bio,~crop*site)
+apm_interaction(i1,"rainfall:climate_zone")
+apm_interaction(i1,"rainfall:climate_zone",contrast="ratio")
+apm_interaction(i2,"crop:site",adjust="holm")
+```
+
+# Quantitative curves
+
+```{r}
+c1 <- apm_metareg_curve(irr,rainfall,"linear")
+c2 <- apm_metareg_curve(irr,rainfall,"quadratic")
+c3 <- apm_metareg_curve(irr,rainfall,"ns",df=3)
+```
+
+# Model comparison
+
+```{r}
+apm_model_compare(m1,m2,criterion="AICc")
+apm_model_compare(m1,m2,criterion="AIC")
+apm_model_compare(m1,m2,criterion="BIC")
+```
+
+# Context prediction
+
+```{r}
+apm_predict_context(m1,data.frame(rainfall=700))
+apm_predict_context(m2,data.frame(rainfall=900,mean_temp=25),transform="percent")
+apm_predict_context(c2,data.frame(rainfall=c(700,1000)),threshold=5,transform="percent")
+```
+
+# Curve features
+
+```{r}
+apm_curve_features(c2,"slope")
+apm_curve_features(c2,c("slope","turning_point"))
+apm_curve_features(c3,"threshold_crossing",threshold=log(1.05))
+```
+
+# Dose-response
+
+```{r}
+d1 <- apm_dose_response(fertilizer_dose_response,effect=lnRR,dose=N_rate,study=study_id,form="linear",method="fixed")
+d2 <- apm_dose_response(fertilizer_dose_response,effect=lnRR,dose=N_rate,study=study_id,form="quadratic",method="fixed")
+d3 <- apm_dose_response(fertilizer_dose_response,effect=lnRR,dose=N_rate,study=study_id,form="ns",df=3,method="fixed")
+```
+
+# Dose plots
+
+```{r}
+apm_dose_plot(d1,transform="percent")
+apm_dose_plot(d2,prediction=TRUE)
+apm_dose_plot(d3,rug=TRUE)
+```
+
+# Bubble plots
+
+```{r}
+apm_bubble(m1,rainfall)
+apm_bubble(m2,rainfall,size="precision")
+apm_bubble(c2,rainfall,transform="percent")
+```

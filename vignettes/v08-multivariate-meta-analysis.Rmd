@@ -1,0 +1,172 @@
+---
+title: "Multivariate treatment-control meta-analysis in agronomy"
+author: "agriPairMetaFlow"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Multivariate treatment-control meta-analysis in agronomy}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse=TRUE, comment="#>")
+library(agriPairMetaFlow)
+```
+
+# Why multivariate synthesis matters
+
+Agronomic experiments rarely measure only one endpoint. A soil-management study may report yield, soil organic carbon, infiltration, nutrient-use efficiency, and greenhouse-gas emissions from the same experimental units. Separate univariate meta-analyses are useful for endpoint-specific questions, but they discard the correlation created by measuring several responses in the same study and cannot estimate a between-outcome heterogeneity covariance structure.
+
+`agriPairMetaFlow` therefore treats multivariate synthesis as a distinct estimand and data problem. A study identifier must identify the independent experimental unit contributing the response vector. The `outcome` variable identifies endpoints, while `yi` and `vi` remain the effect estimate and its sampling variance on a coherent scale.
+
+# Teaching data
+
+`soil_management_multiresponse` contains three outcomes per synthetic experiment. The response-ratio effects are already available as `yi`; the package deliberately labels the data as synthetic teaching data rather than field evidence.
+
+```{r data}
+head(soil_management_multiresponse)
+with(soil_management_multiresponse, table(mv_study_id, outcome))
+```
+
+The second example, `biochar_multiresponse`, contains yield, soil carbon, and N2O responses from eight synthetic studies.
+
+```{r biochar}
+head(biochar_multiresponse)
+with(biochar_multiresponse, table(study_id, outcome))
+```
+
+# Start with the sampling covariance
+
+If the within-study covariance between outcomes is known or can be reconstructed, it should be supplied. The simplest diagonal matrix assumes zero within-study outcome correlation and is useful as a baseline, not as a default scientific conclusion.
+
+```{r multivariate-baseline}
+V0 <- diag(soil_management_multiresponse$vi)
+mv0 <- apm_multivariate(
+  soil_management_multiresponse,
+  outcome = outcome,
+  study = mv_study_id,
+  V = V0,
+  structure = "UN"
+)
+mv0
+summary(mv0)
+```
+
+An unstructured between-outcome covariance is flexible but parameter intensive. A compound-symmetry or diagonal structure can be evaluated when scientifically justified.
+
+```{r multivariate-structures}
+mv_cs <- apm_multivariate(
+  soil_management_multiresponse,
+  outcome = outcome,
+  study = mv_study_id,
+  V = V0,
+  structure = "CS"
+)
+mv_diag <- apm_multivariate(
+  soil_management_multiresponse,
+  outcome = outcome,
+  study = mv_study_id,
+  V = V0,
+  structure = "DIAG"
+)
+```
+
+# Moderators in a multivariate model
+
+Moderators are expanded by outcome. This allows the treatment-control effect to vary with climate while retaining outcome-specific intercepts.
+
+```{r multivariate-moderator}
+mv_climate <- apm_multivariate(
+  soil_management_multiresponse,
+  outcome = outcome,
+  study = mv_study_id,
+  V = V0,
+  mods = ~ climate_zone,
+  structure = "UN"
+)
+```
+
+The modifier should be prespecified and interpreted as an association in the meta-regression. It is not automatically a causal effect of climate.
+
+# Unknown within-study correlations
+
+Published agronomic papers often report marginal standard errors but omit cross-outcome covariances. A single guessed correlation should not be hidden inside the analysis. `apm_mvcor_sensitivity()` reconstructs block covariance matrices over a prespecified correlation grid and refits the same multivariate model.
+
+```{r rho-sensitivity}
+sens1 <- apm_mvcor_sensitivity(
+  soil_management_multiresponse,
+  outcome = outcome,
+  study = mv_study_id,
+  rho = c(0, .25, .50, .75)
+)
+sens1
+```
+
+The same sensitivity workflow can be used for the biochar example.
+
+```{r rho-biochar}
+sens2 <- apm_mvcor_sensitivity(
+  biochar_multiresponse,
+  outcome = outcome,
+  study = study_id,
+  rho = seq(0, .8, by=.2),
+  metric = "tau"
+)
+```
+
+A moderator can be retained across the entire sensitivity grid.
+
+```{r rho-moderator}
+sens3 <- apm_mvcor_sensitivity(
+  soil_management_multiresponse,
+  outcome = outcome,
+  study = mv_study_id,
+  rho = c(0, .3, .6),
+  fit_args = list(mods = ~ climate_zone)
+)
+```
+
+The scientific question is not which value of rho gives the most convenient result. The question is whether the substantive conclusion changes across a plausible set of correlations.
+
+# Visualization
+
+The outcome forest emphasizes endpoint-specific pooled effects.
+
+```{r mvplots}
+apm_multivariate_plot(mv0, type="outcome_forest", transform="percent")
+```
+
+When a between-outcome correlation matrix is estimable, its structure can be inspected directly.
+
+```{r mvcorr}
+if (!is.null(mv0$between_cor)) {
+  apm_multivariate_plot(mv0, type="correlation")
+}
+```
+
+A third presentation is available for the outcome summary on the model scale.
+
+```{r mvpred}
+apm_multivariate_plot(mv0, type="prediction", transform="none")
+```
+
+# Backend cross-check
+
+The default multivariate backend is `metafor::rma.mv()`. `mixmeta` is optional and useful as an independent implementation and for alternative multivariate structures. The 0.4.0 adapter requires a complete outcome profile for every study when `backend="mixmeta"`.
+
+```{r mixmeta, eval=FALSE}
+mv_mix <- apm_multivariate(
+  biochar_multiresponse,
+  outcome = outcome,
+  study = study_id,
+  V = diag(biochar_multiresponse$vi),
+  structure = "CS",
+  backend = "mixmeta"
+)
+```
+
+During local validation, estimates and covariance matrices should be compared directly with independently specified `metafor` and `mixmeta` fits. Agreement is a numerical validation gate, not merely a documentation example.
+
+# Interpretation checklist
+
+A multivariate result should state the effect scale, the independent study unit, the origin of the sampling covariance matrix, the assumed or estimated correlation structure, the between-outcome heterogeneity structure, the number of studies and outcome profiles, and the sensitivity of conclusions to unknown correlations. Missing covariance information should never be described as if it were observed.

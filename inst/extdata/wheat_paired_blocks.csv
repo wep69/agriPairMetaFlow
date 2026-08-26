@@ -1,0 +1,13 @@
+study_id,block_id,treatment,control,mean_t,sd_t,mean_c,sd_c,n_pairs,r_tc
+WP01,B01,seed_treatment,untreated,4.023,0.323,3.72,0.34,9,0.48
+WP02,B02,seed_treatment,untreated,4.156,0.342,3.84,0.36,10,0.51
+WP03,B03,seed_treatment,untreated,4.253,0.304,3.96,0.32,11,0.54
+WP04,B04,seed_treatment,untreated,4.343,0.323,4.08,0.34,8,0.45
+WP05,B05,seed_treatment,untreated,3.824,0.342,3.6,0.36,9,0.48
+WP06,B06,seed_treatment,untreated,3.979,0.304,3.72,0.32,10,0.51
+WP07,B07,seed_treatment,untreated,4.146,0.323,3.84,0.34,11,0.54
+WP08,B08,seed_treatment,untreated,4.289,0.342,3.96,0.36,8,0.45
+WP09,B09,seed_treatment,untreated,4.394,0.304,4.08,0.32,9,0.48
+WP10,B10,seed_treatment,untreated,3.84,0.323,3.6,0.34,10,0.51
+WP11,B11,seed_treatment,untreated,3.95,0.342,3.72,0.36,11,0.54
+WP12,B12,seed_treatment,untreated,4.096,0.304,3.84,0.32,8,0.45

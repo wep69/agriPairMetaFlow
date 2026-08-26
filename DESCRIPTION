@@ -1,0 +1,73 @@
+Package: agriPairMetaFlow
+Type: Package
+Title: Treatment-Control Meta-Analysis Workflows for Agronomy
+Version: 1.0.0
+Authors@R: c(
+    person(given = "Walter Esfrain", family = "Pereira",
+           email = "walterufpb@yahoo.com.br",
+           role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0003-1085-0191")),
+    person(given = "Magali Haidee", family = "Pereira Martinez",
+           role = "aut",
+           comment = c(ORCID = "0009-0009-5419-959X"))
+    )
+Description: Provides a design-first workflow for treatment-versus-control
+    meta-analysis in agronomy. Version 1.0 consolidates effect-size construction,
+    dependence-aware covariance modeling, random and multilevel synthesis, robust
+    inference, meta-regression, dose-response analysis, multivariate outcomes,
+    Bayesian sensitivity analysis, diagnostics, publication-bias sensitivity,
+    visualization, reporting, and export. The stable integration layer adds an
+    auditable end-to-end workflow, a capability registry, and a non-mutating
+    installation/runtime doctor. Automatic routing decisions are recorded rather
+    than hidden, and optional engines remain optional.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Depends: R (>= 4.2.0)
+Imports:
+    cli,
+    generics,
+    ggplot2 (>= 3.4.0),
+    metafor (>= 5.0-1),
+    rlang,
+    splines,
+    stats,
+    tibble,
+    utils,
+    vctrs
+Suggests:
+    dosresmeta (>= 2.2.0),
+    mixmeta (>= 1.2.2),
+    bayesmeta (>= 3.5),
+    BayesTools (>= 0.3.0),
+    RoBMA (>= 4.0.0),
+    brms,
+    cmdstanr,
+    posterior,
+    bayesplot,
+    loo,
+    wildmeta,
+    clubSandwich,
+    flextable,
+    gt,
+    knitr,
+    openxlsx2,
+    plotly,
+    readxl,
+    rmarkdown,
+    PublicationBias (>= 2.4.0),
+    meta,
+    metasens,
+    metaforest (>= 0.1.5),
+    orchaRd (>= 2.2.1),
+    caret,
+    ranger,
+    jsonlite,
+    htmlwidgets,
+    testthat (>= 3.0.0),
+    waldo
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+URL: https://github.com/wep69/agriPairMetaFlow
+BugReports: https://github.com/wep69/agriPairMetaFlow/issues
+Config/roxygen2/version: 8.1.0

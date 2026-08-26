@@ -1,0 +1,106 @@
+---
+title: "API Example Reference for agriPairMetaFlow 0.1.0"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{API Example Reference for agriPairMetaFlow 0.1.0}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(agriPairMetaFlow)
+```
+
+
+This vignette is a compact executable reference used to guarantee broad example coverage without replacing the conceptual tutorials.
+
+```{r}
+f <- system.file("extdata","maize_n_shared.csv",package="agriPairMetaFlow")
+if(nzchar(f)){apm_read(f);apm_read(f,mapping=c(study="study_id"));apm_read(f,units=c(mean_t="Mg ha-1"))}
+apm_validate(maize_n_shared,"summary",strict=FALSE);apm_validate(pest_suppression_binary,"binary",strict=FALSE);apm_validate(agri_effects_benchmark,"effect",strict=FALSE)
+apm_audit(maize_n_shared);apm_audit(agri_uncertainty_mixed,"full");apm_audit(soil_management_multiresponse)
+apm_plan(maize_n_shared,study_id,treatment,control,response=mean_t);apm_plan(wheat_paired_blocks,study_id,treatment,control,response=mean_t,block=block_id,design="paired");apm_plan(bioinoculant_multicrop,study_id,treatment,control,response=mean_t)
+apm_recover_uncertainty(agri_uncertainty_mixed,mean_yield,n,se=se_yield,method="se");apm_recover_uncertainty(agri_uncertainty_mixed,mean_yield,n,cv=cv_percent,method="cv");apm_recover_uncertainty(agri_uncertainty_mixed,mean_yield,n,mse=residual_mse,method="mse")
+e1<-apm_effect_size(covercrop_variability,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,m_c=mean_c,sd_c=sd_c,n_c=n_c);e2<-apm_effect_size(covercrop_variability,"VR",m_t=mean_t,sd_t=sd_t,n_t=n_t,m_c=mean_c,sd_c=sd_c,n_c=n_c);e3<-apm_effect_size(covercrop_variability,"CVR",m_t=mean_t,sd_t=sd_t,n_t=n_t,m_c=mean_c,sd_c=sd_c,n_c=n_c)
+m1<-apm_fit(e1);m2<-apm_fit(e2,test="knha");m3<-apm_fit(agri_effects_benchmark,model="common")
+apm_subgroup(agri_effects_benchmark,crop,test="z");apm_subgroup(agri_effects_benchmark,soil_texture,test="z");apm_subgroup(agri_effects_benchmark,cut(rainfall,3),test="z")
+apm_heterogeneity(m1,ci=FALSE);apm_heterogeneity(m2,ci=FALSE);apm_heterogeneity(m3,ci=FALSE)
+apm_prediction(m1);apm_prediction(m1,transform="exp");apm_prediction(m1,transform="percent")
+apm_threshold(m1,5,"percent");apm_threshold(m1,1.05,"ratio");apm_threshold(m1,0,"model")
+apm_forest(m1);apm_forest(m1,transform="percent");apm_forest(m1,columns="crop")
+apm_funnel(m1);apm_funnel(m1,contour=TRUE);apm_funnel(m1,yaxis="precision")
+apm_table(e1,"effects");apm_table(m1,"model");apm_table(apm_heterogeneity(m1,ci=FALSE),"heterogeneity")
+```
+
+# Version 0.2.0 dependency-aware API reference
+
+The calls below are intentionally non-evaluated compact references. Full interpretation is developed in the dedicated dependence and robust-inference vignettes.
+
+```{r v020-shared-control, eval=FALSE}
+apm_shared_control(maize_n_shared, study=experiment_id, control_id=control)
+apm_shared_control(fertilizer_dose_response, study=study_id, control_id=control_id, treatment_id=dose_id)
+apm_shared_control(soil_management_multiresponse, study=study_id, control_id=control, treatment_id=outcome)
+```
+
+```{r v020-vcov, eval=FALSE}
+es_mz <- apm_effect_size(maize_n_shared,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,m_c=mean_c,sd_c=sd_c,n_c=n_c)
+es_sm <- apm_effect_size(soil_management_multiresponse,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,m_c=mean_c,sd_c=sd_c,n_c=n_c)
+apm_vcov(es_mz,cluster=experiment_id)
+apm_vcov(es_mz,cluster=study_id,rho=.4,shared_control=FALSE)
+apm_vcov(es_sm,cluster=study_id,type=outcome,rho=.5,shared_control=FALSE)
+```
+
+```{r v020-pair, eval=FALSE}
+es_w <- apm_effect_size(wheat_paired_blocks,"lnRR",design="paired",m_t=mean_t,sd_t=sd_t,n_t=n_pairs,m_c=mean_c,sd_c=sd_c,n_c=n_pairs,r=r_tc)
+apm_pair_vcov(es_w,pair_id=study_id,r=.3)
+apm_pair_vcov(es_w,pair_id=study_id,r=.6)
+apm_pair_vcov(es_w,pair_id=study_id,r=.8,structure="compound")
+```
+
+```{r v020-audit, eval=FALSE}
+apm_dependence_audit(es_mz,cluster=study_id)
+apm_dependence_audit(es_mz,V=apm_vcov(es_mz,cluster=experiment_id),cluster=study_id)
+apm_dependence_audit(es_sm,cluster=study_id)
+```
+
+```{r v020-rho, eval=FALSE}
+apm_rho_sensitivity(es_sm,rho=c(.25,.5,.75),build_vcov=list(cluster="study_id",type="outcome"))
+apm_rho_sensitivity(es_sm,rho=c(.1,.5,.9),build_vcov=list(cluster="study_id",type="outcome"),metric="se")
+apm_rho_sensitivity(es_w,rho=c(.2,.5,.8),build_vcov=list(pair_id="study_id"),metric="estimate")
+```
+
+```{r v020-multilevel, eval=FALSE}
+V_mz <- apm_vcov(es_mz,cluster=experiment_id)
+apm_multilevel(es_mz,random=~1|study_id/effect_id,V=V_mz,test="z")
+apm_multilevel(es_mz,random=~1|study_id,V=V_mz,test="t")
+apm_multilevel(es_sm,random=~1|study_id/outcome,V=apm_vcov(es_sm,cluster=study_id,type=outcome,rho=.5,shared_control=FALSE),test="z")
+```
+
+```{r v020-components, eval=FALSE}
+ml <- apm_multilevel(es_mz,random=~1|study_id/effect_id,V=V_mz,test="z")
+apm_variance_components(ml)
+apm_variance_components(ml,proportion=FALSE)
+apm_variance_components(ml,level=.90)
+```
+
+```{r v020-robust, eval=FALSE}
+es_ir <- apm_effect_size(irrigation_climate,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,m_c=mean_c,sd_c=sd_c,n_c=n_c)
+fit_ir <- apm_fit(es_ir,mods=~rainfall)
+apm_robust(fit_ir,cluster=study_id)
+apm_robust(fit_ir,cluster=study_id,vcov="CR1")
+apm_robust(fit_ir,cluster=study_id,constraints=2)
+```
+
+```{r v020-wild, eval=FALSE}
+apm_wild_bootstrap(fit_ir,cluster=study_id,constraints=2,R=499,seed=42)
+apm_wild_bootstrap(fit_ir,cluster=study_id,constraints=2,R=999,seed=42,type="Mammen")
+apm_wild_bootstrap(fit_ir,cluster=study_id,R=499,seed=7)
+```
+
+```{r v020-compare, eval=FALSE}
+cr_ir <- apm_robust(fit_ir,cluster=study_id)
+apm_compare_inference(fit_ir,methods="model")
+apm_compare_inference(fit_ir,robust=cr_ir)
+apm_compare_inference(apm_fit(es_ir),methods="model",transform="percent")
+```

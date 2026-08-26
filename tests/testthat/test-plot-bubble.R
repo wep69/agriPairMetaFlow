@@ -1,0 +1,10 @@
+test_that("apm_bubble retains observed effects and model predictions", {
+  es <- apm_effect_size(irrigation_climate,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,m_c=mean_c,sd_c=sd_c,n_c=n_c)
+  m <- apm_metareg(es,~rainfall,test="z")
+  p <- apm_bubble(m,rainfall,size="precision",transform="none")
+  expect_s3_class(p,"ggplot")
+  pd <- attr(p,"apm_plot_data")
+  expect_equal(pd$observed$effect,es$yi,tolerance=1e-12)
+  expect_equal(pd$observed$point_size,1/es$vi,tolerance=1e-12)
+  expect_equal(nrow(pd$prediction),100)
+})

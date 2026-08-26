@@ -1,0 +1,10 @@
+test_that("CR2 inference matches clubSandwich", {
+  skip_if_not_installed("clubSandwich")
+  es <- apm_effect_size(irrigation_climate,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,m_c=mean_c,sd_c=sd_c,n_c=n_c)
+  fit <- apm_fit(es,mods=~rainfall)
+  a <- apm_robust(fit,cluster=study_id)
+  V <- clubSandwich::vcovCR(fit$backend_fit,cluster=es$study_id,type="CR2")
+  b <- as.data.frame(clubSandwich::coef_test(fit$backend_fit,vcov=V,test="Satterthwaite"))
+  expect_equal(a$vcov,as.matrix(V),tolerance=1e-10)
+  expect_equal(a$coefficients$Estimate,b$Estimate,tolerance=1e-10)
+})

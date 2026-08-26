@@ -1,0 +1,52 @@
+---
+title: "Data, Uncertainty, Effect Sizes, and True Pairing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data, Uncertainty, Effect Sizes, and True Pairing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(agriPairMetaFlow)
+```
+
+
+# Data import and validation
+
+```{r}
+f <- system.file("extdata","agri_uncertainty_mixed.csv",package="agriPairMetaFlow")
+x <- apm_read(f)
+apm_validate(x, "summary", strict=FALSE)
+apm_audit(x,"full")
+```
+
+# Recovering reported uncertainty
+
+```{r}
+u1 <- apm_recover_uncertainty(agri_uncertainty_mixed,mean=mean_yield,n=n,se=se_yield,method="se")
+u2 <- apm_recover_uncertainty(agri_uncertainty_mixed,mean=mean_yield,n=n,cv=cv_percent,method="cv")
+u3 <- apm_recover_uncertainty(agri_uncertainty_mixed,mean=mean_yield,n=n,mse=residual_mse,method="mse")
+```
+
+The provenance column distinguishes reported values from algebraically reconstructed values. Missing uncertainty is never silently guessed.
+
+# Independent and paired effects
+
+```{r}
+p1 <- apm_plan(wheat_paired_blocks,study=study_id,treatment=treatment,control=control,response=mean_t,block=block_id,design="paired")
+e1 <- apm_effect_size(wheat_paired_blocks,"lnRR",design="paired",m_t=mean_t,sd_t=sd_t,n_t=n_pairs,m_c=mean_c,sd_c=sd_c,n_c=n_pairs,r=r_tc)
+e2 <- apm_effect_size(pest_suppression_binary,"RR",event_t=event_t,event_c=event_c,n_t=n_t,n_c=n_c)
+e3 <- apm_effect_size(covercrop_variability,"CVR",m_t=mean_t,sd_t=sd_t,n_t=n_t,m_c=mean_c,sd_c=sd_c,n_c=n_c)
+```
+
+Pairing is a property of the primary design, not of the existence of a treatment and a control. The paired route therefore requires an explicit correlation for continuous summary effects.
+
+# Tables
+
+```{r}
+apm_table(e1,"effects")
+apm_table(e2,"effects")
+apm_table(e3,"effects")
+```

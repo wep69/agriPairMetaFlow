@@ -1,0 +1,756 @@
+check,status,detail
+export:apm_read,PASS,
+source:apm_read,PASS,
+roxygen:apm_read,PASS,data-read.R
+3examples:apm_read,PASS,3
+man:apm_read,PASS,
+man-3examples:apm_read,PASS,4
+vignette-3calls:apm_read,PASS,4
+test:apm_read,PASS,
+export:apm_validate,PASS,
+source:apm_validate,PASS,
+roxygen:apm_validate,PASS,data-validate.R
+3examples:apm_validate,PASS,3
+man:apm_validate,PASS,
+man-3examples:apm_validate,PASS,4
+vignette-3calls:apm_validate,PASS,5
+test:apm_validate,PASS,
+export:apm_audit,PASS,
+source:apm_audit,PASS,
+roxygen:apm_audit,PASS,data-audit.R
+3examples:apm_audit,PASS,3
+man:apm_audit,PASS,
+man-3examples:apm_audit,PASS,4
+vignette-3calls:apm_audit,PASS,5
+test:apm_audit,PASS,
+export:apm_plan,PASS,
+source:apm_plan,PASS,
+roxygen:apm_plan,PASS,plan.R
+3examples:apm_plan,PASS,3
+man:apm_plan,PASS,
+man-3examples:apm_plan,PASS,4
+vignette-3calls:apm_plan,PASS,5
+test:apm_plan,PASS,
+export:apm_recover_uncertainty,PASS,
+source:apm_recover_uncertainty,PASS,
+roxygen:apm_recover_uncertainty,PASS,uncertainty.R
+3examples:apm_recover_uncertainty,PASS,3
+man:apm_recover_uncertainty,PASS,
+man-3examples:apm_recover_uncertainty,PASS,4
+vignette-3calls:apm_recover_uncertainty,PASS,6
+test:apm_recover_uncertainty,PASS,
+export:apm_effect_size,PASS,
+source:apm_effect_size,PASS,
+roxygen:apm_effect_size,PASS,effect-size.R
+3examples:apm_effect_size,PASS,3
+man:apm_effect_size,PASS,
+man-3examples:apm_effect_size,PASS,4
+vignette-3calls:apm_effect_size,PASS,26
+test:apm_effect_size,PASS,
+export:apm_fit,PASS,
+source:apm_fit,PASS,
+roxygen:apm_fit,PASS,fit-core.R
+3examples:apm_fit,PASS,3
+man:apm_fit,PASS,
+man-3examples:apm_fit,PASS,4
+vignette-3calls:apm_fit,PASS,15
+test:apm_fit,PASS,
+export:apm_subgroup,PASS,
+source:apm_subgroup,PASS,
+roxygen:apm_subgroup,PASS,subgroup.R
+3examples:apm_subgroup,PASS,3
+man:apm_subgroup,PASS,
+man-3examples:apm_subgroup,PASS,4
+vignette-3calls:apm_subgroup,PASS,7
+test:apm_subgroup,PASS,
+export:apm_heterogeneity,PASS,
+source:apm_heterogeneity,PASS,
+roxygen:apm_heterogeneity,PASS,heterogeneity.R
+3examples:apm_heterogeneity,PASS,3
+man:apm_heterogeneity,PASS,
+man-3examples:apm_heterogeneity,PASS,4
+vignette-3calls:apm_heterogeneity,PASS,9
+test:apm_heterogeneity,PASS,
+export:apm_prediction,PASS,
+source:apm_prediction,PASS,
+roxygen:apm_prediction,PASS,prediction.R
+3examples:apm_prediction,PASS,3
+man:apm_prediction,PASS,
+man-3examples:apm_prediction,PASS,4
+vignette-3calls:apm_prediction,PASS,7
+test:apm_prediction,PASS,
+export:apm_threshold,PASS,
+source:apm_threshold,PASS,
+roxygen:apm_threshold,PASS,threshold.R
+3examples:apm_threshold,PASS,3
+man:apm_threshold,PASS,
+man-3examples:apm_threshold,PASS,4
+vignette-3calls:apm_threshold,PASS,7
+test:apm_threshold,PASS,
+export:apm_forest,PASS,
+source:apm_forest,PASS,
+roxygen:apm_forest,PASS,plot-forest.R
+3examples:apm_forest,PASS,3
+man:apm_forest,PASS,
+man-3examples:apm_forest,PASS,4
+vignette-3calls:apm_forest,PASS,7
+test:apm_forest,PASS,
+export:apm_funnel,PASS,
+source:apm_funnel,PASS,
+roxygen:apm_funnel,PASS,plot-funnel.R
+3examples:apm_funnel,PASS,3
+man:apm_funnel,PASS,
+man-3examples:apm_funnel,PASS,4
+vignette-3calls:apm_funnel,PASS,7
+test:apm_funnel,PASS,
+export:apm_table,PASS,
+source:apm_table,PASS,
+roxygen:apm_table,PASS,table.R
+3examples:apm_table,PASS,3
+man:apm_table,PASS,
+man-3examples:apm_table,PASS,4
+vignette-3calls:apm_table,PASS,11
+test:apm_table,PASS,
+export:apm_shared_control,PASS,
+source:apm_shared_control,PASS,
+roxygen:apm_shared_control,PASS,dependence-shared-control.R
+3examples:apm_shared_control,PASS,3
+man:apm_shared_control,PASS,
+man-3examples:apm_shared_control,PASS,4
+vignette-3calls:apm_shared_control,PASS,5
+test:apm_shared_control,PASS,
+export:apm_vcov,PASS,
+source:apm_vcov,PASS,
+roxygen:apm_vcov,PASS,dependence-vcov.R
+3examples:apm_vcov,PASS,3
+man:apm_vcov,PASS,
+man-3examples:apm_vcov,PASS,4
+vignette-3calls:apm_vcov,PASS,13
+test:apm_vcov,PASS,
+export:apm_pair_vcov,PASS,
+source:apm_pair_vcov,PASS,
+roxygen:apm_pair_vcov,PASS,dependence-paired.R
+3examples:apm_pair_vcov,PASS,3
+man:apm_pair_vcov,PASS,
+man-3examples:apm_pair_vcov,PASS,4
+vignette-3calls:apm_pair_vcov,PASS,4
+test:apm_pair_vcov,PASS,
+export:apm_dependence_audit,PASS,
+source:apm_dependence_audit,PASS,
+roxygen:apm_dependence_audit,PASS,dependence-audit.R
+3examples:apm_dependence_audit,PASS,3
+man:apm_dependence_audit,PASS,
+man-3examples:apm_dependence_audit,PASS,4
+vignette-3calls:apm_dependence_audit,PASS,3
+test:apm_dependence_audit,PASS,
+export:apm_rho_sensitivity,PASS,
+source:apm_rho_sensitivity,PASS,
+roxygen:apm_rho_sensitivity,PASS,sensitivity-rho.R
+3examples:apm_rho_sensitivity,PASS,3
+man:apm_rho_sensitivity,PASS,
+man-3examples:apm_rho_sensitivity,PASS,4
+vignette-3calls:apm_rho_sensitivity,PASS,4
+test:apm_rho_sensitivity,PASS,
+export:apm_multilevel,PASS,
+source:apm_multilevel,PASS,
+roxygen:apm_multilevel,PASS,fit-multilevel.R
+3examples:apm_multilevel,PASS,3
+man:apm_multilevel,PASS,
+man-3examples:apm_multilevel,PASS,4
+vignette-3calls:apm_multilevel,PASS,6
+test:apm_multilevel,PASS,
+export:apm_variance_components,PASS,
+source:apm_variance_components,PASS,
+roxygen:apm_variance_components,PASS,variance-components.R
+3examples:apm_variance_components,PASS,3
+man:apm_variance_components,PASS,
+man-3examples:apm_variance_components,PASS,4
+vignette-3calls:apm_variance_components,PASS,4
+test:apm_variance_components,PASS,
+export:apm_robust,PASS,
+source:apm_robust,PASS,
+roxygen:apm_robust,PASS,robust.R
+3examples:apm_robust,PASS,3
+man:apm_robust,PASS,
+man-3examples:apm_robust,PASS,4
+vignette-3calls:apm_robust,PASS,5
+test:apm_robust,PASS,
+export:apm_wild_bootstrap,PASS,
+source:apm_wild_bootstrap,PASS,
+roxygen:apm_wild_bootstrap,PASS,wild-bootstrap.R
+3examples:apm_wild_bootstrap,PASS,3
+man:apm_wild_bootstrap,PASS,
+man-3examples:apm_wild_bootstrap,PASS,4
+vignette-3calls:apm_wild_bootstrap,PASS,4
+test:apm_wild_bootstrap,PASS,
+export:apm_compare_inference,PASS,
+source:apm_compare_inference,PASS,
+roxygen:apm_compare_inference,PASS,compare-inference.R
+3examples:apm_compare_inference,PASS,3
+man:apm_compare_inference,PASS,
+man-3examples:apm_compare_inference,PASS,4
+vignette-3calls:apm_compare_inference,PASS,5
+test:apm_compare_inference,PASS,
+export:apm_metareg,PASS,
+source:apm_metareg,PASS,
+roxygen:apm_metareg,PASS,metareg.R
+3examples:apm_metareg,PASS,3
+man:apm_metareg,PASS,
+man-3examples:apm_metareg,PASS,4
+vignette-3calls:apm_metareg,PASS,13
+test:apm_metareg,PASS,
+export:apm_marginal_effects,PASS,
+source:apm_marginal_effects,PASS,
+roxygen:apm_marginal_effects,PASS,marginal-effects.R
+3examples:apm_marginal_effects,PASS,3
+man:apm_marginal_effects,PASS,
+man-3examples:apm_marginal_effects,PASS,4
+vignette-3calls:apm_marginal_effects,PASS,7
+test:apm_marginal_effects,PASS,
+export:apm_interaction,PASS,
+source:apm_interaction,PASS,
+roxygen:apm_interaction,PASS,interaction.R
+3examples:apm_interaction,PASS,3
+man:apm_interaction,PASS,
+man-3examples:apm_interaction,PASS,4
+vignette-3calls:apm_interaction,PASS,5
+test:apm_interaction,PASS,
+export:apm_metareg_curve,PASS,
+source:apm_metareg_curve,PASS,
+roxygen:apm_metareg_curve,PASS,metareg-curve.R
+3examples:apm_metareg_curve,PASS,3
+man:apm_metareg_curve,PASS,
+man-3examples:apm_metareg_curve,PASS,4
+vignette-3calls:apm_metareg_curve,PASS,6
+test:apm_metareg_curve,PASS,
+export:apm_model_compare,PASS,
+source:apm_model_compare,PASS,
+roxygen:apm_model_compare,PASS,model-compare.R
+3examples:apm_model_compare,PASS,3
+man:apm_model_compare,PASS,
+man-3examples:apm_model_compare,PASS,4
+vignette-3calls:apm_model_compare,PASS,5
+test:apm_model_compare,PASS,
+export:apm_predict_context,PASS,
+source:apm_predict_context,PASS,
+roxygen:apm_predict_context,PASS,predict-context.R
+3examples:apm_predict_context,PASS,3
+man:apm_predict_context,PASS,
+man-3examples:apm_predict_context,PASS,4
+vignette-3calls:apm_predict_context,PASS,5
+test:apm_predict_context,PASS,
+export:apm_curve_features,PASS,
+source:apm_curve_features,PASS,
+roxygen:apm_curve_features,PASS,curve-features.R
+3examples:apm_curve_features,PASS,3
+man:apm_curve_features,PASS,
+man-3examples:apm_curve_features,PASS,4
+vignette-3calls:apm_curve_features,PASS,7
+test:apm_curve_features,PASS,
+export:apm_dose_response,PASS,
+source:apm_dose_response,PASS,
+roxygen:apm_dose_response,PASS,dose-response.R
+3examples:apm_dose_response,PASS,3
+man:apm_dose_response,PASS,
+man-3examples:apm_dose_response,PASS,4
+vignette-3calls:apm_dose_response,PASS,10
+test:apm_dose_response,PASS,
+export:apm_dose_plot,PASS,
+source:apm_dose_plot,PASS,
+roxygen:apm_dose_plot,PASS,plot-dose.R
+3examples:apm_dose_plot,PASS,3
+man:apm_dose_plot,PASS,
+man-3examples:apm_dose_plot,PASS,4
+vignette-3calls:apm_dose_plot,PASS,8
+test:apm_dose_plot,PASS,
+export:apm_bubble,PASS,
+source:apm_bubble,PASS,
+roxygen:apm_bubble,PASS,plot-bubble.R
+3examples:apm_bubble,PASS,3
+man:apm_bubble,PASS,
+man-3examples:apm_bubble,PASS,4
+vignette-3calls:apm_bubble,PASS,5
+test:apm_bubble,PASS,
+export:apm_multivariate,PASS,
+source:apm_multivariate,PASS,
+roxygen:apm_multivariate,PASS,multivariate.R
+3examples:apm_multivariate,PASS,3
+man:apm_multivariate,PASS,
+man-3examples:apm_multivariate,PASS,4
+vignette-3calls:apm_multivariate,PASS,9
+test:apm_multivariate,PASS,
+export:apm_mvcor_sensitivity,PASS,
+source:apm_mvcor_sensitivity,PASS,
+roxygen:apm_mvcor_sensitivity,PASS,sensitivity-mvcor.R
+3examples:apm_mvcor_sensitivity,PASS,3
+man:apm_mvcor_sensitivity,PASS,
+man-3examples:apm_mvcor_sensitivity,PASS,4
+vignette-3calls:apm_mvcor_sensitivity,PASS,7
+test:apm_mvcor_sensitivity,PASS,
+export:apm_prior,PASS,
+source:apm_prior,PASS,
+roxygen:apm_prior,PASS,bayes-prior.R
+3examples:apm_prior,PASS,3
+man:apm_prior,PASS,
+man-3examples:apm_prior,PASS,4
+vignette-3calls:apm_prior,PASS,10
+test:apm_prior,PASS,
+export:apm_prior_check,PASS,
+source:apm_prior_check,PASS,
+roxygen:apm_prior_check,PASS,bayes-prior-check.R
+3examples:apm_prior_check,PASS,3
+man:apm_prior_check,PASS,
+man-3examples:apm_prior_check,PASS,4
+vignette-3calls:apm_prior_check,PASS,6
+test:apm_prior_check,PASS,
+export:apm_bayes,PASS,
+source:apm_bayes,PASS,
+roxygen:apm_bayes,PASS,bayes-fit.R
+3examples:apm_bayes,PASS,3
+man:apm_bayes,PASS,
+man-3examples:apm_bayes,PASS,4
+vignette-3calls:apm_bayes,PASS,6
+test:apm_bayes,PASS,
+export:apm_bayes_predict,PASS,
+source:apm_bayes_predict,PASS,
+roxygen:apm_bayes_predict,PASS,bayes-predict.R
+3examples:apm_bayes_predict,PASS,3
+man:apm_bayes_predict,PASS,
+man-3examples:apm_bayes_predict,PASS,4
+vignette-3calls:apm_bayes_predict,PASS,6
+test:apm_bayes_predict,PASS,
+export:apm_bayes_threshold,PASS,
+source:apm_bayes_threshold,PASS,
+roxygen:apm_bayes_threshold,PASS,bayes-threshold.R
+3examples:apm_bayes_threshold,PASS,3
+man:apm_bayes_threshold,PASS,
+man-3examples:apm_bayes_threshold,PASS,4
+vignette-3calls:apm_bayes_threshold,PASS,6
+test:apm_bayes_threshold,PASS,
+export:apm_bayes_diagnostics,PASS,
+source:apm_bayes_diagnostics,PASS,
+roxygen:apm_bayes_diagnostics,PASS,bayes-diagnostics.R
+3examples:apm_bayes_diagnostics,PASS,3
+man:apm_bayes_diagnostics,PASS,
+man-3examples:apm_bayes_diagnostics,PASS,4
+vignette-3calls:apm_bayes_diagnostics,PASS,6
+test:apm_bayes_diagnostics,PASS,
+export:apm_bayes_compare,PASS,
+source:apm_bayes_compare,PASS,
+roxygen:apm_bayes_compare,PASS,bayes-compare.R
+3examples:apm_bayes_compare,PASS,3
+man:apm_bayes_compare,PASS,
+man-3examples:apm_bayes_compare,PASS,4
+vignette-3calls:apm_bayes_compare,PASS,6
+test:apm_bayes_compare,PASS,
+export:apm_multivariate_plot,PASS,
+source:apm_multivariate_plot,PASS,
+roxygen:apm_multivariate_plot,PASS,plot-multivariate.R
+3examples:apm_multivariate_plot,PASS,3
+man:apm_multivariate_plot,PASS,
+man-3examples:apm_multivariate_plot,PASS,4
+vignette-3calls:apm_multivariate_plot,PASS,6
+test:apm_multivariate_plot,PASS,
+export:apm_influence,PASS,
+source:apm_influence,PASS,
+roxygen:apm_influence,PASS,diagnostics-influence.R
+3examples:apm_influence,PASS,3
+man:apm_influence,PASS,
+man-3examples:apm_influence,PASS,4
+vignette-3calls:apm_influence,PASS,7
+test:apm_influence,PASS,
+export:apm_leave_one_out,PASS,
+source:apm_leave_one_out,PASS,
+roxygen:apm_leave_one_out,PASS,diagnostics-leave-one-out.R
+3examples:apm_leave_one_out,PASS,3
+man:apm_leave_one_out,PASS,
+man-3examples:apm_leave_one_out,PASS,4
+vignette-3calls:apm_leave_one_out,PASS,7
+test:apm_leave_one_out,PASS,
+export:apm_gosh,PASS,
+source:apm_gosh,PASS,
+roxygen:apm_gosh,PASS,diagnostics-gosh.R
+3examples:apm_gosh,PASS,3
+man:apm_gosh,PASS,
+man-3examples:apm_gosh,PASS,4
+vignette-3calls:apm_gosh,PASS,6
+test:apm_gosh,PASS,
+export:apm_bias,PASS,
+source:apm_bias,PASS,
+roxygen:apm_bias,PASS,publication-bias.R
+3examples:apm_bias,PASS,3
+man:apm_bias,PASS,
+man-3examples:apm_bias,PASS,4
+vignette-3calls:apm_bias,PASS,7
+test:apm_bias,PASS,
+export:apm_funnel_contour,PASS,
+source:apm_funnel_contour,PASS,
+roxygen:apm_funnel_contour,PASS,plot-funnel.R
+3examples:apm_funnel_contour,PASS,3
+man:apm_funnel_contour,PASS,
+man-3examples:apm_funnel_contour,PASS,4
+vignette-3calls:apm_funnel_contour,PASS,6
+test:apm_funnel_contour,PASS,
+export:apm_orchard,PASS,
+source:apm_orchard,PASS,
+roxygen:apm_orchard,PASS,plot-orchard.R
+3examples:apm_orchard,PASS,3
+man:apm_orchard,PASS,
+man-3examples:apm_orchard,PASS,4
+vignette-3calls:apm_orchard,PASS,9
+test:apm_orchard,PASS,
+export:apm_moderator_screen,PASS,
+source:apm_moderator_screen,PASS,
+roxygen:apm_moderator_screen,PASS,moderator-screen.R
+3examples:apm_moderator_screen,PASS,3
+man:apm_moderator_screen,PASS,
+man-3examples:apm_moderator_screen,PASS,4
+vignette-3calls:apm_moderator_screen,PASS,7
+test:apm_moderator_screen,PASS,
+export:apm_report,PASS,
+source:apm_report,PASS,
+roxygen:apm_report,PASS,report.R
+3examples:apm_report,PASS,3
+man:apm_report,PASS,
+man-3examples:apm_report,PASS,4
+vignette-3calls:apm_report,PASS,7
+test:apm_report,PASS,
+export:apm_explain,PASS,
+source:apm_explain,PASS,
+roxygen:apm_explain,PASS,explain.R
+3examples:apm_explain,PASS,3
+man:apm_explain,PASS,
+man-3examples:apm_explain,PASS,4
+vignette-3calls:apm_explain,PASS,8
+test:apm_explain,PASS,
+export:apm_export,PASS,
+source:apm_export,PASS,
+roxygen:apm_export,PASS,export.R
+3examples:apm_export,PASS,3
+man:apm_export,PASS,
+man-3examples:apm_export,PASS,4
+vignette-3calls:apm_export,PASS,7
+test:apm_export,PASS,
+export:apm_workflow,PASS,
+source:apm_workflow,PASS,
+roxygen:apm_workflow,PASS,workflow.R
+3examples:apm_workflow,PASS,3
+man:apm_workflow,PASS,
+man-3examples:apm_workflow,PASS,4
+vignette-3calls:apm_workflow,PASS,4
+test:apm_workflow,PASS,
+export:apm_capabilities,PASS,
+source:apm_capabilities,PASS,
+roxygen:apm_capabilities,PASS,capabilities.R
+3examples:apm_capabilities,PASS,3
+man:apm_capabilities,PASS,
+man-3examples:apm_capabilities,PASS,4
+vignette-3calls:apm_capabilities,PASS,3
+test:apm_capabilities,PASS,
+export:apm_doctor,PASS,
+source:apm_doctor,PASS,
+roxygen:apm_doctor,PASS,doctor.R
+3examples:apm_doctor,PASS,3
+man:apm_doctor,PASS,
+man-3examples:apm_doctor,PASS,4
+vignette-3calls:apm_doctor,PASS,3
+test:apm_doctor,PASS,
+delimiter:interaction.R,PASS,braces 15/15 parens 190/190
+delimiter:predict-context.R,PASS,braces 9/9 parens 68/68
+delimiter:marginal-effects.R,PASS,braces 8/8 parens 113/113
+delimiter:plan.R,PASS,braces 2/2 parens 73/73
+delimiter:fit-core.R,PASS,braces 4/4 parens 70/70
+delimiter:dependence-paired.R,PASS,braces 7/7 parens 77/77
+delimiter:prediction.R,PASS,braces 3/3 parens 47/47
+delimiter:table.R,PASS,braces 12/12 parens 128/128
+delimiter:report.R,PASS,braces 3/3 parens 101/101
+delimiter:plot-funnel.R,PASS,braces 6/6 parens 75/75
+delimiter:export.R,PASS,braces 8/8 parens 80/80
+delimiter:plot-dose.R,PASS,braces 2/2 parens 49/49
+delimiter:plot-bubble.R,PASS,braces 4/4 parens 79/79
+delimiter:threshold.R,PASS,braces 3/3 parens 52/52
+delimiter:workflow.R,PASS,braces 24/24 parens 302/302
+delimiter:diagnostics-gosh.R,PASS,braces 5/5 parens 70/70
+delimiter:plot-orchard.R,PASS,braces 4/4 parens 63/63
+delimiter:bayes-threshold.R,PASS,braces 12/12 parens 119/119
+delimiter:constants.R,PASS,braces 0/0 parens 12/12
+delimiter:bayes-predict.R,PASS,braces 11/11 parens 124/124
+delimiter:explain.R,PASS,braces 8/8 parens 96/96
+delimiter:dependence-audit.R,PASS,braces 3/3 parens 60/60
+delimiter:model-compare.R,PASS,braces 11/11 parens 169/169
+delimiter:data-audit.R,PASS,braces 6/6 parens 77/77
+delimiter:data-read.R,PASS,braces 8/8 parens 67/67
+delimiter:metareg-utils.R,PASS,braces 50/50 parens 420/420
+delimiter:dependence-vcov.R,PASS,braces 3/3 parens 92/92
+delimiter:utils-backend.R,PASS,braces 3/3 parens 15/15
+delimiter:sensitivity-mvcor.R,PASS,braces 7/7 parens 104/104
+delimiter:dependence-shared-control.R,PASS,braces 6/6 parens 77/77
+delimiter:effect-size.R,PASS,braces 7/7 parens 118/118
+delimiter:aaa-package.R,PASS,braces 0/0 parens 0/0
+delimiter:sensitivity-rho.R,PASS,braces 6/6 parens 100/100
+delimiter:dose-response.R,PASS,braces 18/18 parens 268/268
+delimiter:metareg-curve.R,PASS,braces 4/4 parens 119/119
+delimiter:diagnostics-influence.R,PASS,braces 12/12 parens 139/139
+delimiter:utils-transform.R,PASS,braces 6/6 parens 41/41
+delimiter:diagnostics-utils.R,PASS,braces 10/10 parens 125/125
+delimiter:multivariate.R,PASS,braces 16/16 parens 208/208
+delimiter:compare-inference.R,PASS,braces 5/5 parens 105/105
+delimiter:fit-multilevel.R,PASS,braces 1/1 parens 56/56
+delimiter:diagnostics-leave-one-out.R,PASS,braces 6/6 parens 61/61
+delimiter:curve-features.R,PASS,braces 10/10 parens 113/113
+delimiter:bayes-prior.R,PASS,braces 8/8 parens 163/163
+delimiter:robust.R,PASS,braces 3/3 parens 61/61
+delimiter:uncertainty.R,PASS,braces 12/12 parens 126/126
+delimiter:s3-extract.R,PASS,braces 21/21 parens 196/196
+delimiter:bayes-fit.R,PASS,braces 22/22 parens 224/224
+delimiter:metareg.R,PASS,braces 4/4 parens 107/107
+delimiter:utils-assert.R,PASS,braces 10/10 parens 85/85
+delimiter:bayes-prior-check.R,PASS,braces 7/7 parens 105/105
+delimiter:variance-components.R,PASS,braces 2/2 parens 38/38
+delimiter:capabilities.R,PASS,braces 11/11 parens 77/77
+delimiter:publication-bias.R,PASS,braces 13/13 parens 140/140
+delimiter:teaching-data.R,PASS,braces 1/1 parens 167/167
+delimiter:bayes-diagnostics.R,PASS,braces 22/22 parens 157/157
+delimiter:subgroup.R,PASS,braces 4/4 parens 49/49
+delimiter:moderator-screen.R,PASS,braces 12/12 parens 173/173
+delimiter:doctor.R,PASS,braces 12/12 parens 159/159
+delimiter:bayes-compare.R,PASS,braces 11/11 parens 113/113
+delimiter:heterogeneity.R,PASS,braces 3/3 parens 21/21
+delimiter:plot-multivariate.R,PASS,braces 6/6 parens 54/54
+delimiter:plot-forest.R,PASS,braces 6/6 parens 76/76
+delimiter:data-validate.R,PASS,braces 5/5 parens 94/94
+delimiter:s3-print.R,PASS,braces 47/47 parens 288/288
+delimiter:wild-bootstrap.R,PASS,braces 3/3 parens 60/60
+extdata:maize_n_shared,PASS,
+data-doc:maize_n_shared,PASS,
+extdata:covercrop_variability,PASS,
+data-doc:covercrop_variability,PASS,
+extdata:irrigation_climate,PASS,
+data-doc:irrigation_climate,PASS,
+extdata:bioinoculant_multicrop,PASS,
+data-doc:bioinoculant_multicrop,PASS,
+extdata:wheat_paired_blocks,PASS,
+data-doc:wheat_paired_blocks,PASS,
+extdata:agri_uncertainty_mixed,PASS,
+data-doc:agri_uncertainty_mixed,PASS,
+extdata:pest_suppression_binary,PASS,
+data-doc:pest_suppression_binary,PASS,
+extdata:agri_effects_benchmark,PASS,
+data-doc:agri_effects_benchmark,PASS,
+extdata:soil_management_multiresponse,PASS,
+data-doc:soil_management_multiresponse,PASS,
+extdata:fertilizer_dose_response,PASS,
+data-doc:fertilizer_dose_response,PASS,
+extdata:biochar_multiresponse,PASS,
+data-doc:biochar_multiresponse,PASS,
+vignette:v00-foundations-to-advanced-tutorial.Rmd,PASS,
+vignette:v01-data-effect-sizes-uncertainty.Rmd,PASS,
+vignette:v02-models-heterogeneity-prediction.Rmd,PASS,
+vignette:v03-api-example-reference.Rmd,PASS,
+vignette:v03-shared-controls-paired-dependence.Rmd,PASS,
+vignette:v04-multilevel-robust-inference.Rmd,PASS,
+vignette:v05-meta-regression-quantitative-moderators.Rmd,PASS,
+vignette:v06-dose-response-meta-analysis.Rmd,PASS,
+vignette:v07-api-example-reference-0.3.Rmd,PASS,
+vignette:v08-multivariate-meta-analysis.Rmd,PASS,
+vignette:v09-bayesian-meta-analysis.Rmd,PASS,
+vignette:v10-api-example-reference-0.4.Rmd,PASS,
+vignette:v11-diagnostics-influence-and-gosh.Rmd,PASS,
+vignette:v12-publication-bias-and-advanced-visualization.Rmd,PASS,
+vignette:v13-exploratory-moderators-reporting-and-export.Rmd,PASS,
+vignette:v14-api-example-reference-0.5.Rmd,PASS,
+vignette:v15-integration-workflow-and-release-readiness.Rmd,PASS,
+runtime-honesty,PASS,
+version:1.0.0.9000,PASS,
+suggests:dosresmeta,PASS,
+suggests:mixmeta,PASS,
+api-count:57,PASS,
+dedicated-test:test-metareg.R,PASS,
+dedicated-test:test-marginal-effects.R,PASS,
+dedicated-test:test-interaction.R,PASS,
+dedicated-test:test-metareg-curve.R,PASS,
+dedicated-test:test-model-compare.R,PASS,
+dedicated-test:test-predict-context.R,PASS,
+dedicated-test:test-curve-features.R,PASS,
+dedicated-test:test-dose-response.R,PASS,
+dedicated-test:test-plot-dose.R,PASS,
+dedicated-test:test-plot-bubble.R,PASS,
+test-delimiter:test-predict-context.R,PASS,braces 3/3 parens 35/35 brackets 0/0
+test-delimiter:test-publication-bias.R,PASS,braces 2/2 parens 19/19 brackets 0/0
+test-delimiter:test-table.R,PASS,braces 2/2 parens 23/23 brackets 0/0
+test-delimiter:test-export.R,PASS,braces 2/2 parens 15/15 brackets 0/0
+test-delimiter:test-dependence-paired.R,PASS,braces 2/2 parens 12/12 brackets 6/6
+test-delimiter:test-explain.R,PASS,braces 1/1 parens 7/7 brackets 0/0
+test-delimiter:test-bayes-prior.R,PASS,braces 3/3 parens 21/21 brackets 0/0
+test-delimiter:test-effect-size.R,PASS,braces 2/2 parens 10/10 brackets 2/2
+test-delimiter:test-bayes-threshold.R,PASS,braces 3/3 parens 16/16 brackets 0/0
+test-delimiter:test-data-audit.R,PASS,braces 1/1 parens 7/7 brackets 0/0
+test-delimiter:test-data-validate.R,PASS,braces 1/1 parens 5/5 brackets 1/1
+test-delimiter:test-prediction.R,PASS,braces 1/1 parens 10/10 brackets 0/0
+test-delimiter:test-diagnostics-gosh.R,PASS,braces 1/1 parens 7/7 brackets 0/0
+test-delimiter:test-threshold.R,PASS,braces 1/1 parens 7/7 brackets 0/0
+test-delimiter:test-capabilities.R,PASS,braces 3/3 parens 25/25 brackets 0/0
+test-delimiter:test-dependence-shared-control.R,PASS,braces 2/2 parens 9/9 brackets 3/3
+test-delimiter:test-uncertainty.R,PASS,braces 1/1 parens 8/8 brackets 0/0
+test-delimiter:test-robust.R,PASS,braces 1/1 parens 11/11 brackets 0/0
+test-delimiter:test-interaction.R,PASS,braces 1/1 parens 16/16 brackets 0/0
+test-delimiter:test-plot-bubble.R,PASS,braces 1/1 parens 10/10 brackets 0/0
+test-delimiter:test-compare-inference.R,PASS,braces 2/2 parens 19/19 brackets 0/0
+test-delimiter:test-data-read.R,PASS,braces 1/1 parens 9/9 brackets 0/0
+test-delimiter:test-bayes-predict.R,PASS,braces 3/3 parens 28/28 brackets 0/0
+test-delimiter:test-plot-multivariate.R,PASS,braces 3/3 parens 24/24 brackets 0/0
+test-delimiter:test-diagnostics-influence.R,PASS,braces 2/2 parens 15/15 brackets 0/0
+test-delimiter:test-diagnostics-leave-one-out.R,PASS,braces 2/2 parens 14/14 brackets 0/0
+test-delimiter:test-bayes-diagnostics.R,PASS,braces 4/4 parens 31/31 brackets 0/0
+test-delimiter:test-sensitivity-mvcor.R,PASS,braces 3/3 parens 25/25 brackets 0/0
+test-delimiter:test-bayes-fit.R,PASS,braces 3/3 parens 17/17 brackets 0/0
+test-delimiter:test-sensitivity-rho.R,PASS,braces 1/1 parens 14/14 brackets 4/4
+test-delimiter:test-bayes-prior-check.R,PASS,braces 3/3 parens 24/24 brackets 0/0
+test-delimiter:test-dependence-audit.R,PASS,braces 2/2 parens 17/17 brackets 0/0
+test-delimiter:test-bayes-compare.R,PASS,braces 3/3 parens 20/20 brackets 0/0
+test-delimiter:test-heterogeneity.R,PASS,braces 1/1 parens 8/8 brackets 0/0
+test-delimiter:test-doctor.R,PASS,braces 3/3 parens 23/23 brackets 1/1
+test-delimiter:test-metareg.R,PASS,braces 2/2 parens 19/19 brackets 0/0
+test-delimiter:test-dose-response.R,PASS,braces 8/8 parens 74/74 brackets 7/7
+test-delimiter:test-s3.R,PASS,braces 1/1 parens 10/10 brackets 0/0
+test-delimiter:test-model-compare.R,PASS,braces 4/4 parens 43/43 brackets 4/4
+test-delimiter:test-fit-core.R,PASS,braces 1/1 parens 8/8 brackets 0/0
+test-delimiter:test-plot-funnel.R,PASS,braces 1/1 parens 7/7 brackets 0/0
+test-delimiter:test-report.R,PASS,braces 1/1 parens 10/10 brackets 0/0
+test-delimiter:test-workflow.R,PASS,braces 4/4 parens 37/37 brackets 0/0
+test-delimiter:test-plot-orchard.R,PASS,braces 1/1 parens 7/7 brackets 0/0
+test-delimiter:test-marginal-effects.R,PASS,braces 1/1 parens 17/17 brackets 0/0
+test-delimiter:test-variance-components.R,PASS,braces 1/1 parens 9/9 brackets 0/0
+test-delimiter:test-curve-features.R,PASS,braces 1/1 parens 12/12 brackets 0/0
+test-delimiter:test-metareg-curve.R,PASS,braces 1/1 parens 14/14 brackets 0/0
+test-delimiter:test-plan.R,PASS,braces 1/1 parens 5/5 brackets 0/0
+test-delimiter:test-moderator-screen.R,PASS,braces 1/1 parens 7/7 brackets 0/0
+test-delimiter:test-fit-multilevel.R,PASS,braces 1/1 parens 15/15 brackets 0/0
+test-delimiter:test-plot-dose.R,PASS,braces 1/1 parens 9/9 brackets 0/0
+test-delimiter:test-wild-bootstrap.R,PASS,braces 1/1 parens 12/12 brackets 0/0
+test-delimiter:test-plot-funnel-contour.R,PASS,braces 1/1 parens 7/7 brackets 0/0
+test-delimiter:test-dependence-vcov.R,PASS,braces 2/2 parens 16/16 brackets 1/1
+test-delimiter:test-multivariate.R,PASS,braces 5/5 parens 65/65 brackets 4/4
+test-delimiter:test-plot-forest.R,PASS,braces 1/1 parens 8/8 brackets 0/0
+test-delimiter:test-subgroup.R,PASS,braces 1/1 parens 9/9 brackets 2/2
+dose-data:required-columns,PASS,
+dose-data:8-studies,PASS,
+dose-data:4-doses-per-study,PASS,
+dose-data:study-level-crop,PASS,
+dose-data:study-level-soil,PASS,
+dose-data:unit-consistent,PASS,
+extdata:sha256,PASS,
+local-runtime-policy,PASS,
+model-compare:design-hashes,PASS,
+model-compare:column-space-nesting,PASS,
+model-compare:likelihood-ml-guard,PASS,
+predict-context:probability-basis,PASS,
+predict-context:metafor-prob,PASS,
+predict-context:multi-heterogeneity-guard,PASS,
+dose-response:basis-rank-guard,PASS,
+dose-response:row-provenance,PASS,
+dose-response:no-random-intercept-fallback,PASS,
+dose-response:test-generic-yi,PASS,
+dose-response:test-reference-index,PASS,
+dose-response:test-rank,PASS,
+s3:autoplot-dose,PASS,
+suggests:bayesmeta,PASS,
+suggests:BayesTools,PASS,
+suggests:RoBMA,PASS,
+suggests:brms,PASS,
+suggests:posterior,PASS,
+suggests:loo,PASS,
+dedicated-test-0.4:test-multivariate.R,PASS,
+dedicated-test-0.4:test-sensitivity-mvcor.R,PASS,
+dedicated-test-0.4:test-bayes-prior.R,PASS,
+dedicated-test-0.4:test-bayes-prior-check.R,PASS,
+dedicated-test-0.4:test-bayes-fit.R,PASS,
+dedicated-test-0.4:test-bayes-predict.R,PASS,
+dedicated-test-0.4:test-bayes-threshold.R,PASS,
+dedicated-test-0.4:test-bayes-diagnostics.R,PASS,
+dedicated-test-0.4:test-bayes-compare.R,PASS,
+dedicated-test-0.4:test-plot-multivariate.R,PASS,
+data-0.4:biochar,PASS,
+biochar-data:24-rows,PASS,
+biochar-data:3-outcomes,PASS,
+biochar-data:8-studies,PASS,
+biochar-data:effect-columns,PASS,
+bayesmeta:qposterior-arguments,PASS,
+bayesmeta:bmr-qpredict,PASS,
+robma:latent-prediction,PASS,
+brms:latent-prediction,PASS,
+brms:mean-no-random-effects,PASS,
+robma:no-predictor-standardization,PASS,
+bayestools:exp-name,PASS,
+bayestools:uniform-ab,PASS,
+bayes-threshold:two-sided-outside-band,PASS,
+bayes:heavy-backends-suggests,PASS,
+mv:sensitivity-inject,PASS,
+mv:mixmeta-ordering,PASS,
+mv:prediction-intervals,PASS,
+namespace:data-pronoun,PASS,
+s3:multivariate,PASS,
+bayes-diagnostics:verification-gate,PASS,
+bayes-compare:blocks-unverified,PASS,
+bayes-compare:robma-loo-waic,PASS,
+bayes-compare:stacking,PASS,
+s3:bayes,PASS,
+suggests-0.5:PublicationBias,PASS,
+suggests-0.5:meta,PASS,
+suggests-0.5:metasens,PASS,
+suggests-0.5:metaforest,PASS,
+suggests-0.5:orchaRd,PASS,
+suggests-0.5:caret,PASS,
+suggests-0.5:ranger,PASS,
+suggests-0.5:jsonlite,PASS,
+suggests-0.5:htmlwidgets,PASS,
+dedicated-test-0.5:test-diagnostics-influence.R,PASS,
+dedicated-test-0.5:test-diagnostics-leave-one-out.R,PASS,
+dedicated-test-0.5:test-diagnostics-gosh.R,PASS,
+dedicated-test-0.5:test-publication-bias.R,PASS,
+dedicated-test-0.5:test-plot-funnel-contour.R,PASS,
+dedicated-test-0.5:test-plot-orchard.R,PASS,
+dedicated-test-0.5:test-moderator-screen.R,PASS,
+dedicated-test-0.5:test-report.R,PASS,
+dedicated-test-0.5:test-explain.R,PASS,
+dedicated-test-0.5:test-export.R,PASS,
+diagnostics:fit-preserves-V,PASS,
+loo:failed-refits-retained,PASS,
+influence:no-auto-removal,PASS,
+gosh:seed-provenance,PASS,
+bias:caution-not-proof,PASS,
+bias:method-status,PASS,
+bias:publicationbias-adapter,PASS,
+bias:metasens-adapter,PASS,
+orchard:native-ggplot,PASS,
+metaforest:exploratory,PASS,
+metaforest:cluster-aware,PASS,
+report:no-refit-statement,PASS,
+report:provenance,PASS,
+explain:deterministic,PASS,
+export:600dpi,PASS,
+export:object-rds,PASS,
+namespace:0.5,PASS,
+dedicated-test-1.0:test-workflow.R,PASS,
+dedicated-test-1.0:test-capabilities.R,PASS,
+dedicated-test-1.0:test-doctor.R,PASS,
+namespace-1.0:apm_workflow,PASS,
+manual-1.0:apm_workflow,PASS,
+namespace-1.0:apm_capabilities,PASS,
+manual-1.0:apm_capabilities,PASS,
+namespace-1.0:apm_doctor,PASS,
+manual-1.0:apm_doctor,PASS,
+workflow:routing-log,PASS,
+workflow:shared-control-V,PASS,
+workflow:paired-explicit-guard,PASS,
+workflow:no-new-estimator,PASS,
+workflow:manual-equivalence-test,PASS,
+capabilities:registry,PASS,
+capabilities:no-install,PASS,
+doctor:non-mutating,PASS,
+doctor:status-vocabulary,PASS,
+doctor:render-gate,PASS,
+doctor:smoke-not-release,PASS,
+s3:1.0,PASS,
+vignette:1.0-integration,PASS,
+readme:stable-api,PASS,

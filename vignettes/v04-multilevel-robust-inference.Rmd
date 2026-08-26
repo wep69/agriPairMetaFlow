@@ -1,0 +1,76 @@
+---
+title: "Multilevel and robust inference for dependent agronomic evidence"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Multilevel and robust inference for dependent agronomic evidence}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse=TRUE, comment="#>")
+library(agriPairMetaFlow)
+```
+
+## Hierarchical evidence structures
+
+A paper may contain experiments, sites, years, outcomes, and several treatment-control contrasts. `apm_multilevel()` exposes this hierarchy through an agronomic interface and fits the corresponding model with `metafor::rma.mv()`.
+
+```{r}
+es <- apm_effect_size(
+  maize_n_shared, "lnRR",
+  m_t=mean_t, sd_t=sd_t, n_t=n_t,
+  m_c=mean_c, sd_c=sd_c, n_c=n_c
+)
+V <- apm_vcov(es, cluster=experiment_id)
+ml <- apm_multilevel(
+  es,
+  random=~1|study_id/effect_id,
+  V=V,
+  test="z"
+)
+ml
+```
+
+## Where does heterogeneity occur?
+
+```{r}
+apm_variance_components(ml)
+```
+
+The reported percentages describe allocation of the modeled heterogeneity components. They are not percentages of total observed variance and should not be interpreted as such.
+
+## Cluster-robust inference
+
+For meta-regression or dependent effect structures, model-based standard errors can be complemented by cluster-robust inference. The package defaults to CR2 because the bias-reduced adjustment is designed for improved small-sample performance.
+
+```{r, eval=requireNamespace("clubSandwich", quietly=TRUE)}
+irr <- apm_effect_size(
+  irrigation_climate, "lnRR",
+  m_t=mean_t, sd_t=sd_t, n_t=n_t,
+  m_c=mean_c, sd_c=sd_c, n_c=n_c
+)
+fit <- apm_fit(irr, mods=~rainfall)
+cr2 <- apm_robust(fit, cluster=study_id)
+cr2
+apm_compare_inference(fit, robust=cr2)
+```
+
+Low denominator degrees of freedom are reported because a nominally large number of effect sizes does not guarantee precise robust inference when the number or leverage distribution of independent clusters is unfavorable.
+
+## Cluster wild bootstrap
+
+The wild-bootstrap layer is optional and intentionally does not run heavy resampling during ordinary installation.
+
+```{r, eval=FALSE}
+wb <- apm_wild_bootstrap(
+  fit,
+  cluster=study_id,
+  constraints=2,
+  R=9999,
+  seed=20260826
+)
+apm_compare_inference(fit, robust=cr2, wild=wb)
+```
+
+The result stores the bootstrap distribution settings, seed, number of independent clusters, p-value, and Monte Carlo standard error. Conventional, CR2, and bootstrap inference are displayed together; the package does not choose whichever method gives the smallest p-value.
