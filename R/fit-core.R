@@ -9,7 +9,7 @@
 #' @param test Inference method supported by the backend.
 #' @param level Confidence level.
 #' @param weights Optional user weights.
-#' @param backend Backend selector; 0.1.0 uses `metafor`.
+#' @param backend Backend selector; currently `metafor`.
 #' @param ... Additional backend arguments.
 #' @return An `apm_model` retaining the backend fit and analytical provenance.
 #' @export
@@ -33,18 +33,20 @@ apm_fit <- function(effects, yi = yi, vi = vi, V = NULL, mods = ~ 1, model = c("
   if (!inherits(mods,"formula")) .apm_abort("{.arg mods} must be a formula.")
   method_use <- if(model=="common") "FE" else method
   test_use <- if(test=="knha") "knha" else test
+  extra <- list(...)
   if (is.null(V)) {
-    if (is.null(weights)) {
-      fit <- metafor::rma.uni(yi=yy,vi=vv,mods=mods,data=dfit,method=method_use,test=test_use,level=level*100,...)
-    } else {
-      fit <- metafor::rma.uni(yi=yy,vi=vv,mods=mods,data=dfit,method=method_use,test=test_use,level=level*100,weights=weights,...)
-    }
+    uni_args <- c(list(yi=yy,vi=vv,mods=mods,data=dfit,method=method_use,test=test_use,level=level*100),extra)
+    if (!is.null(weights)) uni_args$weights <- weights
+    fit <- do.call("rma.uni", uni_args, envir=asNamespace("metafor"))
+    fit$call <- as.call(c(list(quote(metafor::rma.uni)),uni_args))
   } else {
     if(!is.matrix(V)) V<-as.matrix(V); if(nrow(V)!=nrow(dat)||ncol(V)!=nrow(dat)) .apm_abort("{.arg V} must be square with one row/column per input effect.")
     if(max(abs(V-t(V)),na.rm=TRUE)>1e-10) .apm_abort("{.arg V} must be symmetric.")
     Vfit<-V[keep,keep,drop=FALSE]
-    if(test=="knha") .apm_abort("Knapp-Hartung routing with a full V matrix is not enabled in 0.1.0; use test='z' or 't'.")
-    fit <- metafor::rma.mv(yi=yy,V=Vfit,mods=mods,data=dfit,method=method_use,test=test_use,level=level*100,...)
+    if(test=="knha") .apm_abort("Knapp-Hartung routing with a full V matrix is not enabled; use test='z' or 't'.")
+    mv_args <- c(list(yi=yy,V=Vfit,mods=mods,data=dfit,method=method_use,test=test_use,level=level*100),extra)
+    fit <- do.call("rma.mv", mv_args, envir=asNamespace("metafor"))
+    fit$call <- as.call(c(list(quote(metafor::rma.mv)),mv_args))
   }
   cf<-stats::coef(fit); cv<-stats::vcov(fit)
   out<-list(backend_fit=fit,coefficients=cf,vcov=cv,V=if(is.null(V)) NULL else Vfit,heterogeneity=list(tau2=fit$tau2 %||% NA_real_,I2=fit$I2 %||% NA_real_,H2=fit$H2 %||% NA_real_,Q=fit$QE %||% NA_real_,Q_p=fit$QEp %||% NA_real_),model_matrix=fit$X %||% NULL,data=dfit,omitted=which(!keep),settings=list(model=model,method=method_use,test=test,level=level,mods=mods,backend="metafor"),measure=attr(effects,"measure") %||% if("measure"%in%names(dat)) as.character(dat$measure[1]) else "GEN",data_hash=.apm_hash_data(dfit),backend_version=.apm_backend_version("metafor"))

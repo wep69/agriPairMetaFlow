@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">agriPairMetaFlow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,9 +87,8 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example 1: complete registry.</span></span></span>
 <span class="r-in"><span><span class="fu">apm_capabilities</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_capabilities&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_capabilities&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           feature                  backend  core installed version    status</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              core         agriPairMetaFlow  TRUE      TRUE   1.0.0 AVAILABLE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              core         agriPairMetaFlow  TRUE      TRUE   1.0.1 AVAILABLE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      effect-sizes                  metafor  TRUE      TRUE   5.0.1 AVAILABLE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    random-effects                  metafor  TRUE      TRUE   5.0.1 AVAILABLE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    shared-control                  metafor  TRUE      TRUE   5.0.1 AVAILABLE</span>
@@ -106,7 +105,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  publication-bias PublicationBias/metasens FALSE      TRUE   2.4.0 AVAILABLE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  moderator-screen               metaforest FALSE      TRUE   0.1.5 AVAILABLE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       interactive       plotly/htmlwidgets FALSE      TRUE  4.12.1 AVAILABLE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           reports          rmarkdown/knitr FALSE      TRUE    2.31 AVAILABLE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           reports          rmarkdown/knitr FALSE      TRUE    2.32 AVAILABLE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       xlsx-export                openxlsx2 FALSE      TRUE    1.29 AVAILABLE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           cmdstan                 cmdstanr FALSE      TRUE   0.9.0 AVAILABLE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                             validation_status</span>
@@ -151,7 +150,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Optional capability; absence must not break the core package.</span>
 <span class="r-in"><span><span class="co"># Example 3: dose-response backend state.</span></span></span>
 <span class="r-in"><span><span class="fu">apm_capabilities</span><span class="op">(</span><span class="st">"dose-response"</span>, installed<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_capabilities&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_capabilities&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        feature    backend  core installed version    status</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  dose-response dosresmeta FALSE      TRUE   2.2.0 AVAILABLE</span>

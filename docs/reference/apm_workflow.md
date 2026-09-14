@@ -65,7 +65,6 @@ An apm_workflow retaining every intermediate object and the routing log.
 ``` r
 # Example 1: shared zero-N control.
 if (requireNamespace("clubSandwich", quietly=TRUE)) apm_workflow(maize_n_shared, measure="lnRR", dependence="shared_control", model="multilevel", robust=TRUE)
-#> Warning: Model does not contain an '~ inner | outer' term, so 'struct' argument is disregaded.
 #> <apm_workflow> measure=lnRR | dependence=shared_control | model=multilevel
 #> effects: 24 | data hash: 7389bb01e2c250f0fcacce43a835ce9d 
 #>                 step         decision

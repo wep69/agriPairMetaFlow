@@ -26,9 +26,11 @@ apm_compare_inference <- function(model, robust = NULL, wild = NULL, methods = c
   pv <- model$backend_fit$pval %||% rep(NA_real_,length(cf))
   tab<-data.frame(method="model",term=names(cf),estimate=as.numeric(cf),se=as.numeric(se),df=ddf,ci_lower=as.numeric(cf)-crit*se,ci_upper=as.numeric(cf)+crit*se,p_value=as.numeric(pv),stringsAsFactors=FALSE)
   if(!is.null(robust) && any(toupper(methods)%in%c("CR2","CR1","CR0","ROBUST"))) {
-    z<-robust$coefficients; nm<-tolower(names(z)); get<-function(pattern) {j<-grep(pattern,nm); if(length(j)) z[[j[1]]] else rep(NA_real_,nrow(z))}
-    rt<-data.frame(method=robust$type,term=z$term,estimate=get("estimate"),se=get("^se$|se"),df=get("d.f|satt"),ci_lower=NA_real_,ci_upper=NA_real_,p_value=get("p.*val"),stringsAsFactors=FALSE)
-    if(!is.null(robust$confint)&&nrow(robust$confint)==nrow(rt)) { cn<-tolower(names(robust$confint)); lo<-grep("lower",cn); hi<-grep("upper",cn); if(length(lo)) rt$ci_lower<-robust$confint[[lo[1]]]; if(length(hi)) rt$ci_upper<-robust$confint[[hi[1]]] }
+    z<-robust$coefficients; nm<-tolower(names(z)); get<-function(patterns) { for(p in patterns) { j<-grep(p,nm); if(length(j)) return(z[[j[1]]]) }; rep(NA_real_,nrow(z)) }
+    cn<-if(!is.null(robust$confint)) tolower(names(robust$confint)) else character()
+    getc<-function(patterns) { for(p in patterns) { j<-grep(p,cn); if(length(j)) return(robust$confint[[j[1]]]) }; rep(NA_real_,nrow(z)) }
+    rt<-data.frame(method=robust$type,term=z$term,estimate=get(c("^estimate$","^beta$","^coef$")),se=get(c("^se$","^std")),df=get(c("d\\.?f","satt")),ci_lower=getc(c("lower","^ci_l","ci\\.l")),ci_upper=getc(c("upper","^ci_u","ci\\.u")),p_value=get(c("p.*val","^p_")),stringsAsFactors=FALSE)
+    if(anyNA(rt$estimate)) .apm_warn("Could not map robust estimates from the {robust$backend} object.")
     tab<-rbind(tab,rt)
   }
   if(!is.null(wild)&&"wild"%in%tolower(methods)) tab<-rbind(tab,data.frame(method="wild",term="joint_test",estimate=NA,se=NA,df=NA,ci_lower=NA,ci_upper=NA,p_value=wild$p_value,stringsAsFactors=FALSE))

@@ -14,7 +14,7 @@
     fit <- RoBMA::add_waic(fit)
     return(loo::waic(fit))
   }
-  .apm_abort("LOO/WAIC comparison is available for brms and RoBMA backends in version 0.4.0; bayesmeta does not expose the required pointwise predictive log-likelihood through this adapter.")
+  .apm_abort("LOO/WAIC comparison is available for brms and RoBMA backends; bayesmeta does not expose the required pointwise predictive log-likelihood through this adapter.")
 }
 
 #' Compare prespecified Bayesian meta-analytic models
@@ -69,7 +69,7 @@ apm_bayes_compare <- function(..., criterion = c("loo", "waic", "model_probabili
     }
     native<-objs
   } else {
-    if(length(models)!=1L || models[[1]]$backend!="RoBMA") .apm_abort("criterion='model_probability' expects one RoBMA model-averaging object in version 0.4.0.")
+    if(length(models)!=1L || models[[1]]$backend!="RoBMA") .apm_abort("criterion='model_probability' expects one RoBMA model-averaging object.")
     .apm_require("RoBMA","posterior model probabilities")
     sm<-tryCatch(RoBMA::summary_models(models[[1]]$backend_fit,type="individual",include_mcmc_diagnostics=TRUE),error=function(e)e)
     if(inherits(sm,"error")) .apm_abort("Could not obtain RoBMA model probabilities: {conditionMessage(sm)}")

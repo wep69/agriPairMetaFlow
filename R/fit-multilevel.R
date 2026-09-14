@@ -26,7 +26,10 @@ apm_multilevel <- function(effects, random = ~ 1 | study_id/effect_id, V = NULL,
   if(is.null(V)) V<-diag(dat$vi) else V<-as.matrix(V)
   if(!all(dim(V)==c(nrow(dat),nrow(dat)))) .apm_abort("{.arg V} must be square with one row and column per effect.")
   if(max(abs(V-t(V)),na.rm=TRUE)>1e-10) .apm_abort("{.arg V} must be symmetric.")
-  fit<-metafor::rma.mv(yi=dat$yi,V=V,mods=mods,random=random,struct=struct,data=dat,method=method,test=test,dfs=dfs,...)
+  mv_args<-c(list(yi=dat$yi,V=V,mods=mods,random=random,struct=struct,data=dat,method=method,test=test,dfs=dfs),list(...))
+  fit<-withCallingHandlers(
+    { z<-do.call("rma.mv",mv_args,envir=asNamespace("metafor")); z$call<-as.call(c(list(quote(metafor::rma.mv)),mv_args)); z },
+    warning=function(w) { msg<-conditionMessage(w); if(grepl("struct",msg)&&grepl("inner",msg)) invokeRestart("muffleWarning") })
   out<-list(backend_fit=fit,coefficients=stats::coef(fit),vcov=stats::vcov(fit),heterogeneity=list(sigma2=fit$sigma2 %||% numeric(),tau2=fit$tau2 %||% numeric(),rho=fit$rho %||% numeric(),gamma2=fit$gamma2 %||% numeric(),phi=fit$phi %||% numeric(),QE=fit$QE %||% NA_real_,QEp=fit$QEp %||% NA_real_),model_matrix=fit$X %||% NULL,data=dat,V=V,omitted=integer(),settings=list(random=random,mods=mods,struct=struct,method=method,test=test,dfs=dfs,level=.95,backend="metafor"),measure=attr(effects,"measure") %||% "GEN",data_hash=.apm_hash_data(dat),backend_version=.apm_backend_version("metafor"))
   class(out)<-c("apm_multilevel","apm_model"); out
 }

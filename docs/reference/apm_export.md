@@ -30,5 +30,4 @@ apm_export(apm_fit(agri_effects_benchmark), tempfile(fileext=".rds"), format="rd
 apm_export(apm_table(apm_fit(agri_effects_benchmark)), tempfile(fileext=".csv"), format="csv", overwrite=TRUE)
 # Example 3: publication-resolution forest figure.
 apm_export(apm_forest(apm_fit(agri_effects_benchmark)), tempfile(fileext=".tiff"), format="tiff", dpi=600, overwrite=TRUE)
-#> `height` was translated to `width`.
 ```

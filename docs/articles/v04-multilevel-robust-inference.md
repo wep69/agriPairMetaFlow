@@ -23,8 +23,6 @@ ml <- apm_multilevel(
   V=V,
   test="z"
 )
-#> Warning: Model does not contain an '~ inner | outer' term, so 'struct' argument
-#> is disregaded.
 ml
 #> <apm_multilevel> measure=lnRR
 #>     term   estimate
@@ -75,11 +73,16 @@ cr2
 #>  rainfall
 apm_compare_inference(fit, robust=cr2)
 #> <apm_inference_comparison> transform=exp
-#>  method     term  estimate           se       df  ci_lower ci_upper     p_value
-#>   model  intrcpt 1.1873200 5.440005e-02       NA 1.0672406 1.320910 0.001598273
-#>   model rainfall 0.9999129 5.435964e-05       NA 0.9998063 1.000019 0.108932159
-#>     CR2  intrcpt        NA 1.609137e-02 9.700281        NA       NA          NA
-#>     CR2 rainfall        NA 1.553660e-05 9.998807        NA       NA          NA
+#>  method     term  estimate           se       df  ci_lower  ci_upper
+#>   model  intrcpt 1.1873200 5.440005e-02       NA 1.0672406 1.3209098
+#>   model rainfall 0.9999129 5.435964e-05       NA 0.9998063 1.0000194
+#>     CR2  intrcpt 1.1873200 1.609137e-02 9.700281 1.1453315 1.2308478
+#>     CR2 rainfall 0.9999129 1.553660e-05 9.998807 0.9998783 0.9999475
+#>       p_value
+#>  1.598273e-03
+#>  1.089322e-01
+#>  1.127858e-06
+#>  2.250742e-04
 ```
 
 Low denominator degrees of freedom are reported because a nominally

@@ -1,3 +1,41 @@
+# agriPairMetaFlow 1.0.1
+
+Patch release addressing all 21 findings of an independent execution audit of
+version 1.0.0 (report `RELATORIO-AO-AUTOR.md`, audit date 2026-09-14).
+
+**High severity.** `seed` arguments in `apm_workflow()` and `apm_prior_check()`
+no longer hijack the global RNG (state is saved and restored).
+`apm_rho_sensitivity()` returns fitted rows instead of failing every
+repetition (`<<-` inside `tryCatch` removed; failures now warn at top level).
+`apm_moderator_screen()` runs with its documented defaults. Fitted
+`backend_fit$call` objects are re-evaluable again, which also repairs
+`apm_wild_bootstrap()` end to end (plus a conventional-call shim at the
+wildmeta boundary and `coefs` passed to `constrain_zero()`).
+`apm_vcov(sparse = TRUE)` preserves the sparse S4 object instead of degrading
+it.
+
+**Medium severity.** `apm_compare_inference()` maps robust `beta`/`CI_L`/`CI_U`
+columns. `apm_forest()` de-duplicates default labels and accepts a subgroup
+column name or vector. `apm_influence()` auto-promotes to `unit = "effect"`
+for `baujat`/`radial` plots. `apm_curve_features()` and
+`apm_marginal_effects()` run with default argument combinations.
+`apm_predict_context()` computes threshold probabilities by normal
+approximation instead of delegating an unsupported `prob` argument to the
+backend. The `apm_bayes()` refusal message is emittable (escaped cli
+braces). `apm_prediction(method =)` is restricted to the supported
+`"model"`.
+
+**Low severity.** Figure export is quiet (`height` honoured, draw-time message
+muffled). User-facing messages no longer cite development versions.
+`apm_capabilities()` class assigned once. `tidy.apm_model()` gains
+`statistic`/`p.value`. `confint.apm_model()` defaults to coefficients with
+`parm = c("coef", "heterogeneity")`. New `as.data.frame.apm_data()`.
+`min_studies` documented as a warning threshold. The spurious metafor
+`struct` warning is muffled. `apm_bayes_diagnostics()` falls back to serial
+PPC when parallel workers lack the package library.
+
+Regression tests in `tests/testthat/test-audit-fixes.R` cover every item.
+
 # agriPairMetaFlow 1.0.0
 
 **Data de validação:** 2026-08-26 — validação local completa com toolchain R 4.6.0, metafor 5.0.1, bayesmeta 3.5, brms 2.23.0, JAGS 4.3.1, CmdStan 2.37.0. Correções aplicadas: DESCRIPTION (email maintainer), R/capabilities.R (ase::package_version), R/fit-core.R (weights=NULL handling), R/diagnostics-influence.R (stats::influence). Status: desenvolvimento 1.0.0.9000 promovido a formal 1.0.0 após gates locais; vignettes com 10/17 falhas conhecidas documentadas para correção pós-release.

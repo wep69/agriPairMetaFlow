@@ -27,8 +27,8 @@ apm_audit(maize_n_shared, level = "full")
 #>  8 study/experiment control arm(s) are reused across multiple treatment contrasts.
 #>  rows
 #>  <NA>
-#>                                                                                               action
-#>  Model sampling dependence in version 0.2.0 or use one independent contrast per experiment in 0.1.0.
+#>                                                                                     action
+#>  Model sampling dependence with apm_vcov() or use one independent contrast per experiment.
 # Example 2: identify heterogeneous uncertainty reporting.
 apm_audit(agri_uncertainty_mixed, level = "full")
 #> <apm_audit>

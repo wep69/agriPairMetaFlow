@@ -4,15 +4,31 @@ summary.apm_model <- function(object, ...) {
 }
 coef.apm_model <- function(object, ...) stats::coef(object$backend_fit, ...)
 vcov.apm_model <- function(object, ...) stats::vcov(object$backend_fit, ...)
-confint.apm_model <- function(object, ...) stats::confint(object$backend_fit, ...)
+confint.apm_model <- function(object, parm = c("coef", "heterogeneity"), level = 0.95, ...) {
+  parm <- match.arg(parm)
+  if (identical(parm, "heterogeneity")) return(stats::confint(object$backend_fit, ...))
+  cf <- stats::coef(object$backend_fit); se <- sqrt(diag(stats::vcov(object$backend_fit)))
+  a <- (1 - level) / 2
+  lo_nm <- paste0(format(100 * a, digits = 4L), " %"); hi_nm <- paste0(format(100 * (1 - a), digits = 4L), " %")
+  crit <- stats::qnorm(1 - a)
+  out <- cbind(cf - crit * se, cf + crit * se)
+  colnames(out) <- c(lo_nm, hi_nm)
+  out
+}
 predict.apm_model <- function(object, ...) apm_prediction(object, ...)
 as.data.frame.apm_effects <- function(x, row.names = NULL, optional = FALSE, ...) { class(x)<-setdiff(class(x),"apm_effects"); as.data.frame(x,row.names=row.names,optional=optional,...) }
+as.data.frame.apm_data <- function(x, row.names = NULL, optional = FALSE, ...) { as.data.frame(x$data,row.names=row.names,optional=optional,...) }
 autoplot.apm_model <- function(object, type=c("forest","funnel"), ...) { type<-match.arg(type); if(type=="forest") apm_forest(object,...) else apm_funnel(object,...) }
 
 
 tidy.apm_model <- function(x, ...) {
   tab <- apm_table(x, component = "model", transform = "none", digits = 15)
-  attr(tab, "apm_unrounded") %||% tab
+  tab <- attr(tab, "apm_unrounded") %||% tab
+  zv <- tryCatch(as.numeric(x$backend_fit$zval), error = function(e) NULL)
+  pv <- tryCatch(as.numeric(x$backend_fit$pval), error = function(e) NULL)
+  tab$statistic <- if (!is.null(zv) && length(zv) == nrow(tab)) zv else NA_real_
+  tab$p.value <- if (!is.null(pv) && length(pv) == nrow(tab)) pv else NA_real_
+  tab
 }
 
 glance.apm_model <- function(x, ...) {
@@ -61,7 +77,7 @@ summary.apm_dose <- function(object, ...) {
 print.summary.apm_dose <- function(x, ...) { cat("<summary.apm_dose> backend=",x$backend,"\n",sep="");print(x$coefficients,row.names=FALSE);cat("Covariance source:",x$covariance$source,"\n");invisible(x) }
 predict.apm_dose <- function(object, newdata = NULL, level = 0.95, transform = c("auto","none","exp","percent"), ...) {
   transform<-match.arg(transform)
-  if(!is.null(object$dose_info$moderators)) .apm_abort("Generic prediction for dose-response meta-regression requires an explicit moderator-aware prediction route; use the backend object during 0.3.0 local validation.")
+  if(!is.null(object$dose_info$moderators)) .apm_abort("Generic prediction for dose-response meta-regression requires an explicit moderator-aware prediction route; use the backend object directly.")
   if(is.null(newdata)) {
     raw<-object$prediction_grid
     if(is.null(raw)) .apm_abort("No stored dose-response prediction grid is available.")

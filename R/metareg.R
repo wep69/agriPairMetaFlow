@@ -71,15 +71,21 @@ apm_metareg <- function(effects, moderators, V = NULL, random = NULL, method = "
   extra <- list(...)
   if (use_mv) {
     if (is.null(Vfit)) Vfit <- diag(dat$vi)
-    fit <- do.call(metafor::rma.mv, c(list(yi = dat$yi, V = Vfit, mods = mods, random = random,
-      data = dat, method = method, test = test), extra))
-    null_fit <- tryCatch(do.call(metafor::rma.mv, c(list(yi = dat$yi, V = Vfit, mods = ~ 1,
-      random = random, data = dat, method = method, test = test), extra)), error = function(e) NULL)
+    mv_args <- c(list(yi = dat$yi, V = Vfit, mods = mods, random = random,
+      data = dat, method = method, test = test), extra)
+    fit <- do.call("rma.mv", mv_args, envir = asNamespace("metafor"))
+    fit$call <- as.call(c(list(quote(metafor::rma.mv)), mv_args))
+    null_args <- c(list(yi = dat$yi, V = Vfit, mods = ~ 1,
+      random = random, data = dat, method = method, test = test), extra)
+    null_fit <- tryCatch({ z <- do.call("rma.mv", null_args, envir = asNamespace("metafor")); z$call <- as.call(c(list(quote(metafor::rma.mv)), null_args)); z }, error = function(e) NULL)
   } else {
-    fit <- do.call(metafor::rma.uni, c(list(yi = dat$yi, vi = dat$vi, mods = mods,
-      data = dat, method = method, test = test), extra))
-    null_fit <- tryCatch(do.call(metafor::rma.uni, c(list(yi = dat$yi, vi = dat$vi, mods = ~ 1,
-      data = dat, method = method, test = test), extra)), error = function(e) NULL)
+    uni_args <- c(list(yi = dat$yi, vi = dat$vi, mods = mods,
+      data = dat, method = method, test = test), extra)
+    fit <- do.call("rma.uni", uni_args, envir = asNamespace("metafor"))
+    fit$call <- as.call(c(list(quote(metafor::rma.uni)), uni_args))
+    null0_args <- c(list(yi = dat$yi, vi = dat$vi, mods = ~ 1,
+      data = dat, method = method, test = test), extra)
+    null_fit <- tryCatch({ z <- do.call("rma.uni", null0_args, envir = asNamespace("metafor")); z$call <- as.call(c(list(quote(metafor::rma.uni)), null0_args)); z }, error = function(e) NULL)
   }
 
   prep$model_matrix_colnames <- colnames(stats::model.matrix(mods, data = dat))

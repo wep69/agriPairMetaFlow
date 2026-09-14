@@ -4,6 +4,6 @@ test_that("rho sensitivity equals direct V plus fit at each rho", {
   a <- apm_rho_sensitivity(es,rho=c(.25,.5),build_vcov=list(cluster="study_id",type="outcome"))
   V <- apm_vcov(es,cluster=study_id,type=outcome,rho=.25,shared_control=FALSE)
   b <- apm_fit(es,V=V)
-  expect_equal(a$results$estimate[1],as.numeric(coef(b)[1]),tolerance=1e-8)
-  expect_equal(a$results$se[1],sqrt(diag(vcov(b)))[1],tolerance=1e-8)
+  expect_equal(unname(a$results$estimate[1]),unname(as.numeric(coef(b)[1])),tolerance=1e-8)
+  expect_equal(unname(a$results$se[1]),unname(sqrt(diag(vcov(b)))[1]),tolerance=1e-8)
 })

@@ -31,7 +31,7 @@ apm_pair_vcov <- function(effects, pair_id, r, structure = c("paired", "compound
         blocks <- split(seq_len(k), pid)
         for (ii in blocks) if(length(ii)>1L) R[ii,ii] <- matrix(r,length(ii),length(ii)) + diag(1-r,length(ii))
       } else {
-        .apm_abort("For transparent covariance construction, {.arg r} must be a scalar correlation or an explicit correlation matrix in version 0.2.0.")
+        .apm_abort("For transparent covariance construction, {.arg r} must be a scalar correlation or an explicit correlation matrix.")
       }
     }
     sdv <- sqrt(dat$vi); V <- diag(sdv) %*% R %*% diag(sdv)

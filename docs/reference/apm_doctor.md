@@ -91,7 +91,7 @@ apm_doctor()
 #>                                               AVAILABLE ; version 2.4.0
 #>                                               AVAILABLE ; version 0.1.5
 #>                                              AVAILABLE ; version 4.12.1
-#>                                                AVAILABLE ; version 2.31
+#>                                                AVAILABLE ; version 2.32
 #>                                                AVAILABLE ; version 1.29
 #>                                               AVAILABLE ; version 0.9.0
 #>                                                      check_render=FALSE
@@ -185,14 +185,14 @@ apm_doctor(full=TRUE, check_backends=TRUE)
 #>                                                                                                    AVAILABLE ; version 2.4.0
 #>                                                                                                    AVAILABLE ; version 0.1.5
 #>                                                                                                   AVAILABLE ; version 4.12.1
-#>                                                                                                     AVAILABLE ; version 2.31
+#>                                                                                                     AVAILABLE ; version 2.32
 #>                                                                                                     AVAILABLE ; version 1.29
 #>                                                                                                    AVAILABLE ; version 0.9.0
 #>                                                                                                           check_render=FALSE
 #>                                                       check_examples=FALSE; formal testthat remains a separate release gate.
 #>  LC_COLLATE=C;LC_CTYPE=Portuguese_Brazil.utf8;LC_MONETARY=Portuguese_Brazil.utf8;LC_NUMERIC=C;LC_TIME=Portuguese_Brazil.utf8
 #>                                                                                                           x86_64-w64-mingw32
-#>                                                                           C:\\Users\\wep69\\AppData\\Local\\Temp\\RtmpcjLDfO
+#>                                                                           C:\\Users\\wep69\\AppData\\Local\\Temp\\RtmpkZHCoR
 #>  remediation
 #>         <NA>
 #>         <NA>
@@ -228,6 +228,8 @@ apm_doctor(full=TRUE, check_backends=TRUE)
 #> Environment mutated: FALSE 
 # Example 3: release-machine diagnosis.
 apm_doctor(full=TRUE, check_render=TRUE, check_examples=TRUE)
+#> Warning: package 'future' was built under R version 4.6.1
+#> Warning: package 'Matrix' was built under R version 4.6.1
 #> <apm_doctor> CORE PASS 
 #>                              check status            scope
 #>                          R version   PASS             core
@@ -259,6 +261,7 @@ apm_doctor(full=TRUE, check_render=TRUE, check_examples=TRUE)
 #>                             Pandoc   PASS           render
 #>                             Quarto   PASS           render
 #>                     core smoke fit   PASS            smoke
+#>               optional-route smoke   PASS            smoke
 #>                             locale   PASS  reproducibility
 #>                           platform   PASS  reproducibility
 #>                temporary directory   PASS  reproducibility
@@ -286,16 +289,18 @@ apm_doctor(full=TRUE, check_render=TRUE, check_examples=TRUE)
 #>                                                                                                    AVAILABLE ; version 2.4.0
 #>                                                                                                    AVAILABLE ; version 0.1.5
 #>                                                                                                   AVAILABLE ; version 4.12.1
-#>                                                                                                     AVAILABLE ; version 2.31
+#>                                                                                                     AVAILABLE ; version 2.32
 #>                                                                                                     AVAILABLE ; version 1.29
 #>                                                                                                    AVAILABLE ; version 0.9.0
 #>                                                                                                                  version 3.9
 #>                                                                                        C:\\PROGRA~1\\Quarto\\bin\\quarto.exe
 #>                                                                                      Random-effects benchmark fit completed.
+#>                                                            Backend calls are re-evaluable and the wild-bootstrap route runs.
 #>  LC_COLLATE=C;LC_CTYPE=Portuguese_Brazil.utf8;LC_MONETARY=Portuguese_Brazil.utf8;LC_NUMERIC=C;LC_TIME=Portuguese_Brazil.utf8
 #>                                                                                                           x86_64-w64-mingw32
-#>                                                                           C:\\Users\\wep69\\AppData\\Local\\Temp\\RtmpcjLDfO
+#>                                                                           C:\\Users\\wep69\\AppData\\Local\\Temp\\RtmpkZHCoR
 #>  remediation
+#>         <NA>
 #>         <NA>
 #>         <NA>
 #>         <NA>

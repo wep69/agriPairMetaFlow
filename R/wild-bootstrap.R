@@ -22,11 +22,17 @@ apm_wild_bootstrap <- function(model, cluster, constraints = NULL, R = 9999, see
   dat<-model$data; qc<-rlang::enquo(cluster); cl<-.apm_pull_quo(dat,qc,"cluster",TRUE)
   cf<-stats::coef(model$backend_fit); p<-length(cf)
   C<-constraints
-  if(is.null(C)) { idx<-if(p==1L) 1L else seq.int(2L,p); C<-clubSandwich::constrain_zero(idx) }
-  else if(is.character(C)) { idx<-grep(paste(C,collapse="|"),names(cf)); if(!length(idx)) .apm_abort("No coefficient matched {.arg constraints}."); C<-clubSandwich::constrain_zero(idx) }
-  else if(is.numeric(C)) C<-clubSandwich::constrain_zero(C)
+  if(is.null(C)) { idx<-if(p==1L) 1L else seq.int(2L,p); C<-clubSandwich::constrain_zero(idx,coefs=cf) }
+  else if(is.character(C)) { idx<-grep(paste(C,collapse="|"),names(cf)); if(!length(idx)) .apm_abort("No coefficient matched {.arg constraints}."); C<-clubSandwich::constrain_zero(idx,coefs=cf) }
+  else if(is.numeric(C)) C<-clubSandwich::constrain_zero(C,coefs=cf)
   if(isTRUE(parallel)) .apm_warn("Parallel execution is delegated to wildmeta/future and is not configured automatically in this development snapshot.")
-  ans<-wildmeta::Wald_test_cwb(full_model=model$backend_fit,constraints=C,R=as.integer(R),cluster=cl,auxiliary_dist=type,seed=seed)
+  bm<-model$backend_fit
+  # wildmeta rebuilds bootstrap fits from full_model$call and requires call$yi
+  # to be a bare symbol; our stored calls embed self-contained values so that
+  # stats::update() works anywhere. Present wildmeta with an equivalent
+  # conventional call on a copy; fitted values are untouched.
+  bm$call$yi<-quote(yi); bm$call$vi<-quote(vi)
+  ans<-wildmeta::Wald_test_cwb(full_model=bm,constraints=C,R=as.integer(R),cluster=cl,auxiliary_dist=type,seed=seed)
   tab<-as.data.frame(ans)
   pcol<-grep("p",tolower(names(tab)),value=TRUE); pval<-if(length(pcol)) suppressWarnings(as.numeric(tab[[pcol[length(pcol)]]][1])) else NA_real_
   mcse<-if(is.finite(pval)) sqrt(pval*(1-pval)/R) else NA_real_

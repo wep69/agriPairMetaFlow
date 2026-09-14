@@ -21,13 +21,13 @@ test_that("predictive threshold probability is not guessed for multiple heteroge
   expect_match(a$probability_basis,"multiple heterogeneity components")
 })
 
-test_that("threshold probability delegates to metafor predictive distribution", {
+test_that("threshold probability uses a normal approximation on the prediction distribution", {
   es <- apm_effect_size(irrigation_climate,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,m_c=mean_c,sd_c=sd_c,n_c=n_c)
   m <- apm_metareg(es,~rainfall,center=TRUE,test="z")
   nd <- data.frame(rainfall=c(700,1000))
-  a <- apm_predict_context(m,nd,threshold=0,transform="none",prediction=TRUE)
-  X <- matrix(nd$rainfall-mean(es$rainfall),ncol=1)
-  b <- predict(m$backend_fit,newmods=X,prob=">0")
-  expect_equal(a$table$probability_above_threshold,as.numeric(b$prob),tolerance=1e-10)
-  expect_identical(a$probability_basis,"metafor predictive distribution")
+  a <- expect_no_warning(apm_predict_context(m,nd,threshold=0,transform="none",prediction=TRUE))
+  pr <- a$raw
+  sd_pred <- sqrt(pr$se^2 + m$backend_fit$tau2)
+  expect_equal(a$table$probability_above_threshold,stats::pnorm((pr$pred-0)/sd_pred),tolerance=1e-10)
+  expect_identical(a$probability_basis,"normal approximation on the prediction distribution")
 })

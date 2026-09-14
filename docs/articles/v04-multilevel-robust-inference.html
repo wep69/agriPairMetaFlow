@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">agriPairMetaFlow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,8 +109,6 @@ model with <code><a href="https://wviechtb.github.io/metafor/reference/rma.mv.ht
 <span>  V<span class="op">=</span><span class="va">V</span>,</span>
 <span>  test<span class="op">=</span><span class="st">"z"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Model does not contain an '~ inner | outer' term, so 'struct' argument</span></span>
-<span><span class="co">#&gt; is disregaded.</span></span>
 <span><span class="va">ml</span></span>
 <span><span class="co">#&gt; &lt;apm_multilevel&gt; measure=lnRR</span></span>
 <span><span class="co">#&gt;     term   estimate</span></span>
@@ -157,11 +155,16 @@ for improved small-sample performance.</p>
 <span><span class="co">#&gt;  rainfall</span></span>
 <span><span class="fu"><a href="../reference/apm_compare_inference.html">apm_compare_inference</a></span><span class="op">(</span><span class="va">fit</span>, robust<span class="op">=</span><span class="va">cr2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;apm_inference_comparison&gt; transform=exp</span></span>
-<span><span class="co">#&gt;  method     term  estimate           se       df  ci_lower ci_upper     p_value</span></span>
-<span><span class="co">#&gt;   model  intrcpt 1.1873200 5.440005e-02       NA 1.0672406 1.320910 0.001598273</span></span>
-<span><span class="co">#&gt;   model rainfall 0.9999129 5.435964e-05       NA 0.9998063 1.000019 0.108932159</span></span>
-<span><span class="co">#&gt;     CR2  intrcpt        NA 1.609137e-02 9.700281        NA       NA          NA</span></span>
-<span><span class="co">#&gt;     CR2 rainfall        NA 1.553660e-05 9.998807        NA       NA          NA</span></span></code></pre></div>
+<span><span class="co">#&gt;  method     term  estimate           se       df  ci_lower  ci_upper</span></span>
+<span><span class="co">#&gt;   model  intrcpt 1.1873200 5.440005e-02       NA 1.0672406 1.3209098</span></span>
+<span><span class="co">#&gt;   model rainfall 0.9999129 5.435964e-05       NA 0.9998063 1.0000194</span></span>
+<span><span class="co">#&gt;     CR2  intrcpt 1.1873200 1.609137e-02 9.700281 1.1453315 1.2308478</span></span>
+<span><span class="co">#&gt;     CR2 rainfall 0.9999129 1.553660e-05 9.998807 0.9998783 0.9999475</span></span>
+<span><span class="co">#&gt;       p_value</span></span>
+<span><span class="co">#&gt;  1.598273e-03</span></span>
+<span><span class="co">#&gt;  1.089322e-01</span></span>
+<span><span class="co">#&gt;  1.127858e-06</span></span>
+<span><span class="co">#&gt;  2.250742e-04</span></span></code></pre></div>
 <p>Low denominator degrees of freedom are reported because a nominally
 large number of effect sizes does not guarantee precise robust inference
 when the number or leverage distribution of independent clusters is

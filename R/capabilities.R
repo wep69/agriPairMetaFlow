@@ -121,7 +121,7 @@ apm_capabilities <- function(feature = NULL, installed = TRUE, detail = c("summa
   if (detail == "summary") {
     keep <- c("feature","backend","core","installed","version","status","validation_status")
     reg <- reg[, keep, drop = FALSE]
-    class(reg) <- c("apm_capabilities", class(reg))
+    class(reg) <- unique(c("apm_capabilities", class(reg)))
   }
   reg
 }

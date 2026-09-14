@@ -34,11 +34,11 @@ apm_effect_size <- function(data, measure = c("lnRR", "MD", "SMD", "VR", "CVR", 
     if (is.null(x$yi)||is.null(x$vi)) .apm_abort("GEN requires {.arg yi} and {.arg vi}.")
     es <- data.frame(yi=as.numeric(x$yi),vi=as.numeric(x$vi)); backend_measure<-"GEN"
   } else if (measure=="ZCOR") {
-    if (design=="paired") .apm_abort("ZCOR is not routed through the paired treatment-control registry in version 0.1.0.")
+    if (design=="paired") .apm_abort("ZCOR is not routed through the paired treatment-control registry.")
     if (is.null(x$r)||is.null(x$n_t)) .apm_abort("ZCOR requires {.arg r} and {.arg n_t}.")
     es <- metafor::escalc(measure="ZCOR", ri=x$r, ni=x$n_t); backend_measure<-"ZCOR"
   } else if (measure %in% c("RR","OR","RD")) {
-    if (design=="paired") .apm_abort("Paired binary measures require paired 2x2 cell counts, which are scheduled for the binary extension; use independent binary summaries in 0.1.0.")
+    if (design=="paired") .apm_abort("Paired binary measures require paired 2x2 cell counts, which are scheduled for the binary extension; use independent binary summaries.")
     if (any(vapply(x[c("event_t","event_c","n_t","n_c")],is.null,logical(1)))) .apm_abort("Binary effects require event_t, event_c, n_t, and n_c.")
     if (any(x$event_t<0|x$event_t>x$n_t|x$event_c<0|x$event_c>x$n_c,na.rm=TRUE)) .apm_abort("Event counts must lie between zero and their arm totals.")
     es <- metafor::escalc(measure=measure, ai=x$event_t, bi=x$n_t-x$event_t, ci=x$event_c, di=x$n_c-x$event_c); backend_measure<-measure

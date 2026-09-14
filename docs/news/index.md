@@ -1,5 +1,61 @@
 # Changelog
 
+## agriPairMetaFlow 1.0.1
+
+Patch release addressing all 21 findings of an independent execution
+audit of version 1.0.0 (report `RELATORIO-AO-AUTOR.md`, audit date
+2026-09-14).
+
+**High severity.** `seed` arguments in
+[`apm_workflow()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_workflow.md)
+and
+[`apm_prior_check()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_prior_check.md)
+no longer hijack the global RNG (state is saved and restored).
+[`apm_rho_sensitivity()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_rho_sensitivity.md)
+returns fitted rows instead of failing every repetition (`<<-` inside
+`tryCatch` removed; failures now warn at top level).
+[`apm_moderator_screen()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_moderator_screen.md)
+runs with its documented defaults. Fitted `backend_fit$call` objects are
+re-evaluable again, which also repairs
+[`apm_wild_bootstrap()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_wild_bootstrap.md)
+end to end (plus a conventional-call shim at the wildmeta boundary and
+`coefs` passed to `constrain_zero()`). `apm_vcov(sparse = TRUE)`
+preserves the sparse S4 object instead of degrading it.
+
+**Medium severity.**
+[`apm_compare_inference()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_compare_inference.md)
+maps robust `beta`/`CI_L`/`CI_U` columns.
+[`apm_forest()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_forest.md)
+de-duplicates default labels and accepts a subgroup column name or
+vector.
+[`apm_influence()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_influence.md)
+auto-promotes to `unit = "effect"` for `baujat`/`radial` plots.
+[`apm_curve_features()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_curve_features.md)
+and
+[`apm_marginal_effects()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_marginal_effects.md)
+run with default argument combinations.
+[`apm_predict_context()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_predict_context.md)
+computes threshold probabilities by normal approximation instead of
+delegating an unsupported `prob` argument to the backend. The
+[`apm_bayes()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_bayes.md)
+refusal message is emittable (escaped cli braces).
+`apm_prediction(method =)` is restricted to the supported `"model"`.
+
+**Low severity.** Figure export is quiet (`height` honoured, draw-time
+message muffled). User-facing messages no longer cite development
+versions.
+[`apm_capabilities()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_capabilities.md)
+class assigned once. `tidy.apm_model()` gains `statistic`/`p.value`.
+`confint.apm_model()` defaults to coefficients with
+`parm = c("coef", "heterogeneity")`. New `as.data.frame.apm_data()`.
+`min_studies` documented as a warning threshold. The spurious metafor
+`struct` warning is muffled.
+[`apm_bayes_diagnostics()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_bayes_diagnostics.md)
+falls back to serial PPC when parallel workers lack the package library.
+
+Regression tests in `tests/testthat/test-audit-fixes.R` cover every
+item.
+
 ## agriPairMetaFlow 1.0.0
 
 **Data de validação:** 2026-08-26 — validação local completa com

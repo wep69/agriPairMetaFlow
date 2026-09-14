@@ -55,11 +55,17 @@ apm_metareg_curve <- function(effects, x, form = c("linear", "quadratic", "cubic
   if(!is.null(random)&&!inherits(random,"formula")) .apm_abort("{.arg random} must be a formula.")
   if(use_mv) {
     if(is.null(Vfit)) Vfit<-diag(dat$vi)
-    fit<-metafor::rma.mv(yi=dat$yi,V=Vfit,mods=mods,random=random,data=dat,method=method,test="t")
-    null_fit<-tryCatch(metafor::rma.mv(yi=dat$yi,V=Vfit,mods=~1,random=random,data=dat,method=method,test="t"),error=function(e)NULL)
+    mv_args<-list(yi=dat$yi,V=Vfit,mods=mods,random=random,data=dat,method=method,test="t")
+    fit<-do.call("rma.mv",mv_args,envir=asNamespace("metafor"))
+    fit$call<-as.call(c(list(quote(metafor::rma.mv)),mv_args))
+    null_args<-list(yi=dat$yi,V=Vfit,mods=~1,random=random,data=dat,method=method,test="t")
+    null_fit<-tryCatch({ z<-do.call("rma.mv",null_args,envir=asNamespace("metafor")); z$call<-as.call(c(list(quote(metafor::rma.mv)),null_args)); z },error=function(e)NULL)
   } else {
-    fit<-metafor::rma.uni(yi=dat$yi,vi=dat$vi,mods=mods,data=dat,method=method,test="t")
-    null_fit<-tryCatch(metafor::rma.uni(yi=dat$yi,vi=dat$vi,mods=~1,data=dat,method=method,test="t"),error=function(e)NULL)
+    uni_args<-list(yi=dat$yi,vi=dat$vi,mods=mods,data=dat,method=method,test="t")
+    fit<-do.call("rma.uni",uni_args,envir=asNamespace("metafor"))
+    fit$call<-as.call(c(list(quote(metafor::rma.uni)),uni_args))
+    null0_args<-list(yi=dat$yi,vi=dat$vi,mods=~1,data=dat,method=method,test="t")
+    null_fit<-tryCatch({ z<-do.call("rma.uni",null0_args,envir=asNamespace("metafor")); z$call<-as.call(c(list(quote(metafor::rma.uni)),null0_args)); z },error=function(e)NULL)
   }
   info<-list(variables=xname,centers=setNames(center,xname),scales=setNames(1,xname),factor_levels=list(),
     support=setNames(list(list(type="numeric",min=boundary[1],max=boundary[2],unique=length(unique(xv)))),xname),

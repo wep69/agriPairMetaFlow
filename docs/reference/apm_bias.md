@@ -46,8 +46,11 @@ apm_bias(apm_fit(agri_effects_benchmark), methods=c("trimfill","selection"))
 #> Small-study effects and funnel asymmetry have multiple causes. No bias-adjusted result is automatically preferred over the primary model. 
 # Example 3: S-value when PublicationBias is installed.
 if (requireNamespace("PublicationBias",quietly=TRUE)) apm_bias(apm_fit(agri_effects_benchmark), methods="svalue", q=0, favor="positive")
+#> Warning: NAs introduced by coercion
 #> <apm_bias>
-#>  method estimate p_value                                  note
-#>  svalue       NA      NA there is no package called 'metabias'
+#>  method estimate p_value
+#>  svalue       NA      NA
+#>                                                                     note
+#>  Sensitivity to an explicitly specified selective-publication mechanism.
 #> Small-study effects and funnel asymmetry have multiple causes. No bias-adjusted result is automatically preferred over the primary model. 
 ```

@@ -1,7 +1,7 @@
 Package: agriPairMetaFlow
 Type: Package
 Title: Treatment-Control Meta-Analysis Workflows for Agronomy
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
     person(given = "Walter Esfrain", family = "Pereira",
            email = "walterufpb@yahoo.com.br",

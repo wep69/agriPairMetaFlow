@@ -90,6 +90,21 @@ apm_doctor <- function(full = FALSE, check_backends = TRUE, check_render = FALSE
     add(.apm_doctor_row("core smoke fit",if(ok)"PASS" else "FAIL","smoke",
       if(ok) "Random-effects benchmark fit completed." else conditionMessage(smoke),
       if(ok) NA_character_ else "Run the formal local validation and inspect the underlying metafor error."))
+    route <- tryCatch({
+      ef0 <- apm_effect_size(agri_effects_benchmark,measure="GEN",yi=yi,vi=vi)
+      m0 <- apm_metareg(ef0,moderators=~dose)
+      cls <- lapply(list(apm_fit(ef0)$backend_fit$call[[1L]],m0$backend_fit$call[[1L]]),
+        function(h) is.name(h)||is.call(h))
+      wb <- if(requireNamespace("wildmeta",quietly=TRUE)&&requireNamespace("clubSandwich",quietly=TRUE)) {
+        w0 <- apm_wild_bootstrap(m0,cluster=agri_effects_benchmark$study_id,R=99,seed=1)
+        isTRUE(inherits(w0,"apm_wild")) && is.finite(w0$p_value)
+      } else TRUE
+      all(unlist(cls)) && isTRUE(wb)
+    },error=function(e)e)
+    rok <- isTRUE(route)
+    add(.apm_doctor_row("optional-route smoke",if(rok)"PASS" else "FAIL","smoke",
+      if(rok) "Backend calls are re-evaluable and the wild-bootstrap route runs." else conditionMessage(route),
+      if(rok) NA_character_ else "Inspect backend call construction and optional-route wiring."))
   } else add(.apm_doctor_row("core smoke examples","NOT RUN","smoke","check_examples=FALSE; formal testthat remains a separate release gate."))
 
   if (isTRUE(full)) {

@@ -7,7 +7,8 @@
 #'
 #' @param curve An `apm_curve`.
 #' @param features Any of `"slope"`, `"turning_point"`, and
-#'   `"threshold_crossing"`.
+#'   `"threshold_crossing"`. When `features` is not supplied,
+#'   `"threshold_crossing"` is computed only if `threshold` is given.
 #' @param threshold Threshold on the model/effect-size scale, required for
 #'   threshold crossings.
 #' @param interval Include uncertainty descriptors.
@@ -30,9 +31,14 @@
 #' apm_curve_features(irrig_ns,"slope")
 apm_curve_features <- function(curve, features = c("slope", "turning_point", "threshold_crossing"), threshold = NULL, interval = TRUE, level = 0.95) {
   if(!inherits(curve,"apm_curve")) .apm_abort("{.arg curve} must be an apm_curve.")
+  features_was_missing<-missing(features)
   allowed<-c("slope","turning_point","threshold_crossing");features<-unique(as.character(features));bad<-setdiff(features,allowed)
   if(length(bad)) .apm_abort("Unknown curve feature(s): {paste(bad,collapse=', ')}")
-  if("threshold_crossing"%in%features&&(is.null(threshold)||!is.numeric(threshold)||length(threshold)!=1L||!is.finite(threshold))) .apm_abort("A finite model-scale {.arg threshold} is required for threshold_crossing.")
+  if(is.null(threshold)&&"threshold_crossing"%in%features) {
+    if(!features_was_missing) .apm_abort("A finite model-scale {.arg threshold} is required for threshold_crossing.")
+    features<-setdiff(features,"threshold_crossing")
+  }
+  if("threshold_crossing"%in%features&&(!is.numeric(threshold)||length(threshold)!=1L||!is.finite(threshold))) .apm_abort("A finite model-scale {.arg threshold} is required for threshold_crossing.")
   if(!is.numeric(level)||level<=0||level>=1) .apm_abort("{.arg level} must lie between 0 and 1.")
   xn<-curve$curve_info$x_name; xr<-curve$curve_info$boundary; xg<-seq(xr[1],xr[2],length.out=max(200L,nrow(curve$prediction_grid)%||%100L))
   beta<-as.numeric(stats::coef(curve$backend_fit));Vb<-as.matrix(stats::vcov(curve$backend_fit));crit<-.apm_critical_value(curve,level)

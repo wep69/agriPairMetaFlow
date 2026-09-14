@@ -5,7 +5,9 @@
 #' @param method Heterogeneity estimator.
 #' @param test Inference method.
 #' @param interaction_test Test the overall between-subgroup moderator effect.
-#' @param min_studies Minimum number of independent rows per displayed subgroup.
+#' @param min_studies Row-count threshold below which a sparsity warning is
+#'   issued. All subgroup levels are still fitted; the argument does not drop
+#'   levels.
 #' @param ... Passed to `apm_fit()`.
 #' @return An `apm_subgroup` object.
 #' @export

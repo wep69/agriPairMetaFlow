@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">agriPairMetaFlow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,8 +120,6 @@ step is executed only when its backend is installed.</p>
 <span>  model<span class="op">=</span><span class="st">"multilevel"</span>,</span>
 <span>  robust<span class="op">=</span><span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Model does not contain an '~ inner | outer' term, so 'struct' argument</span></span>
-<span><span class="co">#&gt; is disregaded.</span></span>
 <span><span class="va">w_maize</span><span class="op">$</span><span class="va">routing_log</span></span>
 <span><span class="co">#&gt;                  step         decision</span></span>
 <span><span class="co">#&gt; 1                plan        auto plan</span></span>
@@ -215,9 +213,8 @@ scientific meaning of the user-facing workflow.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/apm_capabilities.html">apm_capabilities</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required namespace: runjags</span></span>
 <span><span class="co">#&gt; &lt;apm_capabilities&gt;</span></span>
-<span><span class="co">#&gt; &lt;apm_capabilities&gt;</span></span>
 <span><span class="co">#&gt;           feature                  backend  core installed version    status</span></span>
-<span><span class="co">#&gt;              core         agriPairMetaFlow  TRUE      TRUE   1.0.0 AVAILABLE</span></span>
+<span><span class="co">#&gt;              core         agriPairMetaFlow  TRUE      TRUE   1.0.1 AVAILABLE</span></span>
 <span><span class="co">#&gt;      effect-sizes                  metafor  TRUE      TRUE   5.0.1 AVAILABLE</span></span>
 <span><span class="co">#&gt;    random-effects                  metafor  TRUE      TRUE   5.0.1 AVAILABLE</span></span>
 <span><span class="co">#&gt;    shared-control                  metafor  TRUE      TRUE   5.0.1 AVAILABLE</span></span>
@@ -234,7 +231,7 @@ scientific meaning of the user-facing workflow.</p>
 <span><span class="co">#&gt;  publication-bias PublicationBias/metasens FALSE      TRUE   2.4.0 AVAILABLE</span></span>
 <span><span class="co">#&gt;  moderator-screen               metaforest FALSE      TRUE   0.1.5 AVAILABLE</span></span>
 <span><span class="co">#&gt;       interactive       plotly/htmlwidgets FALSE      TRUE  4.12.1 AVAILABLE</span></span>
-<span><span class="co">#&gt;           reports          rmarkdown/knitr FALSE      TRUE    2.31 AVAILABLE</span></span>
+<span><span class="co">#&gt;           reports          rmarkdown/knitr FALSE      TRUE    2.32 AVAILABLE</span></span>
 <span><span class="co">#&gt;       xlsx-export                openxlsx2 FALSE      TRUE    1.29 AVAILABLE</span></span>
 <span><span class="co">#&gt;           cmdstan                 cmdstanr FALSE      TRUE   0.9.0 AVAILABLE</span></span>
 <span><span class="co">#&gt;                             validation_status</span></span>
@@ -279,7 +276,6 @@ scientific meaning of the user-facing workflow.</p>
 <span><span class="co">#&gt;  Optional capability; absence must not break the core package.</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/apm_capabilities.html">apm_capabilities</a></span><span class="op">(</span><span class="st">"dose-response"</span>, installed<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;apm_capabilities&gt;</span></span>
 <span><span class="co">#&gt; &lt;apm_capabilities&gt;</span></span>
 <span><span class="co">#&gt;        feature    backend  core installed version    status</span></span>
 <span><span class="co">#&gt;  dose-response dosresmeta FALSE      TRUE   2.2.0 AVAILABLE</span></span>
@@ -351,7 +347,7 @@ result should be interpreted.</p>
 <span><span class="co">#&gt;                                               AVAILABLE ; version 2.4.0</span></span>
 <span><span class="co">#&gt;                                               AVAILABLE ; version 0.1.5</span></span>
 <span><span class="co">#&gt;                                              AVAILABLE ; version 4.12.1</span></span>
-<span><span class="co">#&gt;                                                AVAILABLE ; version 2.31</span></span>
+<span><span class="co">#&gt;                                                AVAILABLE ; version 2.32</span></span>
 <span><span class="co">#&gt;                                                AVAILABLE ; version 1.29</span></span>
 <span><span class="co">#&gt;                                               AVAILABLE ; version 0.9.0</span></span>
 <span><span class="co">#&gt;                                                      check_render=FALSE</span></span>
@@ -445,14 +441,14 @@ result should be interpreted.</p>
 <span><span class="co">#&gt;                                                                                                                         AVAILABLE ; version 2.4.0</span></span>
 <span><span class="co">#&gt;                                                                                                                         AVAILABLE ; version 0.1.5</span></span>
 <span><span class="co">#&gt;                                                                                                                        AVAILABLE ; version 4.12.1</span></span>
-<span><span class="co">#&gt;                                                                                                                          AVAILABLE ; version 2.31</span></span>
+<span><span class="co">#&gt;                                                                                                                          AVAILABLE ; version 2.32</span></span>
 <span><span class="co">#&gt;                                                                                                                          AVAILABLE ; version 1.29</span></span>
 <span><span class="co">#&gt;                                                                                                                         AVAILABLE ; version 0.9.0</span></span>
 <span><span class="co">#&gt;                                                                                                                                check_render=FALSE</span></span>
 <span><span class="co">#&gt;                                                                            check_examples=FALSE; formal testthat remains a separate release gate.</span></span>
 <span><span class="co">#&gt;  LC_COLLATE=Portuguese_Brazil.utf8;LC_CTYPE=Portuguese_Brazil.utf8;LC_MONETARY=Portuguese_Brazil.utf8;LC_NUMERIC=C;LC_TIME=Portuguese_Brazil.utf8</span></span>
 <span><span class="co">#&gt;                                                                                                                                x86_64-w64-mingw32</span></span>
-<span><span class="co">#&gt;                                                                                                C:\\Users\\wep69\\AppData\\Local\\Temp\\RtmpS64K5D</span></span>
+<span><span class="co">#&gt;                                                                                                C:\\Users\\wep69\\AppData\\Local\\Temp\\Rtmp4CPrJm</span></span>
 <span><span class="co">#&gt;  remediation</span></span>
 <span><span class="co">#&gt;         &lt;NA&gt;</span></span>
 <span><span class="co">#&gt;         &lt;NA&gt;</span></span>

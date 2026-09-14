@@ -15,12 +15,12 @@ Source:
 
 Pereira W, Pereira Martinez M (2026). *agriPairMetaFlow:
 Treatment-Control Meta-Analysis Workflows for Agronomy*. R package
-version 1.0.0, <https://github.com/wep69/agriPairMetaFlow>.
+version 1.0.1, <https://github.com/wep69/agriPairMetaFlow>.
 
     @Manual{,
       title = {agriPairMetaFlow: Treatment-Control Meta-Analysis Workflows for Agronomy},
       author = {Walter Esfrain Pereira and Magali Haidee {Pereira Martinez}},
       year = {2026},
-      note = {R package version 1.0.0},
+      note = {R package version 1.0.1},
       url = {https://github.com/wep69/agriPairMetaFlow},
     }

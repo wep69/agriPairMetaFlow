@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">agriPairMetaFlow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,13 +82,32 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example 1: climatic moderator screening.</span></span></span>
 <span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"metaforest"</span>,quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu">apm_moderator_screen</span><span class="op">(</span><span class="va">agri_effects_benchmark</span>, moderators<span class="op">=</span><span class="op">~</span><span class="va">dose</span><span class="op">+</span><span class="va">rainfall</span><span class="op">+</span><span class="va">crop</span><span class="op">+</span><span class="va">soil_texture</span>, seed<span class="op">=</span><span class="fl">1</span>, tune<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in metaforest::MetaForest(f, data = dat, vi = "vi", study = clname,     whichweights = "random", importance = "permutation", ...):</span> object 'clname' not found</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Unused arguments: study</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_moderator_screen&gt; exploratory=TRUE | units=24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     moderator    importance      metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      rainfall  0.0036837475 permutation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  soil_texture -0.0008193985 permutation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          crop -0.0009404871 permutation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          dose -0.0018901358 permutation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MetaForest is exploratory moderator screening. Confirm scientific hypotheses with prespecified meta-regression and appropriate uncertainty analysis. </span>
 <span class="r-in"><span><span class="co"># Example 2: permutation importance.</span></span></span>
 <span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"metaforest"</span>,quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu">apm_moderator_screen</span><span class="op">(</span><span class="va">agri_effects_benchmark</span>, moderators<span class="op">=</span><span class="op">~</span><span class="va">dose</span><span class="op">+</span><span class="va">rainfall</span><span class="op">+</span><span class="va">crop</span>, importance<span class="op">=</span><span class="st">"permutation"</span>, seed<span class="op">=</span><span class="fl">2</span>, tune<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in metaforest::MetaForest(f, data = dat, vi = "vi", study = clname,     whichweights = "random", importance = "permutation", ...):</span> object 'clname' not found</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Unused arguments: study</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_moderator_screen&gt; exploratory=TRUE | units=24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  moderator    importance      metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   rainfall  0.0035947638 permutation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       crop -0.0009535502 permutation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       dose -0.0015210400 permutation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MetaForest is exploratory moderator screening. Confirm scientific hypotheses with prespecified meta-regression and appropriate uncertainty analysis. </span>
 <span class="r-in"><span><span class="co"># Example 3: minimal-depth summary when ranger exposes tree structure.</span></span></span>
 <span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"metaforest"</span>,quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu">apm_moderator_screen</span><span class="op">(</span><span class="va">agri_effects_benchmark</span>, moderators<span class="op">=</span><span class="op">~</span><span class="va">dose</span><span class="op">+</span><span class="va">rainfall</span><span class="op">+</span><span class="va">soil_texture</span>, importance<span class="op">=</span><span class="st">"minimal_depth"</span>, seed<span class="op">=</span><span class="fl">3</span>, tune<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in metaforest::MetaForest(f, data = dat, vi = "vi", study = clname,     whichweights = "random", importance = "permutation", ...):</span> object 'clname' not found</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Unused arguments: study</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_moderator_screen&gt; exploratory=TRUE | units=24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     moderator importance        metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          dose  0.8717391 minimal_depth</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      rainfall  0.9076577 minimal_depth</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  soil_texture  1.0919283 minimal_depth</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MetaForest is exploratory moderator screening. Confirm scientific hypotheses with prespecified meta-regression and appropriate uncertainty analysis. </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

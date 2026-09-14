@@ -94,7 +94,7 @@ apm_dose_response <- function(data, effect, dose, study, V = NULL, form = c("lin
     for (v in mvars) {
       bystudy <- split(dat[[v]], sid)
       varying <- names(bystudy)[vapply(bystudy, function(z) length(unique(z[!is.na(z)])) > 1L, logical(1))]
-      if (length(varying)) .apm_abort("Dose-response moderator {.field {v}} must be study-level in version 0.3.0; it varies within: {paste(varying, collapse=', ')}")
+      if (length(varying)) .apm_abort("Dose-response moderator {.field {v}} must be study-level; it varies within: {paste(varying, collapse=', ')}")
     }
   }
 

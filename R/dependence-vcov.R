@@ -48,7 +48,12 @@ apm_vcov <- function(effects, cluster, subgroup = NULL, obs = NULL, type = NULL,
   if (max(abs(M-t(M)),na.rm=TRUE) > 1e-10) .apm_abort("The constructed covariance matrix is not symmetric.")
   ev <- tryCatch(eigen(M,symmetric=TRUE,only.values=TRUE)$values,error=function(e) NA_real_)
   meta <- list(cluster=.apm_name_quo(qc),subgroup=.apm_name_quo(qs),obs=.apm_name_quo(qo),type=.apm_name_quo(qty),time1=.apm_name_quo(qt1),time2=.apm_name_quo(qt2),rho=rho,phi=phi,shared_control=use_shared,near_pd=near_pd,sparse=sparse,min_eigen=min(ev,na.rm=TRUE),positive_semidefinite=all(ev >= -1e-8,na.rm=TRUE),backend="metafor::vcalc",backend_version=.apm_backend_version("metafor"),data_hash=.apm_hash_data(dat))
-  attr(V,"apm_meta") <- meta
-  class(V) <- unique(c("apm_vcov", class(V)))
-  V
+  if (isS4(V)) {
+    attr(V,"apm_meta") <- meta
+    V
+  } else {
+    attr(V,"apm_meta") <- meta
+    class(V) <- unique(c("apm_vcov", class(V)))
+    V
+  }
 }

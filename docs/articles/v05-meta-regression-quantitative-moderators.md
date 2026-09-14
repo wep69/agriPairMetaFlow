@@ -210,20 +210,19 @@ point is not automatically an agronomic optimum.
 
 ctx <- data.frame(rainfall=c(650,900,1200), mean_temp=c(26.2,25.0,23.7))
 apm_predict_context(irr_m, ctx, transform="percent", threshold=5)
-#> Warning: Extra argument ('prob') disregarded.
 #> <apm_prediction> transform=percent
 #>  rainfall mean_temp       support     pred        se  ci_lower  ci_upper
 #>       650      26.2 interpolation 11.48706 0.1049708 -10.66087  39.12566
 #>       900      25.0 interpolation 10.50814 0.1088469 -12.16656  39.03644
 #>      1200      23.7 interpolation 13.47020 0.9619565 -85.09063 763.58382
 #>   pi_lower  pi_upper threshold_relation probability_above_threshold
-#>  -10.66087  39.12566           overlaps                          NA
-#>  -12.16656  39.03644           overlaps                          NA
-#>  -85.09063 763.58382           overlaps                          NA
-#>                                               probability_basis
-#>  unavailable: backend predictive-probability calculation failed
-#>  unavailable: backend predictive-probability calculation failed
-#>  unavailable: backend predictive-probability calculation failed
+#>  -10.66087  39.12566           overlaps                   0.7160321
+#>  -12.16656  39.03644           overlaps                   0.6807267
+#>  -85.09063 763.58382           overlaps                   0.5321391
+#>                                    probability_basis
+#>  normal approximation on the prediction distribution
+#>  normal approximation on the prediction distribution
+#>  normal approximation on the prediction distribution
 ```
 
 The output retains whether each context is an interpolation or

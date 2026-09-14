@@ -9,7 +9,7 @@ f <- system.file("extdata","maize_n_shared.csv",package="agriPairMetaFlow")
 if(nzchar(f)){apm_read(f);apm_read(f,mapping=c(study="study_id"));apm_read(f,units=c(mean_t="Mg ha-1"))}
 #> <apm_data>
 #> 24 rows x 15 columns
-#> source: D:/Walter/R/Pacotes_criados/agriPairMetaFlow/_validation_local/lib_fresh/agriPairMetaFlow/extdata/maize_n_shared.csv
+#> source: C:/Users/wep69/AppData/Local/Temp/opencode/RLib_fixed/agriPairMetaFlow/extdata/maize_n_shared.csv
 apm_validate(maize_n_shared,"summary",strict=FALSE);apm_validate(pest_suppression_binary,"binary",strict=FALSE);apm_validate(agri_effects_benchmark,"effect",strict=FALSE)
 #> <apm_validation> PASS
 #> <apm_validation> PASS
@@ -22,8 +22,8 @@ apm_audit(maize_n_shared);apm_audit(agri_uncertainty_mixed,"full");apm_audit(soi
 #>  8 study/experiment control arm(s) are reused across multiple treatment contrasts.
 #>  rows
 #>  <NA>
-#>                                                                                               action
-#>  Model sampling dependence in version 0.2.0 or use one independent contrast per experiment in 0.1.0.
+#>                                                                                     action
+#>  Model sampling dependence with apm_vcov() or use one independent contrast per experiment.
 #> <apm_audit>
 #> No audit issues detected.
 #> <apm_audit>
@@ -32,7 +32,7 @@ apm_plan(maize_n_shared,study_id,treatment,control,response=mean_t);apm_plan(whe
 #> <apm_plan>
 #> design: independent 
 #> shared controls: 8 
-#> - Shared controls detected: version 0.1.0 can audit them, but covariance modeling is introduced in 0.2.0.
+#> - Shared controls detected: model their sampling covariance with apm_vcov().
 #> <apm_plan>
 #> design: paired 
 #> shared controls: 0

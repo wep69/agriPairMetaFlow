@@ -20,31 +20,35 @@ apm_prior_check <- function(prior, measure, x = NULL, thresholds = NULL, draws =
   if (length(measure)!=1L || !is.character(measure)) .apm_abort("{.arg measure} must be one effect-measure label.")
   if (!is.numeric(draws) || length(draws)!=1L || draws < 100) .apm_abort("{.arg draws} must be at least 100.")
   draws <- as.integer(draws)
-  if (!is.null(seed)) set.seed(seed)
-  mu <- .apm_draw_prior_component(prior$effect, draws)
-  tau <- .apm_draw_prior_component(prior$tau, draws)
-  theta <- stats::rnorm(draws, mean = mu, sd = tau)
-  context <- NULL
-  context_predictive <- NULL
-  if (!is.null(prior$moderators)) {
-    if (is.null(x)) .apm_warn("Moderator priors were specified but {.arg x} is NULL; summaries refer to the intercept prior only.")
-    else {
-      if (!is.data.frame(x)) x <- as.data.frame(x)
-      miss <- setdiff(names(prior$moderators), names(x)); if(length(miss)) .apm_abort("{.arg x} is missing moderator columns: {paste(miss,collapse=', ')}")
-      context <- vector("list", nrow(x))
-      context_predictive <- vector("list", nrow(x))
-      beta_draws <- lapply(prior$moderators, .apm_draw_prior_component, n=draws)
-      for(i in seq_len(nrow(x))) {
-        eta <- mu
-        for(nm in names(beta_draws)) {
-          if(!is.numeric(x[[nm]])) .apm_abort("Prior checking currently requires numeric moderator values in {.arg x}.")
-          eta <- eta + beta_draws[[nm]] * x[[nm]][i]
+  gen <- .apm_seeded(seed, function() {
+    mu <- .apm_draw_prior_component(prior$effect, draws)
+    tau <- .apm_draw_prior_component(prior$tau, draws)
+    theta <- stats::rnorm(draws, mean = mu, sd = tau)
+    context <- NULL
+    context_predictive <- NULL
+    if (!is.null(prior$moderators)) {
+      if (is.null(x)) .apm_warn("Moderator priors were specified but {.arg x} is NULL; summaries refer to the intercept prior only.")
+      else {
+        if (!is.data.frame(x)) x <- as.data.frame(x)
+        miss <- setdiff(names(prior$moderators), names(x)); if(length(miss)) .apm_abort("{.arg x} is missing moderator columns: {paste(miss,collapse=', ')}")
+        context <- vector("list", nrow(x))
+        context_predictive <- vector("list", nrow(x))
+        beta_draws <- lapply(prior$moderators, .apm_draw_prior_component, n=draws)
+        for(i in seq_len(nrow(x))) {
+          eta <- mu
+          for(nm in names(beta_draws)) {
+            if(!is.numeric(x[[nm]])) .apm_abort("Prior checking currently requires numeric moderator values in {.arg x}.")
+            eta <- eta + beta_draws[[nm]] * x[[nm]][i]
+          }
+          context[[i]] <- eta
+          context_predictive[[i]] <- stats::rnorm(draws, mean = eta, sd = tau)
         }
-        context[[i]] <- eta
-        context_predictive[[i]] <- stats::rnorm(draws, mean = eta, sd = tau)
       }
     }
-  }
+    list(mu = mu, tau = tau, theta = theta, context = context, context_predictive = context_predictive)
+  })
+  mu <- gen$mu; tau <- gen$tau; theta <- gen$theta
+  context <- gen$context; context_predictive <- gen$context_predictive
   transformed <- if (measure %in% c("lnRR","ROM","VR","CVR","RR","OR")) {
     data.frame(
       model = mu, ratio = exp(mu), percent = 100*(exp(mu)-1),

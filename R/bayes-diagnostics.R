@@ -46,7 +46,16 @@ apm_bayes_diagnostics <- function(model, checks = c("convergence", "ess", "mcse"
   if(model$backend=="bayesmeta") {
     support_n <- if(inherits(fit,"bmr")) length(fit$support$tau %||% numeric()) else nrow(fit$support %||% matrix(nrow=0,ncol=0))
     tab<-data.frame(metric=c("computation","tau_prior_proper","support_points"),value=c("deterministic numerical integration",as.character(fit$tau.prior.proper %||% NA),as.character(support_n)),stringsAsFactors=FALSE)
-    if("ppc"%in%checks && requireNamespace("bayesmeta",quietly=TRUE)) ppc<-tryCatch(bayesmeta::pppvalue(fit),error=function(e){warnings<<-c(warnings,paste("PPC unavailable:",conditionMessage(e)));NULL})
+    if("ppc"%in%checks && requireNamespace("bayesmeta",quietly=TRUE)) {
+      ppc_try<-function(par) tryCatch(bayesmeta::pppvalue(fit,parallel=par),error=function(e)e)
+      nc<-suppressWarnings(parallel::detectCores()); if(!is.finite(nc)||nc<1) nc<-1
+      ppc_res<-ppc_try(max(1L,nc-1L))
+      if(inherits(ppc_res,"error")&&grepl("package|cluster|socket|parallel|worker|library",conditionMessage(ppc_res),ignore.case=TRUE)) {
+        warnings<-c(warnings,paste0("Parallel PPC workers unavailable (",conditionMessage(ppc_res),"); reran serially."))
+        ppc_res<-ppc_try(parallel=1L)
+      }
+      ppc<-if(inherits(ppc_res,"error")){warnings<<-c(warnings,paste("PPC unavailable:",conditionMessage(ppc_res)));NULL}else ppc_res
+    }
     warnings<-c(warnings,"R-hat, ESS, and MCSE are not defined for bayesmeta's deterministic DIRECT integration and are therefore not fabricated.")
     verified <- TRUE
   } else if(model$backend=="RoBMA") {

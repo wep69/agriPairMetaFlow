@@ -44,7 +44,7 @@ apm_leave_one_out <- function(model, unit = c("study", "effect"), cluster = NULL
   rows <- if (isTRUE(parallel) && .Platform$OS.type != "windows" && length(groups) > 2L) {
     parallel::mclapply(groups, worker, mc.cores=max(1L, min(length(groups), parallel::detectCores()-1L)))
   } else {
-    if (isTRUE(parallel) && .Platform$OS.type == "windows") .apm_warn("parallel=TRUE uses sequential refits on Windows in version 0.5.0.")
+    if (isTRUE(parallel) && .Platform$OS.type == "windows") .apm_warn("parallel=TRUE uses sequential refits on Windows.")
     lapply(groups, worker)
   }
   res <- do.call(rbind, rows)

@@ -23,13 +23,13 @@ apm_audit(maize_n_shared, "full")
 #>  8 study/experiment control arm(s) are reused across multiple treatment contrasts.
 #>  rows
 #>  <NA>
-#>                                                                                               action
-#>  Model sampling dependence in version 0.2.0 or use one independent contrast per experiment in 0.1.0.
+#>                                                                                     action
+#>  Model sampling dependence with apm_vcov() or use one independent contrast per experiment.
 apm_plan(maize_n_shared, study=study_id, experiment=experiment_id, treatment=treatment, control=control, response=mean_t, dose=N_rate)
 #> <apm_plan>
 #> design: independent 
 #> shared controls: 8 
-#> - Shared controls detected: version 0.1.0 can audit them, but covariance modeling is introduced in 0.2.0.
+#> - Shared controls detected: model their sampling covariance with apm_vcov().
 ```
 
 The audit warns that the same control is reused. This is scientifically

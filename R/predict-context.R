@@ -10,6 +10,8 @@
 #' @param prediction Include a prediction interval where supported by the
 #'   fitted backend.
 #' @param threshold Optional practical threshold on the displayed output scale.
+#'   The exceedance probability uses a normal approximation on the prediction
+#'   distribution (predicted mean, standard error, and heterogeneity variance).
 #' @param transform Output transformation.
 #' @return An `apm_prediction` retaining context columns and support flags.
 #' @export
@@ -61,15 +63,12 @@ apm_predict_context <- function(model, newdata, level = 0.95, prediction = TRUE,
       prob[]<-NA_real_
       probability_basis<-"not defined: mean-effect confidence uncertainty is not a predictive probability"
     } else if(length(hv)<=1L) {
-      prob_call<-tryCatch(stats::predict(fit,newmods=X_pred,level=level*100,
-        prob=paste0(">",format(thm,digits=17,scientific=FALSE,trim=TRUE))),error=function(e)e)
-      if(inherits(prob_call,"error")||is.null(prob_call$prob)) {
-        prob[]<-NA_real_
-        probability_basis<-"unavailable: backend predictive-probability calculation failed"
-      } else {
-        prob<-as.numeric(prob_call$prob)
-        probability_basis<-"metafor predictive distribution"
-      }
+      tau2<-if(length(hv)) hv else 0
+      sd_pred<-sqrt(raw$se^2+tau2)
+      ok<-is.finite(raw$pred)&is.finite(sd_pred)&sd_pred>0
+      z<-(raw$pred-thm)/sd_pred
+      prob[ok]<-stats::pnorm(z[ok])
+      probability_basis<-"normal approximation on the prediction distribution"
     } else {
       prob[]<-NA_real_
       probability_basis<-"unavailable: multiple heterogeneity components require an explicit prediction-level variance structure"
@@ -78,7 +77,7 @@ apm_predict_context <- function(model, newdata, level = 0.95, prediction = TRUE,
   }
   tab$threshold_relation<-relation;tab$probability_above_threshold<-prob;tab$probability_basis<-probability_basis
   out<-list(table=tab,raw=raw,newdata=newdata,method="context",transform=transform,threshold=threshold,
-    probability_greater=prob,probability_basis=probability_basis,measure=model$measure,model_hash=model$source_data_hash%||%model$data_hash,
+    probability_greater=prob,probability_above_threshold=prob,probability_basis=probability_basis,measure=model$measure,model_hash=model$source_data_hash%||%model$data_hash,
     extrapolated=which(flags=="extrapolation"))
   class(out)<-"apm_prediction";out
 }

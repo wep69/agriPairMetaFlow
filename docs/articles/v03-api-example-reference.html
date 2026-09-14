@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">agriPairMetaFlow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,7 +96,7 @@ broad example coverage without replacing the conceptual tutorials.</p>
 <span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nzchar</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="../reference/apm_read.html">apm_read</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span>;<span class="fu"><a href="../reference/apm_read.html">apm_read</a></span><span class="op">(</span><span class="va">f</span>,mapping<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>study<span class="op">=</span><span class="st">"study_id"</span><span class="op">)</span><span class="op">)</span>;<span class="fu"><a href="../reference/apm_read.html">apm_read</a></span><span class="op">(</span><span class="va">f</span>,units<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>mean_t<span class="op">=</span><span class="st">"Mg ha-1"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span>
 <span><span class="co">#&gt; &lt;apm_data&gt;</span></span>
 <span><span class="co">#&gt; 24 rows x 15 columns</span></span>
-<span><span class="co">#&gt; source: D:/Walter/R/Pacotes_criados/agriPairMetaFlow/_validation_local/lib_fresh/agriPairMetaFlow/extdata/maize_n_shared.csv</span></span>
+<span><span class="co">#&gt; source: C:/Users/wep69/AppData/Local/Temp/opencode/RLib_fixed/agriPairMetaFlow/extdata/maize_n_shared.csv</span></span>
 <span><span class="fu"><a href="../reference/apm_validate.html">apm_validate</a></span><span class="op">(</span><span class="va">maize_n_shared</span>,<span class="st">"summary"</span>,strict<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>;<span class="fu"><a href="../reference/apm_validate.html">apm_validate</a></span><span class="op">(</span><span class="va">pest_suppression_binary</span>,<span class="st">"binary"</span>,strict<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>;<span class="fu"><a href="../reference/apm_validate.html">apm_validate</a></span><span class="op">(</span><span class="va">agri_effects_benchmark</span>,<span class="st">"effect"</span>,strict<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;apm_validation&gt; PASS</span></span>
 <span><span class="co">#&gt; &lt;apm_validation&gt; PASS</span></span>
@@ -109,8 +109,8 @@ broad example coverage without replacing the conceptual tutorials.</p>
 <span><span class="co">#&gt;  8 study/experiment control arm(s) are reused across multiple treatment contrasts.</span></span>
 <span><span class="co">#&gt;  rows</span></span>
 <span><span class="co">#&gt;  &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;                                                                                               action</span></span>
-<span><span class="co">#&gt;  Model sampling dependence in version 0.2.0 or use one independent contrast per experiment in 0.1.0.</span></span>
+<span><span class="co">#&gt;                                                                                     action</span></span>
+<span><span class="co">#&gt;  Model sampling dependence with apm_vcov() or use one independent contrast per experiment.</span></span>
 <span><span class="co">#&gt; &lt;apm_audit&gt;</span></span>
 <span><span class="co">#&gt; No audit issues detected.</span></span>
 <span><span class="co">#&gt; &lt;apm_audit&gt;</span></span>
@@ -119,7 +119,7 @@ broad example coverage without replacing the conceptual tutorials.</p>
 <span><span class="co">#&gt; &lt;apm_plan&gt;</span></span>
 <span><span class="co">#&gt; design: independent </span></span>
 <span><span class="co">#&gt; shared controls: 8 </span></span>
-<span><span class="co">#&gt; - Shared controls detected: version 0.1.0 can audit them, but covariance modeling is introduced in 0.2.0.</span></span>
+<span><span class="co">#&gt; - Shared controls detected: model their sampling covariance with apm_vcov().</span></span>
 <span><span class="co">#&gt; &lt;apm_plan&gt;</span></span>
 <span><span class="co">#&gt; design: paired </span></span>
 <span><span class="co">#&gt; shared controls: 0</span></span>

@@ -25,7 +25,7 @@ apm_plan(maize_n_shared, study=study_id, experiment=experiment_id,
 #> <apm_plan>
 #> design: independent 
 #> shared controls: 8 
-#> - Shared controls detected: version 0.1.0 can audit them, but covariance modeling is introduced in 0.2.0. 
+#> - Shared controls detected: model their sampling covariance with apm_vcov(). 
 # Example 2: genuinely paired block summaries.
 apm_plan(wheat_paired_blocks, study=study_id, treatment=treatment,
   control=control, response=mean_t, block=block_id, design="paired")

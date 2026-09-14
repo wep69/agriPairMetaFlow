@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">agriPairMetaFlow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,13 +114,13 @@ dose-response synthesis.</p>
 <span><span class="co">#&gt;  8 study/experiment control arm(s) are reused across multiple treatment contrasts.</span></span>
 <span><span class="co">#&gt;  rows</span></span>
 <span><span class="co">#&gt;  &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;                                                                                               action</span></span>
-<span><span class="co">#&gt;  Model sampling dependence in version 0.2.0 or use one independent contrast per experiment in 0.1.0.</span></span>
+<span><span class="co">#&gt;                                                                                     action</span></span>
+<span><span class="co">#&gt;  Model sampling dependence with apm_vcov() or use one independent contrast per experiment.</span></span>
 <span><span class="fu"><a href="../reference/apm_plan.html">apm_plan</a></span><span class="op">(</span><span class="va">maize_n_shared</span>, study<span class="op">=</span><span class="va">study_id</span>, experiment<span class="op">=</span><span class="va">experiment_id</span>, treatment<span class="op">=</span><span class="va">treatment</span>, control<span class="op">=</span><span class="va">control</span>, response<span class="op">=</span><span class="va">mean_t</span>, dose<span class="op">=</span><span class="va">N_rate</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;apm_plan&gt;</span></span>
 <span><span class="co">#&gt; design: independent </span></span>
 <span><span class="co">#&gt; shared controls: 8 </span></span>
-<span><span class="co">#&gt; - Shared controls detected: version 0.1.0 can audit them, but covariance modeling is introduced in 0.2.0.</span></span></code></pre></div>
+<span><span class="co">#&gt; - Shared controls detected: model their sampling covariance with apm_vcov().</span></span></code></pre></div>
 <p>The audit warns that the same control is reused. This is
 scientifically consequential. From version 0.2.0 onward the covariance
 can be represented explicitly with <code><a href="../reference/apm_vcov.html">apm_vcov()</a></code> and fitted

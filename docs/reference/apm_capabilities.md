@@ -33,9 +33,8 @@ An apm_capabilities data frame.
 # Example 1: complete registry.
 apm_capabilities()
 #> <apm_capabilities>
-#> <apm_capabilities>
 #>           feature                  backend  core installed version    status
-#>              core         agriPairMetaFlow  TRUE      TRUE   1.0.0 AVAILABLE
+#>              core         agriPairMetaFlow  TRUE      TRUE   1.0.1 AVAILABLE
 #>      effect-sizes                  metafor  TRUE      TRUE   5.0.1 AVAILABLE
 #>    random-effects                  metafor  TRUE      TRUE   5.0.1 AVAILABLE
 #>    shared-control                  metafor  TRUE      TRUE   5.0.1 AVAILABLE
@@ -52,7 +51,7 @@ apm_capabilities()
 #>  publication-bias PublicationBias/metasens FALSE      TRUE   2.4.0 AVAILABLE
 #>  moderator-screen               metaforest FALSE      TRUE   0.1.5 AVAILABLE
 #>       interactive       plotly/htmlwidgets FALSE      TRUE  4.12.1 AVAILABLE
-#>           reports          rmarkdown/knitr FALSE      TRUE    2.31 AVAILABLE
+#>           reports          rmarkdown/knitr FALSE      TRUE    2.32 AVAILABLE
 #>       xlsx-export                openxlsx2 FALSE      TRUE    1.29 AVAILABLE
 #>           cmdstan                 cmdstanr FALSE      TRUE   0.9.0 AVAILABLE
 #>                             validation_status
@@ -97,7 +96,6 @@ apm_capabilities("bayesian", detail="full")
 #>  Optional capability; absence must not break the core package.
 # Example 3: dose-response backend state.
 apm_capabilities("dose-response", installed=TRUE)
-#> <apm_capabilities>
 #> <apm_capabilities>
 #>        feature    backend  core installed version    status
 #>  dose-response dosresmeta FALSE      TRUE   2.2.0 AVAILABLE

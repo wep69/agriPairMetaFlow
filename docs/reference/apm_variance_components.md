@@ -19,7 +19,6 @@ provenance.
 ``` r
 es <- apm_effect_size(maize_n_shared,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,m_c=mean_c,sd_c=sd_c,n_c=n_c)
 ml <- apm_multilevel(es,random=~1|study_id/effect_id,V=apm_vcov(es,cluster=experiment_id),test="z")
-#> Warning: Model does not contain an '~ inner | outer' term, so 'struct' argument is disregaded.
 apm_variance_components(ml)
 #> <apm_variance_components>
 #>  component     variance           sd proportion percent

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">agriPairMetaFlow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,21 +83,21 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example 1: HTML report from a fitted agronomic meta-analysis.</span></span></span>
 <span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rmarkdown"</span>,quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu">apm_report</span><span class="op">(</span><span class="fu"><a href="apm_fit.html">apm_fit</a></span><span class="op">(</span><span class="va">agri_effects_benchmark</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext<span class="op">=</span><span class="st">".html"</span><span class="op">)</span>, format<span class="op">=</span><span class="st">"html"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_report&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> file: C:/Users/wep69/AppData/Local/Temp/RtmpcjLDfO/filebec6db142f.html </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> source: C:/Users/wep69/AppData/Local/Temp/RtmpcjLDfO/filebec6db142f.source.Rmd </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> object hash: cb69036fc3fde4664630fe1b7201c065 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> file: C:/Users/wep69/AppData/Local/Temp/RtmpkZHCoR/file5c8829ee5537.html </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> source: C:/Users/wep69/AppData/Local/Temp/RtmpkZHCoR/file5c8829ee5537.source.Rmd </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> object hash: bb3d449ff41cc0107737293d3eb9fb98 </span>
 <span class="r-in"><span><span class="co"># Example 2: reduced section inventory.</span></span></span>
 <span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rmarkdown"</span>,quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu">apm_report</span><span class="op">(</span><span class="fu"><a href="apm_fit.html">apm_fit</a></span><span class="op">(</span><span class="va">agri_effects_benchmark</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext<span class="op">=</span><span class="st">".html"</span><span class="op">)</span>, format<span class="op">=</span><span class="st">"html"</span>, sections<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"model"</span>,<span class="st">"prediction"</span>,<span class="st">"plots"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_report&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> file: C:/Users/wep69/AppData/Local/Temp/RtmpcjLDfO/filebec1c2f6932.html </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> source: C:/Users/wep69/AppData/Local/Temp/RtmpcjLDfO/filebec1c2f6932.source.Rmd </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> object hash: cb69036fc3fde4664630fe1b7201c065 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> file: C:/Users/wep69/AppData/Local/Temp/RtmpkZHCoR/file5c88460e4ee6.html </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> source: C:/Users/wep69/AppData/Local/Temp/RtmpkZHCoR/file5c88460e4ee6.source.Rmd </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> object hash: 319645fddbc7812fb0c7838ce6213f59 </span>
 <span class="r-in"><span><span class="co"># Example 3: explicit title and reproducibility seed.</span></span></span>
 <span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rmarkdown"</span>,quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu">apm_report</span><span class="op">(</span><span class="fu"><a href="apm_fit.html">apm_fit</a></span><span class="op">(</span><span class="va">agri_effects_benchmark</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext<span class="op">=</span><span class="st">".html"</span><span class="op">)</span>, title<span class="op">=</span><span class="st">"Agronomic treatment-control synthesis"</span>, seed<span class="op">=</span><span class="fl">2026</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_report&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> file: C:/Users/wep69/AppData/Local/Temp/RtmpcjLDfO/filebec70d839da.html </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> source: C:/Users/wep69/AppData/Local/Temp/RtmpcjLDfO/filebec70d839da.source.Rmd </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> object hash: cb69036fc3fde4664630fe1b7201c065 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> file: C:/Users/wep69/AppData/Local/Temp/RtmpkZHCoR/file5c8868c03213.html </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> source: C:/Users/wep69/AppData/Local/Temp/RtmpkZHCoR/file5c8868c03213.source.Rmd </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> object hash: cf547882b393bcf5a7ec43433982b0e0 </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

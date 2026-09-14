@@ -145,17 +145,16 @@ apm_predict_context(m2,data.frame(rainfall=900,mean_temp=25),transform="percent"
 #>  probability_basis
 #>      not requested
 apm_predict_context(c2,data.frame(rainfall=c(700,1000)),threshold=5,transform="percent")
-#> Warning: Extra argument ('prob') disregarded.
 #> <apm_prediction> transform=percent
 #>  rainfall       support      pred         se ci_lower ci_upper pi_lower
 #>       700 interpolation 11.691871 0.02021389 7.028627 16.55829 7.028627
 #>      1000 interpolation  8.726033 0.02023404 4.182187 13.46806 4.182187
 #>  pi_upper threshold_relation probability_above_threshold
-#>  16.55829              above                          NA
-#>  13.46806           overlaps                          NA
-#>                                               probability_basis
-#>  unavailable: backend predictive-probability calculation failed
-#>  unavailable: backend predictive-probability calculation failed
+#>  16.55829              above                   0.9988803
+#>  13.46806           overlaps                   0.9575900
+#>                                    probability_basis
+#>  normal approximation on the prediction distribution
+#>  normal approximation on the prediction distribution
 ```
 
 ## Curve features

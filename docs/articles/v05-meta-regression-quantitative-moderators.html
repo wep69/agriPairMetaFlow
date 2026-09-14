@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">agriPairMetaFlow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -281,20 +281,19 @@ an agronomic optimum.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ctx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>rainfall<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">650</span>,<span class="fl">900</span>,<span class="fl">1200</span><span class="op">)</span>, mean_temp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">26.2</span>,<span class="fl">25.0</span>,<span class="fl">23.7</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/apm_predict_context.html">apm_predict_context</a></span><span class="op">(</span><span class="va">irr_m</span>, <span class="va">ctx</span>, transform<span class="op">=</span><span class="st">"percent"</span>, threshold<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Extra argument ('prob') disregarded.</span></span>
 <span><span class="co">#&gt; &lt;apm_prediction&gt; transform=percent</span></span>
 <span><span class="co">#&gt;  rainfall mean_temp       support     pred        se  ci_lower  ci_upper</span></span>
 <span><span class="co">#&gt;       650      26.2 interpolation 11.48706 0.1049708 -10.66087  39.12566</span></span>
 <span><span class="co">#&gt;       900      25.0 interpolation 10.50814 0.1088469 -12.16656  39.03644</span></span>
 <span><span class="co">#&gt;      1200      23.7 interpolation 13.47020 0.9619565 -85.09063 763.58382</span></span>
 <span><span class="co">#&gt;   pi_lower  pi_upper threshold_relation probability_above_threshold</span></span>
-<span><span class="co">#&gt;  -10.66087  39.12566           overlaps                          NA</span></span>
-<span><span class="co">#&gt;  -12.16656  39.03644           overlaps                          NA</span></span>
-<span><span class="co">#&gt;  -85.09063 763.58382           overlaps                          NA</span></span>
-<span><span class="co">#&gt;                                               probability_basis</span></span>
-<span><span class="co">#&gt;  unavailable: backend predictive-probability calculation failed</span></span>
-<span><span class="co">#&gt;  unavailable: backend predictive-probability calculation failed</span></span>
-<span><span class="co">#&gt;  unavailable: backend predictive-probability calculation failed</span></span></code></pre></div>
+<span><span class="co">#&gt;  -10.66087  39.12566           overlaps                   0.7160321</span></span>
+<span><span class="co">#&gt;  -12.16656  39.03644           overlaps                   0.6807267</span></span>
+<span><span class="co">#&gt;  -85.09063 763.58382           overlaps                   0.5321391</span></span>
+<span><span class="co">#&gt;                                    probability_basis</span></span>
+<span><span class="co">#&gt;  normal approximation on the prediction distribution</span></span>
+<span><span class="co">#&gt;  normal approximation on the prediction distribution</span></span>
+<span><span class="co">#&gt;  normal approximation on the prediction distribution</span></span></code></pre></div>
 <p>The output retains whether each context is an interpolation or
 extrapolation relative to the fitted support. Prediction intervals, when
 estimable, answer a different question from confidence intervals: they

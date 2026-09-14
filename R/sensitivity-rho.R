@@ -41,14 +41,14 @@ apm_rho_sensitivity <- function(effects, rho = seq(0, 0.9, 0.1), build_vcov, fit
       V<-build_one(rr); m<-fit_fun(effects,V=V,...); cf<-coef(m); ci<-tryCatch(confint(m),error=function(e) NULL); pr<-tryCatch(apm_prediction(m),error=function(e) NULL)
       est<-as.numeric(cf[1]); se<-sqrt(diag(vcov(m)))[1]
       lo<-if(!is.null(ci)) as.numeric(ci[1,1]) else NA_real_; hi<-if(!is.null(ci)) as.numeric(ci[1,2]) else NA_real_
-      pi_lo<-if(!is.null(pr)&&nrow(pr$table)) pr$table$lower[1] else NA_real_; pi_hi<-if(!is.null(pr)&&nrow(pr$table)) pr$table$upper[1] else NA_real_
+      pi_lo<-if(!is.null(pr)&&nrow(pr$table)) pr$table$pi_lower[1] else NA_real_; pi_hi<-if(!is.null(pr)&&nrow(pr$table)) pr$table$pi_upper[1] else NA_real_
       tau2<-m$heterogeneity$tau2 %||% if(length(m$backend_fit$sigma2)) sum(m$backend_fit$sigma2,na.rm=TRUE) else NA_real_
-      Vs[[i]]<<-V; fits[[i]]<<-m
-      data.frame(rho=rr,estimate=est,se=se,ci_lower=lo,ci_upper=hi,pi_lower=pi_lo,pi_upper=pi_hi,tau2=tau2,ok=TRUE,error=NA_character_)
-    },error=function(e)data.frame(rho=rr,estimate=NA,se=NA,ci_lower=NA,ci_upper=NA,pi_lower=NA,pi_upper=NA,tau2=NA,ok=FALSE,error=conditionMessage(e)))
-    rows[[i]]<-ans
+      list(row=data.frame(rho=rr,estimate=est,se=se,ci_lower=lo,ci_upper=hi,pi_lower=pi_lo,pi_upper=pi_hi,tau2=tau2,ok=TRUE,error=NA_character_),V=V,fit=m)
+    },error=function(e)list(row=data.frame(rho=rr,estimate=NA,se=NA,ci_lower=NA,ci_upper=NA,pi_lower=NA,pi_upper=NA,tau2=NA,ok=FALSE,error=conditionMessage(e)),V=NULL,fit=NULL))
+    rows[[i]]<-ans$row; Vs[[i]]<-ans$V; fits[[i]]<-ans$fit
   }
   tab<-do.call(rbind,rows)
   out<-list(results=tab,rho=rho,metric=metric,fits=fits,V=Vs,n_fail=sum(!tab$ok),data_hash=.apm_hash_data(dat))
+  if(out$n_fail>0L) .apm_warn("{out$n_fail} of {length(rho)} sensitivity fits failed; see results$error.")
   class(out)<-c("apm_sensitivity","apm_rho_sensitivity"); out
 }

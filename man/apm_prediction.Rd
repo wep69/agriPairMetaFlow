@@ -3,7 +3,7 @@
 \title{Obtain confidence and prediction intervals}
 \description{Obtain confidence and prediction intervals. This conservative manual snapshot is regenerated from the authoritative roxygen source before release.}
 \usage{
-apm_prediction(model, newdata = NULL, level = 0.95, method = c("model", "HTS", "HK", "KR", "NNF"), transform = c("auto", "none", "exp", "percent"), threshold = NULL, ...)
+apm_prediction(model, newdata = NULL, level = 0.95, method = c("model"), transform = c("auto", "none", "exp", "percent"), threshold = NULL, ...)
 }
 \value{A documented agriPairMetaFlow S3 object or presentation object, depending on the function.}
 \examples{

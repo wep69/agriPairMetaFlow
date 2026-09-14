@@ -45,8 +45,10 @@ irr_es <- apm_effect_size(irrigation_climate,"lnRR",m_t=mean_t,sd_t=sd_t,
 irrig_lin <- apm_metareg_curve(irr_es,rainfall,"linear")
 irrig_quad <- apm_metareg_curve(irr_es,rainfall,"quadratic")
 apm_model_compare(irrig_lin,irrig_quad,criterion="AICc")
-#> Error in (function (x, need) {    fit <- x$backend_fit    if (isTRUE(refit_ml) && isTRUE(need)) {        z <- tryCatch(stats::update(fit, method = "ML"), error = function(e) e)        if (inherits(z, "error"))             .apm_abort("ML refit required for valid model comparison but failed: {conditionMessage(z)}")        return(z)    }    fit})(dots[[1L]][[1L]], dots[[2L]][[1L]]): ML refit required for valid model comparison but failed: object 'dat'
-#> not found
+#> <apm_model_comparison> criterion=AICc
+#>   model  k p   logLik       AIC      AICc       BIC    delta   weight
+#>  model1 20 3 36.04221 -66.08443 -64.58443 -63.09723 0.000000 0.829409
+#>  model2 20 4 36.04410 -64.08821 -61.42154 -60.10528 3.162889 0.170591
 # Example 2: linear versus spline N-rate relationship.
 mz_es <- apm_effect_size(maize_n_shared,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,
   m_c=mean_c,sd_c=sd_c,n_c=n_c)

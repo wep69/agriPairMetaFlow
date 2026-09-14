@@ -8,6 +8,10 @@
   cli::cli_warn(message, ..., call = call, .envir = call)
 }
 
+.apm_inform <- function(message, ..., call = rlang::caller_env()) {
+  cli::cli_inform(message, ..., call = call, .envir = call)
+}
+
 .apm_df <- function(x) {
   if (inherits(x, "apm_data")) return(x$data)
   if (inherits(x, "apm_uncertainty")) return(x$data)
@@ -23,6 +27,7 @@
   }
   val <- tryCatch(rlang::eval_tidy(quo, data = data), error = function(e) e)
   if (inherits(val, "error")) .apm_abort("Could not evaluate {.arg {arg}}: {conditionMessage(val)}")
+  if (is.null(val)) return(NULL)
   if (length(val) == 1L && nrow(data) != 1L) val <- rep(val, nrow(data))
   if (length(val) != nrow(data)) .apm_abort("{.arg {arg}} must evaluate to one value per row.")
   val

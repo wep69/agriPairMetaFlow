@@ -17,6 +17,7 @@ auditability and local numerical validation.
 Useful links:
 \itemize{
   \item \url{https://github.com/wep69/agriPairMetaFlow}
+  \item \url{https://wep69.github.io/agriPairMetaFlow}
   \item Report bugs at \url{https://github.com/wep69/agriPairMetaFlow/issues}
 }
 

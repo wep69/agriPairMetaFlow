@@ -15,11 +15,11 @@
 
 .apm_bayesmeta_beta_prior <- function(prior, X) {
   p <- ncol(X); mn <- rep(0,p); sd <- rep(1,p)
-  if (!is.null(prior$effect)) { if(prior$effect$dist!="normal") .apm_abort("bayesmeta requires normal coefficient priors in the 0.4.0 adapter."); mn[1]<-prior$effect$mean; sd[1]<-prior$effect$sd }
+  if (!is.null(prior$effect)) { if(prior$effect$dist!="normal") .apm_abort("bayesmeta requires normal coefficient priors in the current adapter."); mn[1]<-prior$effect$mean; sd[1]<-prior$effect$sd }
   if (p>1 && !is.null(prior$moderators)) {
     for(j in 2:p) {
       nm <- colnames(X)[j]; sp <- prior$moderators[[nm]] %||% prior$moderators[[sub("^.*:","",nm)]] %||% NULL
-      if(!is.null(sp)) { if(sp$dist!="normal") .apm_abort("bayesmeta moderator priors must be normal in version 0.4.0."); mn[j]<-sp$mean; sd[j]<-sp$sd }
+      if(!is.null(sp)) { if(sp$dist!="normal") .apm_abort("bayesmeta moderator priors must be normal in the current adapter."); mn[j]<-sp$mean; sd[j]<-sp$sd }
     }
   }
   list(mean=mn,sd=sd)
@@ -36,7 +36,7 @@
 .apm_brms_prior <- function(prior, X) {
   .apm_require("brms","brms prior translation")
   e <- prior$effect; t <- prior$tau
-  if(e$dist!="normal") .apm_abort("The 0.4.0 brms adapter currently translates normal effect priors only.")
+  if(e$dist!="normal") .apm_abort("The brms adapter currently translates normal effect priors only.")
   pp <- brms::set_prior(sprintf("normal(%s,%s)",e$mean,e$sd),class="Intercept")
   if (ncol(X) > 1L) {
     specs <- prior$moderators
@@ -44,16 +44,16 @@
       pp <- c(pp, brms::set_prior("normal(0,1)", class="b"))
     } else {
       if (any(vapply(specs, function(z) z$dist != "normal", logical(1))))
-        .apm_abort("The 0.4.0 brms adapter currently translates normal moderator priors only.")
+        .apm_abort("The brms adapter currently translates normal moderator priors only.")
       sig <- vapply(specs, function(z) paste(z$mean,z$sd,sep="/"), character(1))
       if (length(unique(sig)) != 1L)
-        .apm_abort("The 0.4.0 brms adapter requires a common normal prior for all moderator coefficients. Use the backend object directly for coefficient-specific brms priors.")
+        .apm_abort("The brms adapter requires a common normal prior for all moderator coefficients. Use the backend object directly for coefficient-specific brms priors.")
       z <- specs[[1L]]
       pp <- c(pp, brms::set_prior(sprintf("normal(%s,%s)",z$mean,z$sd), class="b"))
     }
   }
   if(t$dist=="halfnormal") pp <- c(pp,brms::set_prior(sprintf("normal(0,%s)",t$scale),class="sd",lb=0))
-  else .apm_abort("The 0.4.0 brms adapter currently translates half-normal heterogeneity priors only.")
+  else .apm_abort("The brms adapter currently translates half-normal heterogeneity priors only.")
   pp
 }
 
@@ -88,7 +88,7 @@ apm_bayes <- function(effects, mods = ~ 1, cluster = NULL, prior = NULL,
   prior <- prior %||% .apm_bayes_default_prior(measure)
   if(!inherits(prior,"apm_prior")) .apm_abort("{.arg prior} must be NULL or an apm_prior object.")
   if(prior$scale!="model") .apm_abort("Bayesian backend translation currently requires priors specified on the model scale; use apm_prior_check() to inspect natural-scale implications.")
-  if(!is.null(prior$model_probability)) .apm_abort("Prior model probabilities are stored for audit but are not translated automatically by apm_bayes() in version 0.4.0. Use backend-specific model-probability arguments explicitly through {...} after verifying their meaning.")
+  if(!is.null(prior$model_probability)) .apm_abort("Prior model probabilities are stored for audit but are not translated automatically by apm_bayes(). Use backend-specific model-probability arguments explicitly through {{...}} after verifying their meaning.")
   if(backend=="auto") {
     if(isTRUE(bias_adjust)||!is.null(cl)) backend <- if(requireNamespace("RoBMA",quietly=TRUE)) "RoBMA" else if(requireNamespace("brms",quietly=TRUE)) "brms" else "bayesmeta"
     else backend <- if(requireNamespace("bayesmeta",quietly=TRUE)) "bayesmeta" else if(requireNamespace("RoBMA",quietly=TRUE)) "RoBMA" else "brms"

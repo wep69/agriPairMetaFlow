@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">agriPairMetaFlow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,8 +97,10 @@
 <span class="r-in"><span><span class="va">irrig_lin</span> <span class="op">&lt;-</span> <span class="fu"><a href="apm_metareg_curve.html">apm_metareg_curve</a></span><span class="op">(</span><span class="va">irr_es</span>,<span class="va">rainfall</span>,<span class="st">"linear"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">irrig_quad</span> <span class="op">&lt;-</span> <span class="fu"><a href="apm_metareg_curve.html">apm_metareg_curve</a></span><span class="op">(</span><span class="va">irr_es</span>,<span class="va">rainfall</span>,<span class="st">"quadratic"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">apm_model_compare</span><span class="op">(</span><span class="va">irrig_lin</span>,<span class="va">irrig_quad</span>,criterion<span class="op">=</span><span class="st">"AICc"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in (function (x, need) {    fit &lt;- x$backend_fit    if (isTRUE(refit_ml) &amp;&amp; isTRUE(need)) {        z &lt;- tryCatch(stats::update(fit, method = "ML"), error = function(e) e)        if (inherits(z, "error"))             .apm_abort("ML refit required for valid model comparison but failed: {conditionMessage(z)}")        return(z)    }    fit})(dots[[1L]][[1L]], dots[[2L]][[1L]]):</span> ML refit required for valid model comparison but failed: object 'dat'</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_model_comparison&gt; criterion=AICc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   model  k p   logLik       AIC      AICc       BIC    delta   weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  model1 20 3 36.04221 -66.08443 -64.58443 -63.09723 0.000000 0.829409</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  model2 20 4 36.04410 -64.08821 -61.42154 -60.10528 3.162889 0.170591</span>
 <span class="r-in"><span><span class="co"># Example 2: linear versus spline N-rate relationship.</span></span></span>
 <span class="r-in"><span><span class="va">mz_es</span> <span class="op">&lt;-</span> <span class="fu"><a href="apm_effect_size.html">apm_effect_size</a></span><span class="op">(</span><span class="va">maize_n_shared</span>,<span class="st">"lnRR"</span>,m_t<span class="op">=</span><span class="va">mean_t</span>,sd_t<span class="op">=</span><span class="va">sd_t</span>,n_t<span class="op">=</span><span class="va">n_t</span>,</span></span>
 <span class="r-in"><span>  m_c<span class="op">=</span><span class="va">mean_c</span>,sd_c<span class="op">=</span><span class="va">sd_c</span>,n_c<span class="op">=</span><span class="va">n_c</span><span class="op">)</span></span></span>

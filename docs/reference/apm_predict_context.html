@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">agriPairMetaFlow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -124,17 +124,16 @@
 <span class="r-in"><span>  m_c<span class="op">=</span><span class="va">mean_c</span>,sd_c<span class="op">=</span><span class="va">sd_c</span>,n_c<span class="op">=</span><span class="va">n_c</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mz_curve</span> <span class="op">&lt;-</span> <span class="fu"><a href="apm_metareg_curve.html">apm_metareg_curve</a></span><span class="op">(</span><span class="va">mz_es</span>,<span class="va">N_rate</span>,<span class="st">"quadratic"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">apm_predict_context</span><span class="op">(</span><span class="va">mz_curve</span>,<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>N_rate<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">60</span>,<span class="fl">120</span><span class="op">)</span><span class="op">)</span>,threshold<span class="op">=</span><span class="fl">5</span>,transform<span class="op">=</span><span class="st">"percent"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Extra argument ('prob') disregarded.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_prediction&gt; transform=percent</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  N_rate       support      pred         se ci_lower ci_upper pi_lower pi_upper</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      60 interpolation  8.238373 0.01794283 4.273973 12.35350 4.273973 12.35350</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     120 interpolation 10.072455 0.02013853 5.557779 14.78022 5.557779 14.78022</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  threshold_relation probability_above_threshold</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            overlaps                          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               above                          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                               probability_basis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  unavailable: backend predictive-probability calculation failed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  unavailable: backend predictive-probability calculation failed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            overlaps                   0.9547637</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               above                   0.9904276</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                    probability_basis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  normal approximation on the prediction distribution</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  normal approximation on the prediction distribution</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

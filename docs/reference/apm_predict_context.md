@@ -74,15 +74,14 @@ mz_es <- apm_effect_size(maize_n_shared,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,
   m_c=mean_c,sd_c=sd_c,n_c=n_c)
 mz_curve <- apm_metareg_curve(mz_es,N_rate,"quadratic")
 apm_predict_context(mz_curve,data.frame(N_rate=c(60,120)),threshold=5,transform="percent")
-#> Warning: Extra argument ('prob') disregarded.
 #> <apm_prediction> transform=percent
 #>  N_rate       support      pred         se ci_lower ci_upper pi_lower pi_upper
 #>      60 interpolation  8.238373 0.01794283 4.273973 12.35350 4.273973 12.35350
 #>     120 interpolation 10.072455 0.02013853 5.557779 14.78022 5.557779 14.78022
 #>  threshold_relation probability_above_threshold
-#>            overlaps                          NA
-#>               above                          NA
-#>                                               probability_basis
-#>  unavailable: backend predictive-probability calculation failed
-#>  unavailable: backend predictive-probability calculation failed
+#>            overlaps                   0.9547637
+#>               above                   0.9904276
+#>                                    probability_basis
+#>  normal approximation on the prediction distribution
+#>  normal approximation on the prediction distribution
 ```

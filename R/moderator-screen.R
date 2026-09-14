@@ -28,7 +28,7 @@
 #'
 #' @param effects Effect-size data containing `yi` and `vi`.
 #' @param moderators One-sided additive moderator formula.
-#' @param method Screening backend; version 0.5.0 supports MetaForest.
+#' @param method Screening backend; currently MetaForest.
 #' @param cluster Optional cluster/study vector or column name for dependent effects.
 #' @param seed Reproducibility seed.
 #' @param tune Request cross-validated tuning when `caret` is available.
@@ -64,24 +64,32 @@ apm_moderator_screen <- function(effects, moderators, method = c("metaforest"), 
   nunits<-if(is.null(clname)) nrow(dat) else length(unique(dat[[clname]])); if(nunits<max(8L,2L*length(vars))) .apm_abort("Too few independent study units for exploratory screening relative to the number of moderators.")
   f<-stats::as.formula(paste("yi ~",paste(vars,collapse=" + ")))
   tuning<-list(requested=isTRUE(tune),performed=FALSE,cv=cv,best=NULL)
-  fit_bundle <- .apm_seeded(seed,function(){
+  fit_bundle <- .apm_seeded(seed,function(clname_=clname, tune_=tune){
     tun <- tuning
-    if(isTRUE(tune) && requireNamespace("caret",quietly=TRUE) && length(vars)>1L) {
+    study_val <- clname_
+    bt <- NULL
+    if(isTRUE(tune_) && requireNamespace("caret",quietly=TRUE) && length(vars)>1L) {
       k<-min(as.integer(cv),nunits); if(k<2L) k<-2L
-      idx<-if(!is.null(clname)) caret::groupKFold(dat[[clname]],k=k) else caret::createFolds(dat$yi,k=k,returnTrain=TRUE)
-      x<-dat[,vars,drop=FALSE];x$vi<-dat$vi;if(!is.null(clname))x[[clname]]<-dat[[clname]]
+      idx<-if(!is.null(study_val)) caret::groupKFold(dat[[study_val]],k=k) else caret::createFolds(dat$yi,k=k,returnTrain=TRUE)
+      x<-dat[,vars,drop=FALSE];x$vi<-dat$vi;if(!is.null(study_val))x[[study_val]]<-dat[[study_val]]
       ctrl<-caret::trainControl(method="cv",index=idx)
       mtry_grid<-unique(pmax(1L,pmin(length(vars),c(1L,floor(sqrt(length(vars))),length(vars)))))
       grid<-expand.grid(whichweights="random",mtry=mtry_grid,min.node.size=c(2L,4L),stringsAsFactors=FALSE)
       args<-list(y=dat$yi,x=x,method=metaforest::ModelInfo_mf(),trControl=ctrl,tuneGrid=grid)
-      if(!is.null(clname))args$study<-clname
+      if(!is.null(study_val))args$study<-study_val
       cvfit<-do.call(caret::train,args); tun$performed<-TRUE;tun$best<-cvfit$bestTune
       bt<-cvfit$bestTune
-      fit1<-metaforest::MetaForest(f,data=dat,vi="vi",study=clname,whichweights=as.character(bt$whichweights),mtry=bt$mtry,min.node.size=bt$min.node.size,importance="permutation",...)
-      return(list(fit=fit1,tuning=tun))
     }
-    if(isTRUE(tune) && !requireNamespace("caret",quietly=TRUE)) .apm_warn("caret is not installed; MetaForest tuning was skipped and the documented default fit is returned.")
-    list(fit=metaforest::MetaForest(f,data=dat,vi="vi",study=clname,whichweights="random",importance="permutation",...),tuning=tun)
+    if(isTRUE(tune_) && !requireNamespace("caret",quietly=TRUE)) .apm_warn("caret is not installed; MetaForest tuning was skipped and the documented default fit is returned.")
+    # NB: our `importance` argument selects the post-fit summary metric only and
+    # is never forwarded: the unclustered backend duplicates a forwarded
+    # `importance` into its ranger call, while the forest always uses
+    # permutation importance internally (the clustered backend enforces this).
+    mf_args<-list(formula=f,data=dat,vi="vi",study=study_val,
+      whichweights=if(is.null(bt)) "random" else as.character(bt$whichweights)[1L])
+    if(!is.null(bt)) { mf_args$mtry<-suppressWarnings(as.integer(bt$mtry)[1L]); mf_args$min.node.size<-suppressWarnings(as.integer(bt$min.node.size)[1L]) }
+    fit1<-do.call(metaforest::MetaForest,c(mf_args,list(...)))
+    list(fit=fit1,tuning=tun)
   })
   fit <- fit_bundle$fit; tuning <- fit_bundle$tuning
   imp<-if(importance=="permutation") {

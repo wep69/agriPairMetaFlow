@@ -117,7 +117,7 @@ apm_multivariate <- function(effects, outcome, study, V = NULL, mods = ~ 1, rand
     split_rows <- split(seq_len(nrow(dat)), study_factor, drop = TRUE)
     Slist <- lapply(split_rows, function(ii) fit_V[ii, ii, drop = FALSE])
     if (any(vapply(Slist, nrow, integer(1)) != length(outcomes))) {
-      .apm_abort("The 0.4.0 mixmeta adapter requires a complete outcome profile for every study. Use backend='metafor' for incomplete multivariate profiles.")
+      .apm_abort("The mixmeta adapter requires a complete outcome profile for every study. Use backend='metafor' for incomplete multivariate profiles.")
     }
     if (any(vapply(split_rows, function(ii) !identical(as.character(dat$.apm_outcome[ii]), outcomes), logical(1)))) {
       .apm_abort("Internal mixmeta ordering failed to align outcomes consistently within studies; inspect the outcome identifiers.")

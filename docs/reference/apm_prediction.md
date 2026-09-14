@@ -7,7 +7,7 @@ release.
 ## Usage
 
 ``` r
-apm_prediction(model, newdata = NULL, level = 0.95, method = c("model", "HTS", "HK", "KR", "NNF"), transform = c("auto", "none", "exp", "percent"), threshold = NULL, ...)
+apm_prediction(model, newdata = NULL, level = 0.95, method = c("model"), transform = c("auto", "none", "exp", "percent"), threshold = NULL, ...)
 ```
 
 ## Value

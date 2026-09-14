@@ -31,8 +31,6 @@ w_maize <- apm_workflow(
   model="multilevel",
   robust=TRUE
 )
-#> Warning: Model does not contain an '~ inner | outer' term, so 'struct' argument
-#> is disregaded.
 w_maize$routing_log
 #>                  step         decision
 #> 1                plan        auto plan
@@ -136,9 +134,8 @@ meaning of the user-facing workflow.
 apm_capabilities()
 #> Loading required namespace: runjags
 #> <apm_capabilities>
-#> <apm_capabilities>
 #>           feature                  backend  core installed version    status
-#>              core         agriPairMetaFlow  TRUE      TRUE   1.0.0 AVAILABLE
+#>              core         agriPairMetaFlow  TRUE      TRUE   1.0.1 AVAILABLE
 #>      effect-sizes                  metafor  TRUE      TRUE   5.0.1 AVAILABLE
 #>    random-effects                  metafor  TRUE      TRUE   5.0.1 AVAILABLE
 #>    shared-control                  metafor  TRUE      TRUE   5.0.1 AVAILABLE
@@ -155,7 +152,7 @@ apm_capabilities()
 #>  publication-bias PublicationBias/metasens FALSE      TRUE   2.4.0 AVAILABLE
 #>  moderator-screen               metaforest FALSE      TRUE   0.1.5 AVAILABLE
 #>       interactive       plotly/htmlwidgets FALSE      TRUE  4.12.1 AVAILABLE
-#>           reports          rmarkdown/knitr FALSE      TRUE    2.31 AVAILABLE
+#>           reports          rmarkdown/knitr FALSE      TRUE    2.32 AVAILABLE
 #>       xlsx-export                openxlsx2 FALSE      TRUE    1.29 AVAILABLE
 #>           cmdstan                 cmdstanr FALSE      TRUE   0.9.0 AVAILABLE
 #>                             validation_status
@@ -206,7 +203,6 @@ apm_capabilities("bayesian", detail="full")
 ``` r
 
 apm_capabilities("dose-response", installed=TRUE)
-#> <apm_capabilities>
 #> <apm_capabilities>
 #>        feature    backend  core installed version    status
 #>  dose-response dosresmeta FALSE      TRUE   2.2.0 AVAILABLE
@@ -281,7 +277,7 @@ apm_doctor()
 #>                                               AVAILABLE ; version 2.4.0
 #>                                               AVAILABLE ; version 0.1.5
 #>                                              AVAILABLE ; version 4.12.1
-#>                                                AVAILABLE ; version 2.31
+#>                                                AVAILABLE ; version 2.32
 #>                                                AVAILABLE ; version 1.29
 #>                                               AVAILABLE ; version 0.9.0
 #>                                                      check_render=FALSE
@@ -378,14 +374,14 @@ apm_doctor(full=TRUE, check_backends=TRUE)
 #>                                                                                                                         AVAILABLE ; version 2.4.0
 #>                                                                                                                         AVAILABLE ; version 0.1.5
 #>                                                                                                                        AVAILABLE ; version 4.12.1
-#>                                                                                                                          AVAILABLE ; version 2.31
+#>                                                                                                                          AVAILABLE ; version 2.32
 #>                                                                                                                          AVAILABLE ; version 1.29
 #>                                                                                                                         AVAILABLE ; version 0.9.0
 #>                                                                                                                                check_render=FALSE
 #>                                                                            check_examples=FALSE; formal testthat remains a separate release gate.
 #>  LC_COLLATE=Portuguese_Brazil.utf8;LC_CTYPE=Portuguese_Brazil.utf8;LC_MONETARY=Portuguese_Brazil.utf8;LC_NUMERIC=C;LC_TIME=Portuguese_Brazil.utf8
 #>                                                                                                                                x86_64-w64-mingw32
-#>                                                                                                C:\\Users\\wep69\\AppData\\Local\\Temp\\RtmpS64K5D
+#>                                                                                                C:\\Users\\wep69\\AppData\\Local\\Temp\\Rtmp4CPrJm
 #>  remediation
 #>         <NA>
 #>         <NA>

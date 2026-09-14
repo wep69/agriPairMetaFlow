@@ -1,3 +1,7 @@
+.apm_default_marginal_vars <- function(model) {
+  model$moderator_info$variables %||% character()
+}
+
 #' Adjusted marginal effects from agronomic meta-regression
 #'
 #' Computes standardized marginal predictions by averaging the fitted
@@ -5,8 +9,10 @@
 #' setting selected moderators to explicit levels or values.
 #'
 #' @param model An `apm_metareg` model.
-#' @param variables Moderator names to summarize. Numeric moderators require
-#'   explicit values in `at`.
+#' @param variables Moderator names to summarize. Defaults to all fitted
+#'   moderators; numeric moderators without explicit values in `at` are
+#'   evaluated at their observed support midpoint. Numeric moderators require
+#'   explicit values in `at` when `variables` is supplied explicitly.
 #' @param at Named list of moderator values at which marginal predictions are
 #'   evaluated.
 #' @param weights Marginalization rule: equal effect-level weights or equal
@@ -38,6 +44,14 @@ apm_marginal_effects <- function(model, variables = NULL, at = NULL, weights = c
   if (!is.numeric(level) || length(level) != 1L || level <= 0 || level >= 1) .apm_abort("{.arg level} must lie between 0 and 1.")
   if (is.null(at)) at <- list()
   if (!is.list(at) || (length(at) && is.null(names(at)))) .apm_abort("{.arg at} must be a named list.")
+  if (is.null(variables) && !length(at)) {
+    variables <- .apm_default_marginal_vars(model)
+    for (v in variables) {
+      sup <- model$moderator_info$support[[v]]
+      if (!is.null(sup) && identical(sup$type, "numeric") && is.finite(sup$min) && is.finite(sup$max))
+        at[[v]] <- mean(c(sup$min, sup$max))
+    }
+  }
   if (is.null(variables)) variables <- names(at)
   variables <- unique(c(as.character(variables), names(at)))
   if (!length(variables)) .apm_abort("Specify {.arg variables} and/or a named {.arg at} list.")

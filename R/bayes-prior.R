@@ -90,5 +90,5 @@ apm_prior <- function(effect = NULL, tau = NULL, moderators = NULL, model_probab
   if (d == "halfcauchy") return(BayesTools::prior("cauchy", parameters=list(location=0,scale=spec$scale), truncation=trunc))
   if (d == "exponential") return(BayesTools::prior("exp", parameters=list(rate=spec$rate), truncation=trunc))
   if (d == "uniform") return(BayesTools::prior("uniform", parameters=list(a=spec$min,b=spec$max), truncation=list(lower=spec$min,upper=spec$max)))
-  .apm_abort("Prior distribution {.val {d}} cannot be translated to BayesTools in version 0.4.0.")
+  .apm_abort("Prior distribution {.val {d}} cannot be translated to BayesTools by the current adapter.")
 }

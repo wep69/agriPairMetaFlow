@@ -39,7 +39,9 @@ apm_export <- function(x, path, format = c("csv", "xlsx", "rds", "json", "png", 
     if(!inherits(x,"ggplot")) .apm_abort("Graphical export requires a ggplot object.")
     if(!is.numeric(dpi)||length(dpi)!=1L||dpi<=0) .apm_abort("{.arg dpi} must be positive.")
     width<-width%||%7;height<-height%||%5
-    ggplot2::ggsave(filename=path,plot=x,width=width,height=height,units="in",dpi=dpi,device=format)
+    # ggplot2 renders horizontal error-bar layers with a "height was translated
+    # to width" message at draw time; muffle it so figure export stays quiet.
+    suppressMessages(ggplot2::ggsave(filename=path,plot=x,width=width,height=height,units="in",dpi=dpi,device=format))
   } else {
     if(inherits(x,"htmlwidget")) { .apm_require("htmlwidgets","HTML widget export"); htmlwidgets::saveWidget(x,path,selfcontained=TRUE) }
     else if(inherits(x,"ggplot")) { .apm_require("plotly","HTML plot export"); .apm_require("htmlwidgets","HTML plot export"); htmlwidgets::saveWidget(plotly::ggplotly(x),path,selfcontained=TRUE) }

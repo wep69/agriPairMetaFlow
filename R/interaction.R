@@ -37,7 +37,7 @@ apm_interaction <- function(model, term, at = NULL, contrast = c("difference", "
   if (!adjust %in% stats::p.adjust.methods) .apm_abort("{.arg adjust} must be one of stats::p.adjust.methods.")
   if (!is.character(term) || length(term) != 1L || !grepl(":", term, fixed=TRUE)) .apm_abort("{.arg term} must identify one fitted interaction, for example 'rainfall:climate_zone'.")
   parts <- strsplit(term, ":", fixed=TRUE)[[1]]
-  if (length(parts) != 2L) .apm_abort("Version 0.3.0 interprets two-way interactions only.")
+  if (length(parts) != 2L) .apm_abort("Only two-way interactions are interpreted.")
   parts <- trimws(parts)
   f <- model$moderator_info$formula
   tl <- attr(stats::terms(f), "term.labels")

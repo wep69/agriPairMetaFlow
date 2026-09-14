@@ -3,7 +3,7 @@
 #' @param model An `apm_model`.
 #' @param newdata Optional moderator values.
 #' @param level Confidence level.
-#' @param method Prediction-interval method. Version 0.1.0 validates `"model"`; alternative labels are reserved for optional `pimeta` routing.
+#' @param method Prediction-interval method. Only `"model"` is currently supported.
 #' @param transform Output transformation.
 #' @param threshold Optional practical threshold on transformed output scale.
 #' @param ... Reserved for backend-specific extensions.
@@ -17,9 +17,8 @@
 #' apm_prediction(fm, newdata=data.frame(rainfall=c(600,900,1200)))
 #' # Example 3: ratio-scale prediction.
 #' apm_prediction(apm_fit(agri_effects_benchmark), transform="exp")
-apm_prediction <- function(model, newdata = NULL, level = 0.95, method = c("model", "HTS", "HK", "KR", "NNF"), transform = c("auto", "none", "exp", "percent"), threshold = NULL, ...) {
+apm_prediction <- function(model, newdata = NULL, level = 0.95, method = c("model"), transform = c("auto", "none", "exp", "percent"), threshold = NULL, ...) {
   if(!inherits(model,"apm_model")) .apm_abort("{.arg model} must be an apm_model."); method<-match.arg(method); transform<-match.arg(transform)
-  if(method!="model") .apm_abort("Prediction method {.val {method}} is reserved for the optional pimeta adapter and is not yet runtime-enabled in this 0.2.0 development snapshot; use method='model'.")
   fit<-model$backend_fit; newmods<-NULL
   if(!is.null(newdata)) {
     mods<-model$settings$mods; if(identical(deparse(mods),"~1")) .apm_abort("{.arg newdata} is only meaningful for a model with moderators.")

@@ -30,6 +30,10 @@ apm_influence <- function(model, cluster = NULL, unit = c("study", "effect"),
   .apm_require("metafor", "influence diagnostics")
   if (!inherits(model,"apm_model")) .apm_abort("{.arg model} must inherit from apm_model.")
   unit <- match.arg(unit); plot_type <- match.arg(plot_type)
+  if(plot_type%in%c("baujat","radial")&&unit!="effect"&&inherits(model$backend_fit,"rma.uni")) {
+    .apm_inform("{.arg plot_type} = {.val {plot_type}} requires effect-level units; using {.code unit = \"effect\"}.")
+    unit <- "effect"
+  }
   allowed <- c("cook","dfbetas","leverage","tau2_change")
   if (!length(metrics) || any(!metrics %in% allowed)) .apm_abort("{.arg metrics} contains unsupported diagnostics.")
   fit <- model$backend_fit; dat <- model$data
@@ -72,13 +76,13 @@ apm_influence <- function(model, cluster = NULL, unit = c("study", "effect"),
   pd <- diagnostics; p <- NULL
   if (isTRUE(plot)) {
     if (plot_type=="baujat") {
-      if (!inherits(fit,"rma.uni") || unit!="effect") .apm_abort("Baujat plotting currently requires an rma.uni-backed effect-level model.")
+      if (!inherits(fit,"rma.uni") || unit!="effect") .apm_abort(c("Baujat plotting requires an effect-level {.cls rma.uni} model.", "i"="Call with {.code unit = \"effect\"}."))
       bd <- .apm_capture_metafor_plot_data(function() metafor::baujat(fit, symbol=19))
       pd <- as.data.frame(bd)
       p <- ggplot2::ggplot(pd, ggplot2::aes(x=x,y=y)) + ggplot2::geom_point() +
         ggplot2::theme_minimal() + ggplot2::labs(x="Contribution to heterogeneity", y="Influence on fitted value", caption="Baujat diagnostics identify influential patterns; they do not define exclusion rules.")
     } else if (plot_type=="radial") {
-      if (!inherits(fit,"rma.uni") || unit!="effect") .apm_abort("Radial plotting currently requires an rma.uni-backed effect-level model.")
+      if (!inherits(fit,"rma.uni") || unit!="effect") .apm_abort(c("Radial plotting requires an effect-level {.cls rma.uni} model.", "i"="Call with {.code unit = \"effect\"}."))
       rd <- .apm_capture_metafor_plot_data(function() metafor::radial(fit))
       pd <- as.data.frame(rd)
       p <- ggplot2::ggplot(pd, ggplot2::aes(x=x,y=y)) + ggplot2::geom_point() +

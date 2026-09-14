@@ -22,7 +22,7 @@ apm_audit <- function(data, plan = NULL, level = c("basic", "full"), repair = FA
     key <- paste(dat$study_id, if ("experiment_id" %in% names(dat)) dat$experiment_id else "", dat$control, sep="::")
     counts <- tapply(as.character(dat$treatment), key, function(x) length(unique(x)))
     shared <- names(counts)[counts > 1L]
-    if (length(shared)) issues[[length(issues)+1L]] <- .apm_issue("warning","shared_control",paste0(length(shared)," study/experiment control arm(s) are reused across multiple treatment contrasts."),action="Model sampling dependence in version 0.2.0 or use one independent contrast per experiment in 0.1.0.")
+    if (length(shared)) issues[[length(issues)+1L]] <- .apm_issue("warning","shared_control",paste0(length(shared)," study/experiment control arm(s) are reused across multiple treatment contrasts."),action="Model sampling dependence with apm_vcov() or use one independent contrast per experiment.")
   }
   unc <- intersect(c("sd_t","sd_c","se_t","se_c","cv_t","cv_c","mse"), names(dat))
   if (level == "full" && length(unc)) {

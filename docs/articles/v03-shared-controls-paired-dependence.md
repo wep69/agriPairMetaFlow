@@ -92,15 +92,14 @@ rho_check <- apm_rho_sensitivity(
 )
 rho_check
 #> <apm_sensitivity>
-#>   rho estimate se ci_lower ci_upper pi_lower pi_upper tau2    ok
-#>  0.25       NA NA       NA       NA       NA       NA   NA FALSE
-#>  0.50       NA NA       NA       NA       NA       NA   NA FALSE
-#>  0.75       NA NA       NA       NA       NA       NA   NA FALSE
-#>                                                          error
-#>  \033[1m\033[22m`subgroup` must evaluate to one value per row.
-#>  \033[1m\033[22m`subgroup` must evaluate to one value per row.
-#>  \033[1m\033[22m`subgroup` must evaluate to one value per row.
-#> failed fits: 3
+#>   rho  estimate         se   ci_lower  ci_upper pi_lower pi_upper tau2   ok
+#>  0.25 0.1253056 0.01375874 0.09833901 0.1522723 1.103337 1.164477    0 TRUE
+#>  0.50 0.1253056 0.01375874 0.09833901 0.1522723 1.103337 1.164477    0 TRUE
+#>  0.75 0.1253056 0.01375874 0.09833901 0.1522723 1.103337 1.164477    0 TRUE
+#>  error
+#>   <NA>
+#>   <NA>
+#>   <NA>
 ```
 
 A stable conclusion should not depend critically on an arbitrary, weakly

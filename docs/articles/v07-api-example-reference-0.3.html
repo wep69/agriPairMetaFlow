@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">agriPairMetaFlow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -229,17 +229,16 @@
 <span><span class="co">#&gt;  probability_basis</span></span>
 <span><span class="co">#&gt;      not requested</span></span>
 <span><span class="fu"><a href="../reference/apm_predict_context.html">apm_predict_context</a></span><span class="op">(</span><span class="va">c2</span>,<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>rainfall<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">700</span>,<span class="fl">1000</span><span class="op">)</span><span class="op">)</span>,threshold<span class="op">=</span><span class="fl">5</span>,transform<span class="op">=</span><span class="st">"percent"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Extra argument ('prob') disregarded.</span></span>
 <span><span class="co">#&gt; &lt;apm_prediction&gt; transform=percent</span></span>
 <span><span class="co">#&gt;  rainfall       support      pred         se ci_lower ci_upper pi_lower</span></span>
 <span><span class="co">#&gt;       700 interpolation 11.691871 0.02021389 7.028627 16.55829 7.028627</span></span>
 <span><span class="co">#&gt;      1000 interpolation  8.726033 0.02023404 4.182187 13.46806 4.182187</span></span>
 <span><span class="co">#&gt;  pi_upper threshold_relation probability_above_threshold</span></span>
-<span><span class="co">#&gt;  16.55829              above                          NA</span></span>
-<span><span class="co">#&gt;  13.46806           overlaps                          NA</span></span>
-<span><span class="co">#&gt;                                               probability_basis</span></span>
-<span><span class="co">#&gt;  unavailable: backend predictive-probability calculation failed</span></span>
-<span><span class="co">#&gt;  unavailable: backend predictive-probability calculation failed</span></span></code></pre></div>
+<span><span class="co">#&gt;  16.55829              above                   0.9988803</span></span>
+<span><span class="co">#&gt;  13.46806           overlaps                   0.9575900</span></span>
+<span><span class="co">#&gt;                                    probability_basis</span></span>
+<span><span class="co">#&gt;  normal approximation on the prediction distribution</span></span>
+<span><span class="co">#&gt;  normal approximation on the prediction distribution</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="curve-features">Curve features<a class="anchor" aria-label="anchor" href="#curve-features"></a>

@@ -104,7 +104,13 @@ apm_workflow <- function(data, plan = NULL, measure = "lnRR",
   dependence <- match.arg(dependence); model <- match.arg(model)
   dat <- .apm_df(data); route <- list(); nr <- 0L
   logit <- function(step,decision,reason,source="auto") { nr <<- nr+1L; route[[nr]] <<- .apm_workflow_log_row(step,decision,reason,source) }
-  if(!is.null(seed)) { if(length(seed)!=1L||!is.finite(seed)) .apm_abort("{.arg seed} must be one finite number."); set.seed(seed); logit("seed",seed,"User supplied reproducibility seed.","user") }
+  if(!is.null(seed)) {
+    if(length(seed)!=1L||!is.finite(seed)) .apm_abort("{.arg seed} must be one finite number.")
+    had_seed <- exists(".Random.seed", envir=.GlobalEnv, inherits=FALSE)
+    if(had_seed) old_seed <- get(".Random.seed", envir=.GlobalEnv, inherits=FALSE)
+    on.exit({ if(had_seed) assign(".Random.seed", old_seed, envir=.GlobalEnv) else if(exists(".Random.seed", envir=.GlobalEnv, inherits=FALSE)) rm(".Random.seed", envir=.GlobalEnv) }, add=TRUE)
+    set.seed(as.integer(seed)); logit("seed",seed,"User supplied reproducibility seed.","user")
+  }
 
   audit <- apm_audit(dat,plan=plan,level="full")
   if(any(audit$issues$severity=="error")) .apm_abort("Workflow audit found error-level data issues. Resolve them before fitting; inspect apm_audit(data, level='full').")
