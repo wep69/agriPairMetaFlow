@@ -1,0 +1,55 @@
+# API example reference: version 0.4.0
+
+This vignette is a compact coverage reference for the ten functions
+introduced in version 0.4.0. The thematic vignettes provide the
+scientific explanation.
+
+``` r
+
+apm_multivariate(soil_management_multiresponse,outcome=outcome,study=mv_study_id,V=diag(soil_management_multiresponse$vi))
+apm_multivariate(soil_management_multiresponse,outcome=outcome,study=mv_study_id,V=diag(soil_management_multiresponse$vi),structure="CS")
+apm_multivariate(biochar_multiresponse,outcome=outcome,study=study_id,V=diag(biochar_multiresponse$vi),mods=~climate_zone)
+
+apm_mvcor_sensitivity(soil_management_multiresponse,outcome=outcome,study=mv_study_id,rho=c(0,.5))
+apm_mvcor_sensitivity(biochar_multiresponse,outcome=outcome,study=study_id,rho=c(.25,.5,.75))
+apm_mvcor_sensitivity(soil_management_multiresponse,outcome=outcome,study=mv_study_id,rho=c(0,.3,.6),fit_args=list(structure="CS"))
+
+m <- apm_multivariate(soil_management_multiresponse,outcome=outcome,study=mv_study_id,V=diag(soil_management_multiresponse$vi))
+apm_multivariate_plot(m,"outcome_forest")
+apm_multivariate_plot(m,"correlation")
+apm_multivariate_plot(m,"prediction")
+```
+
+``` r
+
+apm_prior(effect=list(dist="normal",mean=0,sd=.2))
+apm_prior(tau=list(dist="halfnormal",scale=.2))
+apm_prior(moderators=list(rainfall=list(dist="normal",mean=0,sd=.001)))
+
+apm_prior_check(apm_prior(),"lnRR",draws=500,seed=1,plot=FALSE)
+apm_prior_check(apm_prior(effect=list(dist="normal",mean=0,sd=.2)),"CVR",draws=500,seed=1,plot=FALSE)
+apm_prior_check(apm_prior(moderators=list(rainfall=list(dist="normal",mean=0,sd=.001))),"lnRR",x=data.frame(rainfall=c(600,1200)),draws=500,seed=1,plot=FALSE)
+```
+
+``` r
+
+b1 <- apm_bayes(agri_effects_benchmark,backend="bayesmeta")
+b2 <- apm_bayes(agri_effects_benchmark,backend="RoBMA",seed=1)
+b3 <- apm_bayes(agri_effects_benchmark,backend="brms",seed=1)
+
+apm_bayes_predict(b1,predictive=FALSE)
+apm_bayes_predict(b1,predictive=TRUE,transform="percent")
+apm_bayes_predict(b2,predictive=TRUE)
+
+apm_bayes_threshold(b1,5,scale="percent")
+apm_bayes_threshold(b1,5,scale="percent",predictive=TRUE)
+apm_bayes_threshold(b1,0,rope=c(-.05,.05))
+
+apm_bayes_diagnostics(b1,plot=FALSE)
+apm_bayes_diagnostics(b2,plot=FALSE)
+apm_bayes_diagnostics(b3,plot=TRUE)
+
+apm_bayes_compare(brms_linear,brms_quadratic,criterion="loo")
+apm_bayes_compare(brms_linear,brms_quadratic,criterion="waic")
+apm_bayes_compare(robma_ensemble,criterion="model_probability")
+```

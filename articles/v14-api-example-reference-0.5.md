@@ -1,0 +1,48 @@
+# API Example Reference: Version 0.5.0
+
+This reference deliberately gives three compact agronomic calls for
+every public function introduced in version 0.5.0. Specialized vignettes
+explain the scientific reasoning in depth.
+
+``` r
+
+apm_influence(fit, unit="study", plot=FALSE)
+apm_influence(fit, unit="effect", plot_type="baujat", plot=FALSE)
+apm_influence(fit, unit="effect", plot_type="radial", plot=FALSE)
+
+apm_leave_one_out(fit, unit="study")
+apm_leave_one_out(fit, unit="effect")
+apm_leave_one_out(fit, unit="study", transform="percent")
+
+apm_gosh(fit, subsets=80, seed=1, plot=FALSE)
+apm_gosh(fit, subsets=90, seed=2, plot=FALSE)
+apm_gosh(fit, subsets=100, seed=3, plot=FALSE)
+
+apm_bias(fit, methods="egger")
+apm_bias(fit, methods=c("rank","trimfill"))
+apm_bias(fit, methods="selection")
+
+apm_funnel_contour(fit)
+apm_funnel_contour(fit, levels=.95)
+apm_funnel_contour(fit, label=TRUE)
+
+apm_orchard(fit, transform="percent")
+apm_orchard(fit, raw_effects=FALSE)
+apm_orchard(fit, prediction=FALSE)
+
+if(requireNamespace("metaforest",quietly=TRUE)) apm_moderator_screen(agri_effects_benchmark,~dose+rainfall+crop,seed=1,tune=FALSE)
+if(requireNamespace("metaforest",quietly=TRUE)) apm_moderator_screen(agri_effects_benchmark,~dose+rainfall+soil_texture,seed=2,tune=FALSE)
+if(requireNamespace("metaforest",quietly=TRUE)) apm_moderator_screen(agri_effects_benchmark,~dose+crop+soil_texture,seed=3,tune=FALSE)
+
+if(requireNamespace("rmarkdown",quietly=TRUE)) apm_report(fit,tempfile(fileext=".html"),format="html")
+if(requireNamespace("rmarkdown",quietly=TRUE)) apm_report(fit,tempfile(fileext=".html"),sections=c("model","prediction"))
+if(requireNamespace("rmarkdown",quietly=TRUE)) apm_report(fit,tempfile(fileext=".html"),title="Agronomic synthesis")
+
+apm_explain(fit,audience="scientific")
+apm_explain(fit,audience="teaching")
+apm_explain(fit,audience="extension",transform="percent")
+
+apm_export(fit,tempfile(fileext=".rds"),format="rds",overwrite=TRUE)
+apm_export(fit,tempfile(fileext=".csv"),format="csv",overwrite=TRUE)
+apm_export(apm_orchard(fit),tempfile(fileext=".png"),format="png",overwrite=TRUE)
+```
