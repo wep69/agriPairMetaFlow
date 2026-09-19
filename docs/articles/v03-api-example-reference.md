@@ -9,7 +9,7 @@ f <- system.file("extdata","maize_n_shared.csv",package="agriPairMetaFlow")
 if(nzchar(f)){apm_read(f);apm_read(f,mapping=c(study="study_id"));apm_read(f,units=c(mean_t="Mg ha-1"))}
 #> <apm_data>
 #> 24 rows x 15 columns
-#> source: C:/Users/wep69/AppData/Local/Temp/opencode/RLib_fixed/agriPairMetaFlow/extdata/maize_n_shared.csv
+#> source: D:/Walter/R/Pacotes_criados/Tutoriais/agriPairMetaFlow-tutorial/tutorial-simulado/_lib/agriPairMetaFlow/extdata/maize_n_shared.csv
 apm_validate(maize_n_shared,"summary",strict=FALSE);apm_validate(pest_suppression_binary,"binary",strict=FALSE);apm_validate(agri_effects_benchmark,"effect",strict=FALSE)
 #> <apm_validation> PASS
 #> <apm_validation> PASS

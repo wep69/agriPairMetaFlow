@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">agriPairMetaFlow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,12 +102,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small-study effects and funnel asymmetry have multiple causes. No bias-adjusted result is automatically preferred over the primary model. </span>
 <span class="r-in"><span><span class="co"># Example 3: S-value when PublicationBias is installed.</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"PublicationBias"</span>,quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu">apm_bias</span><span class="op">(</span><span class="fu"><a href="apm_fit.html">apm_fit</a></span><span class="op">(</span><span class="va">agri_effects_benchmark</span><span class="op">)</span>, methods<span class="op">=</span><span class="st">"svalue"</span>, q<span class="op">=</span><span class="fl">0</span>, favor<span class="op">=</span><span class="st">"positive"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_bias&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  method estimate p_value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  svalue       NA      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                     note</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Sensitivity to an explicitly specified selective-publication mechanism.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                   note</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Sensitivity to an explicitly specified selective-publication mechanism. Backend reported 'Not possible' for this dataset; no numeric estimate exists.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small-study effects and funnel asymmetry have multiple causes. No bias-adjusted result is automatically preferred over the primary model. </span>
 </code></pre></div>
     </div>

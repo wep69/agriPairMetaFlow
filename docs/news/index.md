@@ -1,5 +1,44 @@
 # Changelog
 
+## agriPairMetaFlow 1.0.2
+
+Patch release with findings from a second execution audit, performed
+while building the simulated-data tutorial (`tutorial-simulado`). All
+items were reproduced in self-contained blocks before being fixed.
+
+- [`apm_rho_sensitivity()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_rho_sensitivity.md)
+  now reads prediction-interval columns from the raw (model-scale)
+  backend table, so `pi_lower`/`pi_upper` are on the same scale as
+  `estimate`/`ci_lower`/`ci_upper` for log-ratio measures (regression
+  from the 1.0.1 fix).
+- `apm_robust(constraints = <numeric index>)` builds the clubSandwich
+  constraint with explicit `coefs`, fixing
+  `cannot coerce type 'closure' to vector of type 'logical'` when
+  numeric coefficient indices were requested.
+- [`apm_wild_bootstrap()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_wild_bootstrap.md)
+  aborts with a clear message when every coefficient is constrained
+  (degenerate null model), instead of an opaque matrix-arithmetic error
+  from the backend.
+- [`apm_moderator_screen()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_moderator_screen.md)
+  no longer leaks the ranger warning `Unused arguments: study` when run
+  without a cluster column.
+- `apm_bias(methods = "svalue")` surfaces the backend’s textual
+  `"Not possible"` answer in the note instead of coercing it to `NA`
+  with a raw warning.
+- `apm_bayes(backend = "RoBMA")` forwards a sample-size column (`ni`,
+  `n_ef`, or `n`) when present in the data, avoiding the cryptic UISD
+  error for effect-scale priors; `ni` can still be supplied through
+  `...`.
+- [`apm_bayes()`](https://wep69.github.io/agriPairMetaFlow/reference/apm_bayes.md)
+  gains `brms_backend`, forwarded to `brms::brm(backend =)`, so users
+  can select the sampling engine (for example `"cmdstanr"`) through the
+  adapter.
+- `apm_bayes_compare(criterion = "loo")` accepts named models again: the
+  comparison passes the named list to
+  [`loo::loo_compare()`](https://mc-stan.org/loo/reference/loo_compare.html)
+  instead of expanding names onto non-`x` formals, which failed with
+  `argument "x" is missing` when models were passed as `name = model`.
+
 ## agriPairMetaFlow 1.0.1
 
 Patch release addressing all 21 findings of an independent execution

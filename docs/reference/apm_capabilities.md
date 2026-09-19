@@ -34,20 +34,20 @@ An apm_capabilities data frame.
 apm_capabilities()
 #> <apm_capabilities>
 #>           feature                  backend  core installed version    status
-#>              core         agriPairMetaFlow  TRUE      TRUE   1.0.1 AVAILABLE
-#>      effect-sizes                  metafor  TRUE      TRUE   5.0.1 AVAILABLE
-#>    random-effects                  metafor  TRUE      TRUE   5.0.1 AVAILABLE
-#>    shared-control                  metafor  TRUE      TRUE   5.0.1 AVAILABLE
-#>        multilevel                  metafor  TRUE      TRUE   5.0.1 AVAILABLE
+#>              core         agriPairMetaFlow  TRUE      TRUE   1.0.2 AVAILABLE
+#>      effect-sizes                  metafor  TRUE      TRUE   5.2.1 AVAILABLE
+#>    random-effects                  metafor  TRUE      TRUE   5.2.1 AVAILABLE
+#>    shared-control                  metafor  TRUE      TRUE   5.2.1 AVAILABLE
+#>        multilevel                  metafor  TRUE      TRUE   5.2.1 AVAILABLE
 #>            robust             clubSandwich FALSE      TRUE   0.7.0 AVAILABLE
 #>    wild-bootstrap                 wildmeta FALSE      TRUE   0.3.2 AVAILABLE
-#>   meta-regression                  metafor  TRUE      TRUE   5.0.1 AVAILABLE
+#>   meta-regression                  metafor  TRUE      TRUE   5.2.1 AVAILABLE
 #>     dose-response               dosresmeta FALSE      TRUE   2.2.0 AVAILABLE
 #>      multivariate                  mixmeta FALSE      TRUE   1.2.2 AVAILABLE
 #>          bayesian                bayesmeta FALSE      TRUE     3.5 AVAILABLE
 #>          bayesian                    RoBMA FALSE      TRUE   4.0.0 AVAILABLE
 #>          bayesian                     brms FALSE      TRUE  2.23.0 AVAILABLE
-#>  publication-bias                  metafor  TRUE      TRUE   5.0.1 AVAILABLE
+#>  publication-bias                  metafor  TRUE      TRUE   5.2.1 AVAILABLE
 #>  publication-bias PublicationBias/metasens FALSE      TRUE   2.4.0 AVAILABLE
 #>  moderator-screen               metaforest FALSE      TRUE   0.1.5 AVAILABLE
 #>       interactive       plotly/htmlwidgets FALSE      TRUE  4.12.1 AVAILABLE

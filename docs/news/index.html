@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">agriPairMetaFlow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,6 +58,26 @@
       <small>Source: <a href="https://github.com/wep69/agriPairMetaFlow/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.2" id="agripairmetaflow-102">agriPairMetaFlow 1.0.2<a class="anchor" aria-label="anchor" href="#agripairmetaflow-102"></a></h2>
+<p>Patch release with findings from a second execution audit, performed while building the simulated-data tutorial (<code>tutorial-simulado</code>). All items were reproduced in self-contained blocks before being fixed.</p>
+<ul><li>
+<code><a href="../reference/apm_rho_sensitivity.html">apm_rho_sensitivity()</a></code> now reads prediction-interval columns from the raw (model-scale) backend table, so <code>pi_lower</code>/<code>pi_upper</code> are on the same scale as <code>estimate</code>/<code>ci_lower</code>/<code>ci_upper</code> for log-ratio measures (regression from the 1.0.1 fix).</li>
+<li>
+<code>apm_robust(constraints = &lt;numeric index&gt;)</code> builds the clubSandwich constraint with explicit <code>coefs</code>, fixing <code>cannot coerce type 'closure' to vector of type 'logical'</code> when numeric coefficient indices were requested.</li>
+<li>
+<code><a href="../reference/apm_wild_bootstrap.html">apm_wild_bootstrap()</a></code> aborts with a clear message when every coefficient is constrained (degenerate null model), instead of an opaque matrix-arithmetic error from the backend.</li>
+<li>
+<code><a href="../reference/apm_moderator_screen.html">apm_moderator_screen()</a></code> no longer leaks the ranger warning <code>Unused arguments: study</code> when run without a cluster column.</li>
+<li>
+<code>apm_bias(methods = "svalue")</code> surfaces the backend’s textual <code>"Not possible"</code> answer in the note instead of coercing it to <code>NA</code> with a raw warning.</li>
+<li>
+<code>apm_bayes(backend = "RoBMA")</code> forwards a sample-size column (<code>ni</code>, <code>n_ef</code>, or <code>n</code>) when present in the data, avoiding the cryptic UISD error for effect-scale priors; <code>ni</code> can still be supplied through <code>...</code>.</li>
+<li>
+<code><a href="../reference/apm_bayes.html">apm_bayes()</a></code> gains <code>brms_backend</code>, forwarded to <code>brms::brm(backend =)</code>, so users can select the sampling engine (for example <code>"cmdstanr"</code>) through the adapter.</li>
+<li>
+<code>apm_bayes_compare(criterion = "loo")</code> accepts named models again: the comparison passes the named list to <code><a href="https://mc-stan.org/loo/reference/loo_compare.html" class="external-link">loo::loo_compare()</a></code> instead of expanding names onto non-<code>x</code> formals, which failed with <code>argument "x" is missing</code> when models were passed as <code>name = model</code>.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.1" id="agripairmetaflow-101">agriPairMetaFlow 1.0.1<a class="anchor" aria-label="anchor" href="#agripairmetaflow-101"></a></h2>
 <p>Patch release addressing all 21 findings of an independent execution audit of version 1.0.0 (report <code>RELATORIO-AO-AUTOR.md</code>, audit date 2026-09-14).</p>

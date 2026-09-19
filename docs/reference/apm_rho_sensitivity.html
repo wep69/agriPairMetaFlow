@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">agriPairMetaFlow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,28 +78,28 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">es</span> <span class="op">&lt;-</span> <span class="fu"><a href="apm_effect_size.html">apm_effect_size</a></span><span class="op">(</span><span class="va">soil_management_multiresponse</span>,<span class="st">"lnRR"</span>,m_t<span class="op">=</span><span class="va">mean_t</span>,sd_t<span class="op">=</span><span class="va">sd_t</span>,n_t<span class="op">=</span><span class="va">n_t</span>,m_c<span class="op">=</span><span class="va">mean_c</span>,sd_c<span class="op">=</span><span class="va">sd_c</span>,n_c<span class="op">=</span><span class="va">n_c</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">apm_rho_sensitivity</span><span class="op">(</span><span class="va">es</span>,rho<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.25</span>,<span class="fl">.5</span>,<span class="fl">.75</span><span class="op">)</span>,build_vcov<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cluster<span class="op">=</span><span class="st">"study_id"</span>,type<span class="op">=</span><span class="st">"outcome"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_sensitivity&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   rho  estimate         se   ci_lower  ci_upper pi_lower pi_upper tau2   ok</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.25 0.1253056 0.01375874 0.09833901 0.1522723 1.103337 1.164477    0 TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.50 0.1253056 0.01375874 0.09833901 0.1522723 1.103337 1.164477    0 TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.75 0.1253056 0.01375874 0.09833901 0.1522723 1.103337 1.164477    0 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   rho  estimate         se   ci_lower  ci_upper   pi_lower  pi_upper tau2   ok</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.25 0.1253056 0.01375874 0.09833901 0.1522723 0.09833901 0.1522723    0 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.50 0.1253056 0.01375874 0.09833901 0.1522723 0.09833901 0.1522723    0 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.75 0.1253056 0.01375874 0.09833901 0.1522723 0.09833901 0.1522723    0 TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;NA&gt;</span>
 <span class="r-in"><span><span class="fu">apm_rho_sensitivity</span><span class="op">(</span><span class="va">es</span>,rho<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.2</span>,<span class="fl">.8</span><span class="op">)</span>,build_vcov<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cluster<span class="op">=</span><span class="st">"study_id"</span>,type<span class="op">=</span><span class="st">"outcome"</span><span class="op">)</span>,metric<span class="op">=</span><span class="st">"se"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_sensitivity&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  rho  estimate         se   ci_lower  ci_upper pi_lower pi_upper tau2   ok</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.2 0.1253056 0.01375874 0.09833901 0.1522723 1.103337 1.164477    0 TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8 0.1253056 0.01375874 0.09833901 0.1522723 1.103337 1.164477    0 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  rho  estimate         se   ci_lower  ci_upper   pi_lower  pi_upper tau2   ok</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.2 0.1253056 0.01375874 0.09833901 0.1522723 0.09833901 0.1522723    0 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8 0.1253056 0.01375874 0.09833901 0.1522723 0.09833901 0.1522723    0 TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;NA&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">apm_rho_sensitivity</span><span class="op">(</span><span class="va">es</span>,rho<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.2</span>,<span class="fl">.8</span><span class="op">)</span>,build_vcov<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cluster<span class="op">=</span><span class="st">"study_id"</span>,type<span class="op">=</span><span class="st">"outcome"</span><span class="op">)</span>,metric<span class="op">=</span><span class="st">"se"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;apm_sensitivity&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  rho  estimate         se   ci_lower  ci_upper pi_lower pi_upper tau2   ok</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.2 0.1253056 0.01375874 0.09833901 0.1522723 1.103337 1.164477    0 TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8 0.1253056 0.01375874 0.09833901 0.1522723 1.103337 1.164477    0 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  rho  estimate         se   ci_lower  ci_upper   pi_lower  pi_upper tau2   ok</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.2 0.1253056 0.01375874 0.09833901 0.1522723 0.09833901 0.1522723    0 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8 0.1253056 0.01375874 0.09833901 0.1522723 0.09833901 0.1522723    0 TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;NA&gt;</span>

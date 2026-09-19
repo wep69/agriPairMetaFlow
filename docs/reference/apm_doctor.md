@@ -72,7 +72,7 @@ apm_doctor()
 #>                                                           version 3.6.6
 #>                                                           version 0.1.4
 #>                                                           version 4.0.3
-#>                                                           version 5.0.1
+#>                                                           version 5.2.1
 #>                                                           version 1.3.0
 #>                                                           version 4.6.0
 #>                                                           version 4.6.0
@@ -166,7 +166,7 @@ apm_doctor(full=TRUE, check_backends=TRUE)
 #>                                                                                                                version 3.6.6
 #>                                                                                                                version 0.1.4
 #>                                                                                                                version 4.0.3
-#>                                                                                                                version 5.0.1
+#>                                                                                                                version 5.2.1
 #>                                                                                                                version 1.3.0
 #>                                                                                                                version 4.6.0
 #>                                                                                                                version 4.6.0
@@ -192,7 +192,7 @@ apm_doctor(full=TRUE, check_backends=TRUE)
 #>                                                       check_examples=FALSE; formal testthat remains a separate release gate.
 #>  LC_COLLATE=C;LC_CTYPE=Portuguese_Brazil.utf8;LC_MONETARY=Portuguese_Brazil.utf8;LC_NUMERIC=C;LC_TIME=Portuguese_Brazil.utf8
 #>                                                                                                           x86_64-w64-mingw32
-#>                                                                           C:\\Users\\wep69\\AppData\\Local\\Temp\\RtmpkZHCoR
+#>                                                                           C:\\Users\\wep69\\AppData\\Local\\Temp\\RtmpcPJyeJ
 #>  remediation
 #>         <NA>
 #>         <NA>
@@ -229,6 +229,7 @@ apm_doctor(full=TRUE, check_backends=TRUE)
 # Example 3: release-machine diagnosis.
 apm_doctor(full=TRUE, check_render=TRUE, check_examples=TRUE)
 #> Warning: package 'future' was built under R version 4.6.1
+#> Warning: package 'metafor' was built under R version 4.6.1
 #> Warning: package 'Matrix' was built under R version 4.6.1
 #> <apm_doctor> CORE PASS 
 #>                              check status            scope
@@ -270,7 +271,7 @@ apm_doctor(full=TRUE, check_render=TRUE, check_examples=TRUE)
 #>                                                                                                                version 3.6.6
 #>                                                                                                                version 0.1.4
 #>                                                                                                                version 4.0.3
-#>                                                                                                                version 5.0.1
+#>                                                                                                                version 5.2.1
 #>                                                                                                                version 1.3.0
 #>                                                                                                                version 4.6.0
 #>                                                                                                                version 4.6.0
@@ -298,7 +299,7 @@ apm_doctor(full=TRUE, check_render=TRUE, check_examples=TRUE)
 #>                                                            Backend calls are re-evaluable and the wild-bootstrap route runs.
 #>  LC_COLLATE=C;LC_CTYPE=Portuguese_Brazil.utf8;LC_MONETARY=Portuguese_Brazil.utf8;LC_NUMERIC=C;LC_TIME=Portuguese_Brazil.utf8
 #>                                                                                                           x86_64-w64-mingw32
-#>                                                                           C:\\Users\\wep69\\AppData\\Local\\Temp\\RtmpkZHCoR
+#>                                                                           C:\\Users\\wep69\\AppData\\Local\\Temp\\RtmpcPJyeJ
 #>  remediation
 #>         <NA>
 #>         <NA>

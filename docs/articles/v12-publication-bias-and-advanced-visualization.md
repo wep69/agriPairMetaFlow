@@ -13,7 +13,6 @@ separate.
 b1 <- apm_bias(fit, methods=c("egger","rank"))
 b2 <- apm_bias(fit, methods=c("trimfill","selection"))
 if (requireNamespace("PublicationBias", quietly=TRUE)) b3 <- apm_bias(fit, methods="svalue", q=0)
-#> Warning in FUN(X[[i]], ...): NAs introduced by coercion
 ```
 
 The primary model is not silently replaced by a bias-adjusted estimate.
