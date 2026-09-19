@@ -85,8 +85,9 @@ apm_moderator_screen <- function(effects, moderators, method = c("metaforest"), 
     # is never forwarded: the unclustered backend duplicates a forwarded
     # `importance` into its ranger call, while the forest always uses
     # permutation importance internally (the clustered backend enforces this).
-    mf_args<-list(formula=f,data=dat,vi="vi",study=study_val,
+    mf_args<-list(formula=f,data=dat,vi="vi",
       whichweights=if(is.null(bt)) "random" else as.character(bt$whichweights)[1L])
+    if(!is.null(study_val)) mf_args$study<-study_val
     if(!is.null(bt)) { mf_args$mtry<-suppressWarnings(as.integer(bt$mtry)[1L]); mf_args$min.node.size<-suppressWarnings(as.integer(bt$min.node.size)[1L]) }
     fit1<-do.call(metaforest::MetaForest,c(mf_args,list(...)))
     list(fit=fit1,tuning=tun)

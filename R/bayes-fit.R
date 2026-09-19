@@ -68,6 +68,9 @@
 #' @param iter Total iterations or approximate total MCMC iterations.
 #' @param warmup Warmup/burn-in iterations.
 #' @param seed Reproducibility seed.
+#' @param brms_backend Optional sampling engine forwarded to `brms::brm()` as
+#'   its `backend` argument, for example `"cmdstanr"`. `NULL` keeps the brms
+#'   default. Ignored by the other backends.
 #' @param ... Additional backend arguments.
 #' @return An object of class `apm_bayes`.
 #' @export
@@ -77,7 +80,8 @@
 #' if (requireNamespace("RoBMA",quietly=TRUE) && requireNamespace("BayesTools",quietly=TRUE)) { es <- apm_effect_size(maize_n_shared,"lnRR",m_t=mean_t,sd_t=sd_t,n_t=n_t,m_c=mean_c,sd_c=sd_c,n_c=n_c); b3 <- apm_bayes(es,cluster=study_id,mods=~N_rate,backend="RoBMA",seed=1) }
 apm_bayes <- function(effects, mods = ~ 1, cluster = NULL, prior = NULL,
                       backend = c("auto", "bayesmeta", "RoBMA", "brms"), bias_adjust = FALSE,
-                      chains = 4, iter = 4000, warmup = 1000, seed = NULL, ...) {
+                      chains = 4, iter = 4000, warmup = 1000, seed = NULL,
+                      brms_backend = NULL, ...) {
   backend <- match.arg(backend)
   dat <- .apm_df(effects)
   if(!all(c("yi","vi") %in% names(dat))) .apm_abort("Bayesian fitting requires {.field yi} and {.field vi}.")
@@ -117,6 +121,14 @@ apm_bayes <- function(effects, mods = ~ 1, cluster = NULL, prior = NULL,
                  sample=max(500L,as.integer(iter-warmup)),burnin=as.integer(warmup),chains=as.integer(chains),seed=seed,silent=TRUE)
     if(!is.null(pm)) args$prior_mods <- pm
     if(!is.null(cl)) args$cluster <- cl
+    dots <- list(...)
+    if (is.null(args$ni) && is.null(dots$ni)) {
+      cand <- intersect(c("ni", "n_ef", "n"), names(dat))
+      if (length(cand)) {
+        v <- dat[[cand[1]]]
+        if (is.numeric(v) && all(is.finite(v)) && all(v > 0)) args$ni <- v
+      }
+    }
     fun <- if(isTRUE(bias_adjust)) RoBMA::RoBMA else RoBMA::brma
     backend_fit <- rlang::exec(fun, !!!args, ...)
     posterior_summary <- tryCatch({ cc<-stats::coef(backend_fit); data.frame(term=names(cc),estimate=as.numeric(cc),median=NA_real_,sd=NA_real_,lower=NA_real_,upper=NA_real_) },error=function(e)data.frame())
@@ -128,7 +140,9 @@ apm_bayes <- function(effects, mods = ~ 1, cluster = NULL, prior = NULL,
     rhs <- paste(deparse(mods[[2L]],width.cutoff=500L),collapse=" ")
     random_term <- if(is.null(cl)) "(1 | .apm_row)" else "(1 | .apm_cluster) + (1 | .apm_row)"
     fm <- stats::as.formula(paste("yi | se(.apm_se) ~",rhs,"+",random_term))
-    backend_fit <- brms::brm(fm,data=dat,prior=.apm_brms_prior(prior,X),chains=chains,iter=iter,warmup=warmup,seed=seed,...)
+    bm_args <- list(fm,data=dat,prior=.apm_brms_prior(prior,X),chains=chains,iter=iter,warmup=warmup,seed=seed)
+    if (!is.null(brms_backend)) bm_args$backend <- brms_backend
+    backend_fit <- do.call(brms::brm,c(bm_args,list(...)))
     draws <- tryCatch(as.data.frame(backend_fit),error=function(e)NULL)
     if(!is.null(draws)) {
       keep <- grep("^b_",names(draws),value=TRUE)

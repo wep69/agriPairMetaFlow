@@ -200,3 +200,86 @@ test_that("bayesmeta PPC runs outside the standard library path", {
   expect_true(is.null(d$ppc) || inherits(d$ppc, "htest"))
   expect_false(any(grepl("package.*not found|cluster", d$warnings, ignore.case = TRUE)))
 })
+
+test_that("rho sensitivity pi columns match the model scale", {
+  ef <- apm_effect_size(maize_n_shared, measure = "lnRR", m_t = mean_t, sd_t = sd_t,
+                        n_t = n_t, m_c = mean_c, sd_c = sd_c, n_c = n_c)
+  V <- apm_vcov(ef, cluster = maize_n_shared$study_id, rho = 0.2)
+  rs <- apm_rho_sensitivity(ef, rho = 0.2,
+    build_vcov = function(effects, rho)
+      apm_vcov(effects, cluster = maize_n_shared$study_id, rho = rho))
+  pr <- apm_prediction(apm_fit(ef, V = V), transform = "none")
+  expect_equal(rs$results$pi_lower[1], pr$raw$pi_lower[1], tolerance = 1e-8)
+  expect_equal(rs$results$pi_upper[1], pr$raw$pi_upper[1], tolerance = 1e-8)
+})
+
+test_that("apm_robust accepts numeric coefficient indices", {
+  skip_if_not_installed("clubSandwich")
+  ef <- apm_effect_size(agri_effects_benchmark, measure = "GEN", yi = yi, vi = vi)
+  m <- apm_fit(ef)
+  r <- apm_robust(m, cluster = agri_effects_benchmark$study_id, constraints = 1)
+  expect_s3_class(r, "apm_robust")
+  expect_false(is.null(r$joint))
+})
+
+test_that("wild bootstrap refuses fully constrained parameter sets clearly", {
+  skip_if_not_installed("wildmeta"); skip_if_not_installed("clubSandwich")
+  ef <- apm_effect_size(agri_effects_benchmark, measure = "GEN", yi = yi, vi = vi)
+  m <- apm_fit(ef)
+  expect_error(apm_wild_bootstrap(m, cluster = agri_effects_benchmark$study_id,
+                                  R = 99, seed = 1),
+               "unconstrained")
+})
+
+test_that("moderator screen does not leak ranger's unused-argument warning", {
+  skip_if_not_installed("metaforest")
+  ef <- apm_effect_size(agri_effects_benchmark, measure = "GEN", yi = yi, vi = vi)
+  w <- character()
+  withCallingHandlers(
+    apm_moderator_screen(ef, moderators = ~ dose + rainfall, cv = 3,
+                         tune = FALSE, seed = 1),
+    warning = function(x) { w <<- c(w, conditionMessage(x)); invokeRestart("muffleWarning") })
+  expect_false(any(grepl("Unused", w)))
+})
+
+test_that("svalue answers do not produce blind coercion warnings", {
+  skip_if_not_installed("PublicationBias")
+  ef <- apm_effect_size(agri_effects_benchmark, measure = "GEN", yi = yi, vi = vi)
+  m <- apm_fit(ef)
+  w <- character()
+  b <- withCallingHandlers(apm_bias(m, methods = "svalue"),
+    warning = function(x) { w <<- c(w, conditionMessage(x)); invokeRestart("muffleWarning") })
+  expect_false(any(grepl("coer", w, ignore.case = TRUE)))
+  expect_s3_class(b, "apm_bias")
+})
+
+test_that("apm_bayes exposes brms_backend and auto-forwards ni to RoBMA", {
+  expect_true("brms_backend" %in% names(formals(apm_bayes)))
+  skip_if_not_installed("RoBMA"); skip_if_not_installed("BayesTools")
+  skip_if_not_installed("runjags")
+  set.seed(3)
+  d <- data.frame(yi = rnorm(8, 0.1, 0.1), vi = runif(8, 0.01, 0.05),
+                  n_ef = sample(4:8, 8, TRUE), study_id = sprintf("S%02d", 1:8))
+  e <- apm_effect_size(d, "GEN", yi = yi, vi = vi)
+  b <- apm_bayes(e, backend = "RoBMA", bias_adjust = TRUE, seed = 3,
+                 iter = 1000, warmup = 500, chains = 2)
+  expect_s3_class(b, "apm_bayes")
+})
+
+test_that("bayes model comparison accepts named models", {
+  skip_if_not_installed("brms"); skip_if_not_installed("cmdstanr"); skip_if_not_installed("loo")
+  skip_on_cran()
+  s <- apm_prior(effect = list(dist = "normal", mean = 0, sd = 0.3),
+                 tau = list(dist = "halfnormal", scale = 0.2))
+  d <- data.frame(yi = c(0.05, 0.12, 0.30, 0.08, 0.15, 0.10, 0.22, 0.02),
+                  vi = c(0.01, 0.02, 0.03, 0.01, 0.02, 0.01, 0.03, 0.02),
+                  x = c(1, 2, 3, 4, 5, 6, 7, 8))
+  e <- apm_effect_size(d, "GEN", yi = yi, vi = vi)
+  b1 <- apm_bayes(e, backend = "brms", prior = s, seed = 1, chains = 2,
+                  iter = 2000, warmup = 1000, brms_backend = "cmdstanr")
+  b2 <- apm_bayes(e, mods = ~ x, backend = "brms", prior = s, seed = 1, chains = 2,
+                  iter = 2000, warmup = 1000, brms_backend = "cmdstanr")
+  cmp <- apm_bayes_compare(sem = b1, com = b2, criterion = "loo")
+  expect_s3_class(cmp, "apm_bayes_comparison")
+  expect_true(all(c("sem", "com") %in% cmp$table$model))
+})

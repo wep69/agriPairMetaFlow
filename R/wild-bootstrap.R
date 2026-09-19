@@ -22,9 +22,13 @@ apm_wild_bootstrap <- function(model, cluster, constraints = NULL, R = 9999, see
   dat<-model$data; qc<-rlang::enquo(cluster); cl<-.apm_pull_quo(dat,qc,"cluster",TRUE)
   cf<-stats::coef(model$backend_fit); p<-length(cf)
   C<-constraints
-  if(is.null(C)) { idx<-if(p==1L) 1L else seq.int(2L,p); C<-clubSandwich::constrain_zero(idx,coefs=cf) }
-  else if(is.character(C)) { idx<-grep(paste(C,collapse="|"),names(cf)); if(!length(idx)) .apm_abort("No coefficient matched {.arg constraints}."); C<-clubSandwich::constrain_zero(idx,coefs=cf) }
-  else if(is.numeric(C)) C<-clubSandwich::constrain_zero(C,coefs=cf)
+  idx_usado <- NULL
+  if(is.null(C)) { idx<-if(p==1L) 1L else seq.int(2L,p); idx_usado<-idx; C<-clubSandwich::constrain_zero(idx,coefs=cf) }
+  else if(is.character(C)) { idx<-grep(paste(C,collapse="|"),names(cf)); if(!length(idx)) .apm_abort("No coefficient matched {.arg constraints}."); idx_usado<-idx; C<-clubSandwich::constrain_zero(idx,coefs=cf) }
+  else if(is.numeric(C)) { idx_usado<-as.integer(C); C<-clubSandwich::constrain_zero(C,coefs=cf) }
+  if (length(idx_usado) && p > 0L && all(seq_len(p) %in% idx_usado))
+    .apm_abort(c("Wild bootstrap requires at least one unconstrained coefficient; the null model would have no free parameters.",
+                 "i" = "Fit a model with a moderator, or restrict {.arg constraints} to a subset of coefficients."))
   if(isTRUE(parallel)) .apm_warn("Parallel execution is delegated to wildmeta/future and is not configured automatically in this development snapshot.")
   bm<-model$backend_fit
   # wildmeta rebuilds bootstrap fits from full_model$call and requires call$yi

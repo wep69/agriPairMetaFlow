@@ -50,7 +50,7 @@ apm_bayes_compare <- function(..., criterion = c("loo", "waic", "model_probabili
       .apm_abort("LOO/WAIC comparison requires models from the same supported backend (brms or RoBMA). Cross-backend predictive criteria are intentionally not combined.")
     objs<-setNames(lapply(models,.apm_bayes_predictive_criterion,criterion=criterion),nm)
     if(criterion=="loo") {
-      cmp<-do.call(loo::loo_compare,objs)
+      cmp<-loo::loo_compare(objs)
       tab<-data.frame(model=rownames(cmp),cmp,row.names=NULL,check.names=FALSE)
       if(isTRUE(weights)) {
         weight_values <- loo::loo_model_weights(objs, method="stacking")

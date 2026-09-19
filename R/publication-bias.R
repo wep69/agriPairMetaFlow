@@ -87,11 +87,19 @@ apm_bias <- function(model, methods = c("egger", "rank", "trimfill", "selection"
   summary_rows <- lapply(methods,function(m){
     z<-results[[m]]
     if(inherits(z,"error")) return(data.frame(method=m,estimate=NA_real_,p_value=NA_real_,note=conditionMessage(z)))
+    nota_extra <- NA_character_
     est <- if(m=="trimfill") as.numeric(stats::coef(z)[1]) else if(m=="selection") as.numeric(stats::coef(z)[1]) else if(m=="egger") z$zval %||% z$tval %||% NA_real_ else if(m=="rank") z$tau %||% NA_real_ else if(m %in% c("svalue","selection_ratio")) {
-      st<-z$stats; if(is.data.frame(st)&&"estimate"%in%names(st)) as.numeric(st$estimate[1]) else if(is.data.frame(st)&&"sval_est"%in%names(st)) as.numeric(st$sval_est[1]) else NA_real_
+      st<-z$stats
+      v <- if(is.data.frame(st)&&"estimate"%in%names(st)) st$estimate[1] else if(is.data.frame(st)&&"sval_est"%in%names(st)) st$sval_est[1] else NA
+      if (is.character(v)) {
+        if (grepl("not possible", v, ignore.case=TRUE)) nota_extra <- paste0("Backend reported '", v, "' for this dataset; no numeric estimate exists.")
+        NA_real_
+      } else suppressWarnings(as.numeric(v))
     } else NA_real_
     pv <- if(m=="egger") z$pval %||% NA_real_ else if(m=="rank") z$pval %||% NA_real_ else if(m=="selection") z$LRTp %||% NA_real_ else NA_real_
-    data.frame(method=m,estimate=est,p_value=pv,note=status_df$message[match(m,status_df$method)],stringsAsFactors=FALSE)
+    nota <- status_df$message[match(m,status_df$method)]
+    if (!is.na(nota_extra)) nota <- paste(nota, nota_extra)
+    data.frame(method=m,estimate=est,p_value=pv,note=nota,stringsAsFactors=FALSE)
   })
   out <- list(results=results,status=status_df,summary=do.call(rbind,summary_rows),favor=favor,q=q,
     selection_ratio=selection_ratio,robust=robust,measure=model$measure,model_hash=model$data_hash,

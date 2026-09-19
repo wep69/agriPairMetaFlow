@@ -25,8 +25,8 @@ apm_robust <- function(model, cluster, vcov = c("CR2", "CR1", "CR0"), test = c("
   joint<-NULL
   if(!is.null(constraints)) {
     C<-constraints
-    if(is.character(C)) { idx<-grep(paste(C,collapse="|"),names(stats::coef(model$backend_fit))); if(!length(idx)) .apm_abort("No coefficient matched {.arg constraints}."); C<-clubSandwich::constrain_zero(idx) }
-    else if(is.numeric(C)) C<-clubSandwich::constrain_zero(C)
+    if(is.character(C)) { idx<-grep(paste(C,collapse="|"),names(stats::coef(model$backend_fit))); if(!length(idx)) .apm_abort("No coefficient matched {.arg constraints}."); C<-clubSandwich::constrain_zero(idx,coefs=stats::coef(model$backend_fit)) }
+    else if(is.numeric(C)) C<-clubSandwich::constrain_zero(C,coefs=stats::coef(model$backend_fit))
     joint<-as.data.frame(clubSandwich::Wald_test(model$backend_fit,constraints=C,vcov=Vcr,test="HTZ"))
   }
   dfcol<-grep("d.f",names(ctdf),value=TRUE,fixed=TRUE); mindf<-if(length(dfcol)) suppressWarnings(min(ctdf[[dfcol[1]]],na.rm=TRUE)) else NA_real_
